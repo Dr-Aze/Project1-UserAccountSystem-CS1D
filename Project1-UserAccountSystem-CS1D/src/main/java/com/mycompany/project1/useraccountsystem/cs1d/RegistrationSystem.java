@@ -14,9 +14,6 @@ public class RegistrationSystem extends javax.swing.JPanel {
     
     private JFrame parent;
 
-    /**
-     * Creates new form RegistrationSystem
-     */
     public RegistrationSystem(JFrame frame) {
     this.parent = frame;
     initComponents();
@@ -172,8 +169,8 @@ public class RegistrationSystem extends javax.swing.JPanel {
         }
         try {
         Connection con = DriverManager.getConnection(
-            "jdbc:mysql://localhost:3306/user_management_db",
-            "root",
+            "jdbc:mysql://localhost:3306/userdb",
+             "root",
             ""
         );
         
@@ -183,7 +180,7 @@ public class RegistrationSystem extends javax.swing.JPanel {
         pst.setString(1, firstName);
         pst.setString(2, lastName);
         pst.setString(3, email);
-        pst.setString(4, email); // using email as username
+        pst.setString(4, email); 
         pst.setString(5, password);
 
         int inserted = pst.executeUpdate();
@@ -191,7 +188,7 @@ public class RegistrationSystem extends javax.swing.JPanel {
         if (inserted > 0) {
             JOptionPane.showMessageDialog(this, "Account created successfully!");
 
-            // go back to login screen (recommended flow)
+            // go back to login screen 
             parent.setContentPane(new LoginScreen(parent));
             parent.revalidate();
             parent.repaint();

@@ -4,21 +4,17 @@
  */
 package com.mycompany.project1.useraccountsystem.cs1d;
 
-/**
- *
- * @author DUDZ
- */
+import javax.swing.JFrame;
+
 public class DashBoard extends javax.swing.JPanel {
-
-    /**
-     * Creates new form DashBoard
-     */
-    public DashBoard(String username) {
+    
+    private JFrame parent;
+    private javax.swing.JButton jButton1;
+    
+    public DashBoard(JFrame frame) {
+        this.parent = frame;
         initComponents();
-        System.out.println("Welcome " + username);
     }
-
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -44,3 +40,4 @@ public class DashBoard extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }
+
