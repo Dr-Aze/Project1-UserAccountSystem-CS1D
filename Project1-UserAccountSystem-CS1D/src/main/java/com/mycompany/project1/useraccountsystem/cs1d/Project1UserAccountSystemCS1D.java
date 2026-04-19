@@ -24,7 +24,7 @@ public class Project1UserAccountSystemCS1D {
         frame.setLocationRelativeTo(null);
 
         //  pass frame here
-        frame.setContentPane(new loginScreen(frame));
+        frame.setContentPane(new LoginScreen(frame));
 
         frame.setVisible(true);
     }
