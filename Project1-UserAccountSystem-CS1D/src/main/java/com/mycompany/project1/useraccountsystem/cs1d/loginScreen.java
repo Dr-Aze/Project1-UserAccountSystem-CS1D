@@ -8,65 +8,52 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 /**
  *
  * @author DUDZ
  */
 public class loginScreen extends javax.swing.JPanel {
+    
+    private javax.swing.JFrame parentFrame;
 
     /**
      * Creates new form loginScreen
      */
-    public loginScreen() {
-        
-        initComponents();
-    }
-    private boolean login(String username, String password) {
-    boolean isValid = false;
-
-    try {
-        Connection con = DriverManager.getConnection(
-            "jdbc:mysql://localhost:3306/user_management_db", "root", ""
-        );
-
-        String sql = "SELECT * FROM users WHERE username=? AND password=?";
-        PreparedStatement pst = con.prepareStatement(sql);
-
-        pst.setString(1, username);
-        pst.setString(2, password);
-
-        ResultSet rs = pst.executeQuery();
-
-        if (rs.next()) {
-            isValid = true;
-        }
-
-        con.close();
-
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
-
-    return isValid;
+    public loginScreen(javax.swing.JFrame frame) {
+    this.parentFrame = frame;
+    initComponents();
 }
-    private void doLogin() {
-        String username = jTextField1.getText().trim();
-        String password = jTextField2.getText().trim();
+    private boolean login(String username, String password) {
 
-        if (username.isEmpty() || password.isEmpty()) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Please enter username and password!");
-            return;
-        }
-
-        if (login(username, password)) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Login Successful!");
-            jTextField1.setText("");
-            jTextField2.setText("");
-        } else {
-            javax.swing.JOptionPane.showMessageDialog(this, "Invalid Username or Password!");
-        }
+        //(admin / 1234)
+        return username.equals("admin") && password.equals("1234");
     }
+    private void doLogin() {
+
+    String username = jTextField1.getText().trim();
+    String password = new String(jPasswordField1.getPassword());
+
+    if (username.isEmpty() || password.isEmpty()) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Enter username and password!");
+        return;
+    }
+
+    // simple test login
+    if (username.equals("admin") && password.equals("1234")) {
+
+        javax.swing.JOptionPane.showMessageDialog(this, "Login Successful!");
+
+        // dashboardPanel
+        parentFrame.setContentPane(new dashboardPanel(username));
+        parentFrame.revalidate();
+        parentFrame.repaint();
+
+    } else {
+        javax.swing.JOptionPane.showMessageDialog(this, "Invalid login!");
+    }
+}
 
 
     /**
@@ -81,8 +68,8 @@ public class loginScreen extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        jPasswordField1 = new javax.swing.JPasswordField();
 
         jLabel1.setText("username");
 
@@ -91,11 +78,10 @@ public class loginScreen extends javax.swing.JPanel {
 
         jLabel2.setText("password");
 
-        jTextField2.setText("passwordField");
-        jTextField2.addActionListener(this::jTextField2ActionPerformed);
-
         jButton1.setText("login");
         jButton1.addActionListener(this::jButton1ActionPerformed);
+
+        jPasswordField1.setText("jPasswordField1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -113,7 +99,7 @@ public class loginScreen extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButton1)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(492, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -126,7 +112,7 @@ public class loginScreen extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
                 .addContainerGap(383, Short.MAX_VALUE))
@@ -137,13 +123,9 @@ public class loginScreen extends javax.swing.JPanel {
         doLogin();// TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-        doLogin();// TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         doLogin();
-    // TODO add your handling code here:
+        // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
@@ -151,7 +133,7 @@ public class loginScreen extends javax.swing.JPanel {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }
