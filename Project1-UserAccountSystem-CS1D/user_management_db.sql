@@ -46,7 +46,7 @@ CREATE TABLE `users` (
 CREATE TABLE `user_logs` (
   `log_id` int(11) NOT NULL COMMENT 'Unique log indentifier',
   `user_id` int(11) NOT NULL COMMENT 'Unique user identifier',
-  `log_date` date NOT NULL DEFAULT current_timestamp() COMMENT 'Date of Logging'
+  `log_date` timestamp NOT NULL DEFAULT current_timestamp() COMMENT 'Date and time of Logging'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
