@@ -19,79 +19,44 @@ import javax.imageio.ImageIO;
  * @author DrAze
  */
 
+
 public class LoginScreen extends javax.swing.JPanel {
-    
+
     private javax.swing.JFrame parentFrame;
     private Image backgroundImage;
 
-    /**
-     * Creates new form LoginScreen
-     */
     public LoginScreen(JFrame frame) {
         this.parentFrame = frame;
-        
-        // 1. Load the image from the resources folder
+
+        // Load background image
         try {
-            // Maven puts files from src/main/resources into the root of the classpath
             java.net.URL imgUrl = getClass().getResource("/BACKGROUND LOGIN-edited.png");
             if (imgUrl != null) {
-                backgroundImage = ImageIO.read(imgUrl);       
+                backgroundImage = ImageIO.read(imgUrl);
             } else {
-                System.out.println("Resource not found: /BACKGROUNDLOGIN.png");
+                System.out.println("Resource not found: /BACKGROUND LOGIN-edited.png");
             }
         } catch (IOException ex) {
             ex.printStackTrace();
         }
 
-        // 2. Initialize GUI components
         initComponents();
-        
-        // Ensure the panel is transparent so the background image shows through
         setOpaque(false);
     }
 
-    /**
-     * Overriding paintComponent to draw the background image
-     */
-    
     @Override
     protected void paintComponent(Graphics g) {
         if (backgroundImage != null) {
-            // Draws the image scaled to the size of the panel
             g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
         }
         super.paintComponent(g);
     }
 
-    private String loginAndGetRole(String username, String password) {
-
-    try (Connection con = DatabaseConnection.getConnection()) {
-
-            if (con == null) {
-                JOptionPane.showMessageDialog(this, "Database connection failed.");
-                return null;
-            }
-
-            String sql = "SELECT role FROM users WHERE email = ? AND password = ?";
-            PreparedStatement pst = con.prepareStatement(sql);
-
-            pst.setString(1, username);
-            pst.setString(2, password);
-
-            ResultSet rs = pst.executeQuery();
-
-            if (rs.next()) {
-                return rs.getString("role").trim();
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
-        }
-
-        return null;
-    }
-     
+    /**
+     * Handles the login logic. 
+     * Verifies credentials against DB and checks for specific admin username.
+     */
     private void doLogin() {
-        // Note: Ensure jTextField1 and jPasswordField1 names match your GUI builder names
         String username = jTextField1.getText().trim();
         String password = new String(jPasswordField2.getPassword());
 
@@ -99,41 +64,51 @@ public class LoginScreen extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Enter email and password!");
             return;
         }
-        
-        String role = loginAndGetRole(username, password);
 
-        if (role != null) {
-            role = role.trim().toLowerCase();
-            JOptionPane.showMessageDialog(this, "Login Successful! Role: " + role);
+        if (authenticate(username, password)) {
+            // Check if the user is the designated Admin
+            // Change "admin" to your preferred admin username or email
+            if (username.equalsIgnoreCase("admin")) {
+                JOptionPane.showMessageDialog(this, "Admin Login Successful!");
+                parentFrame.setContentPane(new LogsPanel(parentFrame));
+            } else {
+                JOptionPane.showMessageDialog(this, "Login Successful! Welcome " + username);
+                parentFrame.setContentPane(new DashboardPanel(parentFrame, username));
+            }
 
-            switch (role) {
+            parentFrame.revalidate();
+            parentFrame.repaint();
+        } else {
+            JOptionPane.showMessageDialog(this, "Invalid email or password!");
+        }
+    }
 
-    case "admin":
-        parentFrame.setContentPane(new LogsPanel(parentFrame));
-        break;
+    /**
+     * Checks database for matching email and password
+     */
+    private boolean authenticate(String username, String password) {
+        try (Connection con = DatabaseConnection.getConnection()) {
+            if (con == null) return false;
 
-    case "user":
-        parentFrame.setContentPane(new DashboardPanel(parentFrame, username));
-        break;
+            String sql = "SELECT * FROM users WHERE email = ? AND password = ?";
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setString(1, username);
+            pst.setString(2, password);
 
-    default:
-        JOptionPane.showMessageDialog(this, "Unknown role: " + role);
-        return;
-}
+            ResultSet rs = pst.executeQuery();
+            return rs.next(); // Returns true if a record exists
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Database Error: " + e.getMessage());
+            return false;
+        }
+    }
 
+    public void openRegistration() {
+        RegistrationScreen regPanel = new RegistrationScreen(parentFrame);
+        parentFrame.setContentPane(regPanel);
         parentFrame.revalidate();
         parentFrame.repaint();
-
-    } else {
-        JOptionPane.showMessageDialog(this, "Invalid login!");
     }
-}
-    public void openRegistration() {
-    RegistrationScreen regPanel = new RegistrationScreen(parentFrame);
-    parentFrame.setContentPane(regPanel);
-    parentFrame.revalidate();
-    parentFrame.repaint();
-}
 
    
     @SuppressWarnings("unchecked")
