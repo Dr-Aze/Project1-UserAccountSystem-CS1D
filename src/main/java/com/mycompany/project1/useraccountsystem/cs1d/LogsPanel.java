@@ -6,44 +6,37 @@ package com.mycompany.project1.useraccountsystem.cs1d;
 
 import javax.swing.table.DefaultTableModel;
 import java.sql.*;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 public class LogsPanel extends javax.swing.JPanel {
+    
+    private JFrame parentFrame;
 
-    public LogsPanel() {
+    public LogsPanel(JFrame frame) {
+        this.parentFrame = frame;
+
         initComponents();
-        loadTableData(); // Automatically load data when panel is created
+        loadTableData();
     }
 
     public void loadTableData() {
-        // 1. Match the columns to your image: log_id, user_id, log_date
-        String[] columns = {"Log ID", "User ID", "Date/Time"};
-        DefaultTableModel model = new DefaultTableModel(columns, 0) {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false; 
-            }
-        };
-
+        
+        DefaultTableModel model = (DefaultTableModel) userTable.getModel();
+        model.setRowCount(0);
         // 2. Updated query to match your table name: user_logs
-        String query = "SELECT log_id, user_id, log_date FROM user_logs";
+        String query = "SELECT user_id, log_date FROM user_logs";
 
         try (Connection conn = DatabaseConnection.getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(query)) {
 
             while (rs.next()) {
-                // 3. Match the rs.get calls to your exact column names
-                Object[] row = {
-                    rs.getInt("log_id"),     // From image 2
-                    rs.getInt("user_id"),    // From image 2
-                    rs.getTimestamp("log_date") // Matches Date and time of Logging
-                };
-                model.addRow(row);
+                model.addRow(new Object[]{
+                    rs.getInt("user_id"),
+                    rs.getTimestamp("log_date")
+                });
             }
-
-            userTable.setModel(model);
-
         } catch (SQLException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Database Error: " + e.getMessage());
@@ -62,6 +55,8 @@ public class LogsPanel extends javax.swing.JPanel {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         userTable = new javax.swing.JTable();
+
+        setBackground(new java.awt.Color(102, 102, 102));
 
         userTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -90,7 +85,7 @@ public class LogsPanel extends javax.swing.JPanel {
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
-
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
