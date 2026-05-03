@@ -12,12 +12,23 @@ import javax.swing.JOptionPane;
 
 public class RegistrationScreen extends javax.swing.JPanel {
     
-    private JFrame parent;
+    private JFrame parentFrame;
 
     public RegistrationScreen(JFrame frame) {
-    this.parent = frame;
+    this.parentFrame = frame;
+    
+    parentFrame.setSize(680, 510);
+    parentFrame.setResizable(false);
+    parentFrame.setLocationRelativeTo(null);
     initComponents();
     }
+    
+    public void openLogin() {
+    parentFrame.setContentPane(new LoginScreen(parentFrame));
+    parentFrame.revalidate();
+    parentFrame.repaint();
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -219,9 +230,9 @@ public class RegistrationScreen extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Account created successfully!");
 
             // go back to login screen 
-            parent.setContentPane(new LoginScreen(parent));
-            parent.revalidate();
-            parent.repaint();
+            parentFrame.setContentPane(new LoginScreen(parentFrame));
+            parentFrame.revalidate();
+            parentFrame.repaint();
         }
         
         pst.close();
@@ -249,6 +260,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        openLogin();
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 

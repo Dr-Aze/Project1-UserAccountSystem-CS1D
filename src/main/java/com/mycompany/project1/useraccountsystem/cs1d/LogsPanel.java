@@ -15,18 +15,31 @@ public class LogsPanel extends javax.swing.JPanel {
 
     public LogsPanel(JFrame frame) {
         this.parentFrame = frame;
+        
+        parentFrame.setSize(896, 634);
+        parentFrame.setResizable(false);
 
         initComponents();
         loadTableData();
-        loadSummaryData();
+        //loadSummaryData();
     }
 
     public void loadTableData() {
         
         DefaultTableModel model = (DefaultTableModel) userTable.getModel();
         model.setRowCount(0);
-      
-        String query = "SELECT user_id, log_date, ip_address, device, location, status, duration FROM user_logs";
+        
+        String query = """
+                       SELECT 
+                        U.user_id,
+                        U.first_name,
+                        Date_Format(L.time_in, "%M %d, %Y, %r")as time_in,
+                        L.time_out
+                       FROM user_logs as L
+                       Inner Join users as U
+                        on L.user_id = U.user_id
+                       """;
+        //String query = "SELECT user_id, time_in, time_out FROM user_logs";
         try (Connection conn = DatabaseConnection.getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(query)) {
@@ -34,12 +47,9 @@ public class LogsPanel extends javax.swing.JPanel {
             while (rs.next()) {
                 model.addRow(new Object[]{
                     rs.getInt("user_id"),
-                    rs.getTimestamp("log_date"),
-                    rs.getString("ip_address"),
-                    rs.getString("device"),
-                    rs.getString("location"),
-                    rs.getString("status"),
-                    rs.getString("duration")  
+                    rs.getString("first_name"),
+                    rs.getString("time_in"),
+                    rs.getString("time_out")  
                 });
             }
         } catch (SQLException e) {
@@ -47,10 +57,9 @@ public class LogsPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Database Error: " + e.getMessage());
         }
     }
-  
+/*
     public void loadSummaryData() {
-        
-    String query = "SELECT " +
+            String query = "SELECT " +
                    "COUNT(*) AS total, " +
                    "SUM(CASE WHEN status = 'SUCCESS' THEN 1 ELSE 0 END) AS success, " +
                    "SUM(CASE WHEN status = 'FAILED' THEN 1 ELSE 0 END) AS failed " +
@@ -72,7 +81,7 @@ public class LogsPanel extends javax.swing.JPanel {
         JOptionPane.showMessageDialog(this, "Summary Load Error: " + e.getMessage());
     }
  }
-
+*/
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -296,13 +305,32 @@ public class LogsPanel extends javax.swing.JPanel {
 
         userTable.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         userTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [0][0],
+            new Object [][] {
+
+            },
             new String [] {
-                "User ID", "Date & Time", "IP Address", "Device", "Location", "Status", "Duration"
+                "User ID", "First Name", "Time In", "Time Out", "Duration"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         userTable.setName("userTable"); // NOI18N
+        userTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane8.setViewportView(userTable);
+        if (userTable.getColumnModel().getColumnCount() > 0) {
+            userTable.getColumnModel().getColumn(0).setResizable(false);
+            userTable.getColumnModel().getColumn(0).setPreferredWidth(5);
+            userTable.getColumnModel().getColumn(1).setResizable(false);
+            userTable.getColumnModel().getColumn(1).setPreferredWidth(50);
+            userTable.getColumnModel().getColumn(2).setPreferredWidth(165);
+            userTable.getColumnModel().getColumn(3).setPreferredWidth(165);
+        }
         userTable.getAccessibleContext().setAccessibleName("");
 
         totalLogin.setBackground(new java.awt.Color(255, 255, 255));
@@ -411,15 +439,15 @@ public class LogsPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane8)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // login logs function go to LogsPanel
-         loadTableData();
-         loadSummaryData();
+        loadTableData();
+        //loadSummaryData();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

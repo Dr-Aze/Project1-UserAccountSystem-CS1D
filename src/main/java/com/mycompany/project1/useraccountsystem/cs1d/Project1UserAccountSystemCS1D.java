@@ -17,15 +17,12 @@ public class Project1UserAccountSystemCS1D {
 
     public static void main(String[] args) {
 
-        JFrame frame = new JFrame("Login System");
-
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(680, 480);   
-        frame.setLocationRelativeTo(null);
+        JFrame frame = new JFrame("Strata Login System");
+        
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
 
         //  pass frame here
         frame.setContentPane(new LoginScreen(frame));
-
         frame.setVisible(true);
     }
 }
