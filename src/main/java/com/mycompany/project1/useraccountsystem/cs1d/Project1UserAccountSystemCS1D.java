@@ -20,7 +20,7 @@ public class Project1UserAccountSystemCS1D {
         JFrame frame = new JFrame("Login System");
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(480, 680);   
+        frame.setSize(680, 480);   
         frame.setLocationRelativeTo(null);
 
         //  pass frame here

@@ -1,21 +1,20 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
--- https://www.phpmyadmin.net/
+-- version 4.1.12
+-- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 16, 2026 at 04:45 AM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Generation Time: Apr 28, 2026 at 02:22 AM
+-- Server version: 5.6.16
+-- PHP Version: 5.5.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 
 --
 -- Database: `user_management_db`
@@ -27,15 +26,25 @@ SET time_zone = "+00:00";
 -- Table structure for table `users`
 --
 
-CREATE TABLE `users` (
-  `user_id` int(11) NOT NULL COMMENT 'Unique user identifier',
-  `first_name` varchar(50) NOT NULL COMMENT 'User''s first name',
-  `last_name` varchar(50) NOT NULL COMMENT 'User''s last name',
-  `email` varchar(100) NOT NULL COMMENT 'User''s email address',
-  `username` varchar(50) NOT NULL COMMENT 'User''s chosen username',
-  `password` varchar(255) NOT NULL COMMENT 'Hashed password',
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp() COMMENT 'Date and time of account\r\ncreation'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+CREATE TABLE IF NOT EXISTS `users` (
+  `user_id` int(11) NOT NULL AUTO_INCREMENT,
+  `first_name` varchar(50) DEFAULT NULL,
+  `last_name` varchar(50) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `username` varchar(50) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `role` varchar(20) DEFAULT 'user',
+  PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `email`, `username`, `password`, `role`) VALUES
+(1, 'John', 'Doe', 'john@gmail.com', 'admin', '1234', 'admin'),
+(2, 'renz', 'palmes', 'renz@gmail.com', 'renz@gmail.com', '1432', 'user'),
+(4, 'hezron', 'del rosario', 'hezron@gmail.com', 'hezron@gmail.com', '1234', 'user');
 
 -- --------------------------------------------------------
 
@@ -43,40 +52,19 @@ CREATE TABLE `users` (
 -- Table structure for table `user_logs`
 --
 
-CREATE TABLE `user_logs` (
-  `log_id` int(11) NOT NULL COMMENT 'Unique log indentifier',
-  `user_id` int(11) NOT NULL COMMENT 'Unique user identifier',
-  `log_date` timestamp NOT NULL DEFAULT current_timestamp() COMMENT 'Date and time of Logging'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+CREATE TABLE IF NOT EXISTS `user_logs` (
+  `user_id` int(11) NOT NULL,
+  `log_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Indexes for dumped tables
+-- Dumping data for table `user_logs`
 --
 
---
--- Indexes for table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`user_id`),
-  ADD UNIQUE KEY `email` (`email`),
-  ADD UNIQUE KEY `username` (`username`);
-
---
--- Indexes for table `user_logs`
---
-ALTER TABLE `user_logs`
-  ADD PRIMARY KEY (`log_id`),
-  ADD KEY `user_id` (`user_id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Unique user identifier';
+INSERT INTO `user_logs` (`user_id`, `log_date`) VALUES
+(1, '2026-04-27 17:02:42'),
+(2, '2026-04-27 17:02:43');
 
 --
 -- Constraints for dumped tables
@@ -87,7 +75,6 @@ ALTER TABLE `users`
 --
 ALTER TABLE `user_logs`
   ADD CONSTRAINT `user_logs_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
