@@ -13,6 +13,10 @@ public class DashboardPanel extends javax.swing.JPanel {
     
     public DashboardPanel(JFrame frame, String username) {
         this.parentFrame = frame;
+        
+        parentFrame.setSize(1000, 374);
+        parentFrame.setResizable(false);
+        
         this.username = username;
 
         initComponents(); // MUST be on its own line
