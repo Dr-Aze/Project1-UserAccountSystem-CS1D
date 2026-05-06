@@ -32,6 +32,7 @@ public class LogsPanel extends javax.swing.JPanel {
         // Updated query with TIMEDIFF and DESC order to see latest logs first
         String query = """
                        SELECT 
+                        L.log_id,
                         U.user_id,
                         U.first_name,
                         DATE_FORMAT(L.time_in, "%M %d, %Y, %r") as time_in,
