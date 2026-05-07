@@ -21,7 +21,7 @@ public class SettingsPanel extends javax.swing.JPanel {
     public SettingsPanel(JFrame frame) {
         this.parentFrame = frame;
         
-        parentFrame.setSize(896, 634);
+        parentFrame.setSize(916, 634);
         parentFrame.setResizable(false);
         parentFrame.setLocationRelativeTo(null);
 
