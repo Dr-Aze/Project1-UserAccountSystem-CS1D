@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 06, 2026 at 04:37 AM
+-- Generation Time: May 07, 2026 at 04:05 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -35,30 +35,18 @@ CREATE TABLE `users` (
   `username` varchar(50) DEFAULT NULL COMMENT 'User''s chosen username',
   `password` varchar(255) DEFAULT NULL COMMENT 'Hashed password',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() COMMENT 'Date and time of account\r\ncreation',
-  `role` varchar(20) DEFAULT 'user'
+  `role` varchar(20) DEFAULT 'user',
+  `total_login` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `email`, `username`, `password`, `created_at`, `role`) VALUES
-(1, 'Admin', 'Admin', 'admin', 'admin', 'admin', '2026-05-05 14:42:15', 'admin'),
-(2, 'renz', 'palmes', 'renz@gmail.com', 'renz@gmail.com', '1432', '2026-05-05 14:42:15', 'user'),
-(4, 'hezron', 'del rosario', 'hezron@gmail.com', 'hezron@gmail.com', '1234', '2026-05-05 14:42:15', 'user');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `user_logs`
---
-
-CREATE TABLE `user_logs` (
-  `log_id` int(11) NOT NULL COMMENT 'Unique logs identifier',
-  `user_id` int(11) NOT NULL COMMENT 'Unique user identifier',
-  `time_in` timestamp NOT NULL DEFAULT current_timestamp() COMMENT 'User Time In',
-  `time_out` timestamp NULL DEFAULT NULL COMMENT 'User Time Out'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `email`, `username`, `password`, `created_at`, `role`, `total_login`) VALUES
+(1, 'Admin', 'Admin', 'admin', 'admin', 'admin', '2026-05-05 14:42:15', 'admin', NULL),
+(2, 'renz', 'palmes', 'renz@gmail.com', 'renz@gmail.com', '1432', '2026-05-05 14:42:15', 'user', NULL),
+(4, 'hezron', 'del rosario', 'hezron@gmail.com', 'hezron@gmail.com', '1234', '2026-05-05 14:42:15', 'user', NULL);
 
 --
 -- Indexes for dumped tables
@@ -71,13 +59,6 @@ ALTER TABLE `users`
   ADD PRIMARY KEY (`user_id`);
 
 --
--- Indexes for table `user_logs`
---
-ALTER TABLE `user_logs`
-  ADD PRIMARY KEY (`log_id`),
-  ADD KEY `user_id` (`user_id`);
-
---
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -86,22 +67,6 @@ ALTER TABLE `user_logs`
 --
 ALTER TABLE `users`
   MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Unique user identifier', AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT for table `user_logs`
---
-ALTER TABLE `user_logs`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Unique logs identifier';
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `user_logs`
---
-ALTER TABLE `user_logs`
-  ADD CONSTRAINT `user_logs_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
