@@ -4,7 +4,22 @@
  */
 package com.mycompany.project1.useraccountsystem.cs1d;
 
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Vector;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -17,26 +32,112 @@ public class UserPanel extends javax.swing.JPanel {
 private final JFrame parentFrame;
    
     public UserPanel(JFrame frame) {
-    this.parentFrame = frame;
-    
-    parentFrame.setSize(944, 634);
-    parentFrame.setResizable(false);
-    parentFrame.setLocationRelativeTo(null);
-    
-    initComponents();
-    
-    // --- TABLE DESIGN ---
-    jTable1.setRowHeight(45); // Give the buttons some room
-    jTable1.setShowVerticalLines(false);
-    jTable1.setIntercellSpacing(new java.awt.Dimension(0, 1));
-    
-    // Setup the Action Buttons column (Assume it's the last column)
-    int actionColumnIndex = jTable1.getColumnCount() - 1;
-    jTable1.getColumnModel().getColumn(actionColumnIndex).setCellRenderer(new ActionButtonsRenderer());
-    jTable1.getColumnModel().getColumn(actionColumnIndex).setCellEditor(new ActionButtonsEditor());
+        this.parentFrame = frame;
+
+        // Frame Setup
+        parentFrame.setSize(974, 634);
+        parentFrame.setResizable(false);
+        parentFrame.setLocationRelativeTo(null);
+
+        initComponents();
+        
+        // Load data using your connection file
+        loadMySQLData();
     }
 
-    // 1. The Panel that holds the buttons
+    public void loadMySQLData() {
+    String[] columnNames = {"USER", "JOINED", "LAST LOGIN", "TOTAL LOGIN", "ACTIONS"};
+
+    DefaultTableModel model = new DefaultTableModel(null, columnNames) {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return column == 4; // Only the 'Actions' column
+        }
+    };
+
+    try (Connection conn = DatabaseConnection.getConnection()) {
+        // Corrected Query: Removed trailing comma and fixed JOIN aliases
+        String query = """
+                       SELECT 
+                           U.first_name, 
+                           U.email,
+                           DATE_FORMAT(U.created_at, '%M %d, %Y') as created_at, 
+                           DATE_FORMAT(MAX(L.time_out), '%M %d, %Y, %r') as last_logout,
+                           COUNT(L.log_id) as total_logins
+                       FROM users U
+                       LEFT JOIN user_logs L ON U.user_id = L.user_id
+                       GROUP BY U.user_id
+                       """;
+
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(query);
+
+            while (rs.next()) {
+            String name = rs.getString("first_name");
+            String email = rs.getString("email");
+
+            // Use HTML to put the email on a new line and make it smaller/gray
+            String userDisplay = "<html>"
+                    + "<table cellpadding='10'>" // This adds 10px padding on all sides
+                    + "<tr><td>"
+                    + "<b>" + name + "</b><br>"
+                    + "<font color='gray'>" + email + "</font>"
+                    + "</td></tr>"
+                    + "</table></html>";
+
+            model.addRow(new Object[]{
+                userDisplay, // Name and Email stacked
+                rs.getString("created_at"),
+                rs.getString("last_logout") == null ? "Never" : rs.getString("last_logout"),
+                rs.getInt("total_logins"),
+                "" // Actions
+            });
+        }
+            jTable1.setModel(model);
+            applyTableSettings(); // Re-attach your ActionButtonsRenderer and Editor
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "SQL Error: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    private void applyTableSettings() {
+        // Design properties
+        jTable1.setRowHeight(45);
+        jTable1.setShowVerticalLines(false);
+        jTable1.setIntercellSpacing(new Dimension(0, 1));
+        
+        // Create a renderer that centers text
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+
+        for (int i = 1; i < 4; i++) {
+            jTable1.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+
+        // Assign the Buttons to the last column
+        int actionCol = jTable1.getColumnCount() - 1;
+        jTable1.getColumnModel().getColumn(actionCol).setCellRenderer(new ActionButtonsRenderer());
+        jTable1.getColumnModel().getColumn(actionCol).setCellEditor(new ActionButtonsEditor());
+
+        // Setup Cursor Hover Logic
+        setupTableCursor();
+    }
+
+    private void setupTableCursor() {
+        jTable1.addMouseMotionListener(new MouseMotionAdapter() {
+            @Override
+            public void mouseMoved(MouseEvent e) {
+                int col = jTable1.columnAtPoint(e.getPoint());
+                jTable1.setCursor(col == jTable1.getColumnCount() - 1 
+                    ? Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) 
+                    : Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+            }
+        });
+    }
+        
+    //The Panel that holds the buttons
     class ActionPanel extends javax.swing.JPanel {
     public javax.swing.JButton editBtn = new javax.swing.JButton();
     public javax.swing.JButton deleteBtn = new javax.swing.JButton();
@@ -48,8 +149,8 @@ private final JFrame parentFrame;
         try {
             // Load icons from your resources folder
             // Adjust the path "/icons/edit.png" to match your actual file location
-            editBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("")));
-            deleteBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("")));
+            editBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/User UI/Pen.png")));
+            deleteBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/USER UI/Trash.png")));
         } catch (Exception e) {
             // Fallback to text if icons fail to load
             editBtn.setText("Edit");
@@ -73,7 +174,7 @@ private final JFrame parentFrame;
         }
     }
 
-    // 2. The Renderer (Controls what the user sees)
+    //Renderer (Controls what the user sees)
     class ActionButtonsRenderer extends javax.swing.table.DefaultTableCellRenderer {
         private final ActionPanel panel = new ActionPanel();
 
@@ -86,7 +187,7 @@ private final JFrame parentFrame;
         }
     }
 
-    // 3. The Editor (Controls the click logic)
+    //Editor (Controls the click logic)
     class ActionButtonsEditor extends javax.swing.AbstractCellEditor implements javax.swing.table.TableCellEditor {
         private final ActionPanel panel = new ActionPanel();
 
@@ -116,9 +217,6 @@ private final JFrame parentFrame;
         @Override
         public Object getCellEditorValue() { return null; }
     }
-    
-    
-    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -511,14 +609,14 @@ private final JFrame parentFrame;
                         .addComponent(Success1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Success7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                         .addComponent(Success8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Failed6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane1))
-                .addContainerGap())
+                .addGap(5, 5, 5))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -534,8 +632,8 @@ private final JFrame parentFrame;
                 .addGap(10, 10, 10)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 423, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 439, Short.MAX_VALUE)
+                .addGap(5, 5, 5))
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -587,10 +685,6 @@ private final JFrame parentFrame;
     private javax.swing.JButton SettingsButton;
     private javax.swing.JPanel Success;
     private javax.swing.JPanel Success1;
-    private javax.swing.JPanel Success2;
-    private javax.swing.JPanel Success4;
-    private javax.swing.JPanel Success5;
-    private javax.swing.JPanel Success6;
     private javax.swing.JPanel Success7;
     private javax.swing.JPanel Success8;
     private javax.swing.JButton UsersButton;
@@ -600,13 +694,9 @@ private final JFrame parentFrame;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel3;
