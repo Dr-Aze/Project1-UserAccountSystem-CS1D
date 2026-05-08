@@ -17,10 +17,12 @@ public class DashboardPanel extends javax.swing.JPanel {
 
         private final JFrame parentFrame;
         private final String currentUsername;
+        private final String firstName;
 
-        public DashboardPanel(JFrame frame, String username) {
+        public DashboardPanel(JFrame frame, String username, String firstName) {
             this.parentFrame = frame;
             this.currentUsername = username;
+            this.firstName = firstName;
 
             // Configure Frame settings
             parentFrame.setSize(974, 634);
@@ -31,8 +33,8 @@ public class DashboardPanel extends javax.swing.JPanel {
 
             System.out.println("Dashboard loaded for: " + username);
             
-            DashboardLabel.setText("Welcome back, " + username + " - here's what's happening");
-            DashboardLabel.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 10));
+            DashboardLabel.setText("Welcome back, " + firstName + " - here's what's happening");
+            DashboardLabel.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 12));
             DashboardLabel.setForeground(new java.awt.Color(33, 37, 41));
         }
 
@@ -197,7 +199,7 @@ public class DashboardPanel extends javax.swing.JPanel {
                 .addComponent(SettingsButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(LogoutButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 163, Short.MAX_VALUE))
+                .addGap(0, 148, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -234,7 +236,7 @@ public class DashboardPanel extends javax.swing.JPanel {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(DashboardHeader)
                     .addComponent(DashboardLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(730, Short.MAX_VALUE))
+                .addContainerGap(652, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -292,14 +294,14 @@ public class DashboardPanel extends javax.swing.JPanel {
 
     private void UsersButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsersButton5ActionPerformed
         // go to userPanel
-        parentFrame.setContentPane(new UserPanel(parentFrame, currentUsername));
+        parentFrame.setContentPane(new UserPanel(parentFrame, currentUsername, firstName));
         parentFrame.revalidate();
         parentFrame.repaint();
     }//GEN-LAST:event_UsersButton5ActionPerformed
 
     private void SettingsButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsButton5ActionPerformed
         // go to settings panel
-        parentFrame.setContentPane(new SettingsPanel(parentFrame, currentUsername));
+        parentFrame.setContentPane(new SettingsPanel(parentFrame, currentUsername, firstName));
         parentFrame.revalidate();
         parentFrame.repaint();
     }//GEN-LAST:event_SettingsButton5ActionPerformed

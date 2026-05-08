@@ -13,10 +13,12 @@ public class LogsPanel extends javax.swing.JPanel {
     
     private JFrame parentFrame;
     private final String currentUsername;
+    private final String firstName;
 
-    public LogsPanel(JFrame frame, String username) {
+    public LogsPanel(JFrame frame, String username, String firstName) {
         this.parentFrame = frame;
         this.currentUsername = username;
+        this.firstName = firstName;
         
         parentFrame.setSize(916, 634);
         parentFrame.setResizable(false);
@@ -76,15 +78,14 @@ public class LogsPanel extends javax.swing.JPanel {
         jTable1 = new javax.swing.JTable();
         jScrollPane6 = new javax.swing.JScrollPane();
         jTextArea4 = new javax.swing.JTextArea();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        DashboardButton = new javax.swing.JButton();
-        LogsButton = new javax.swing.JButton();
-        UsersButton = new javax.swing.JButton();
-        SettingsButton = new javax.swing.JButton();
-        LogoutButton = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        jPanel7 = new javax.swing.JPanel();
+        DashboardButton5 = new javax.swing.JButton();
+        UsersButton5 = new javax.swing.JButton();
+        SettingsButton5 = new javax.swing.JButton();
+        LogoutButton5 = new javax.swing.JButton();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
@@ -98,6 +99,15 @@ public class LogsPanel extends javax.swing.JPanel {
         jLabel8 = new javax.swing.JLabel();
         Failed = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
+        jPanel8 = new javax.swing.JPanel();
+        DashboardButton6 = new javax.swing.JButton();
+        UsersButton6 = new javax.swing.JButton();
+        SettingsButton = new javax.swing.JButton();
+        LogoutButton = new javax.swing.JButton();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        UsersButton = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -116,114 +126,105 @@ public class LogsPanel extends javax.swing.JPanel {
         jTextArea4.setRows(5);
         jScrollPane6.setViewportView(jTextArea4);
 
-        setBackground(new java.awt.Color(204, 204, 204));
+        jPanel7.setBackground(new java.awt.Color(51, 51, 51));
+        jPanel7.setForeground(new java.awt.Color(255, 255, 255));
 
-        jPanel1.setBackground(new java.awt.Color(51, 51, 51));
-        jPanel1.setForeground(new java.awt.Color(255, 255, 255));
+        DashboardButton5.setBackground(new java.awt.Color(163, 31, 19));
+        DashboardButton5.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        DashboardButton5.setForeground(new java.awt.Color(255, 255, 255));
+        DashboardButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Dashboard Admin/menu.png"))); // NOI18N
+        DashboardButton5.setText("Home");
+        DashboardButton5.setBorderPainted(false);
+        DashboardButton5.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        DashboardButton5.setName("Dashboard"); // NOI18N
+        DashboardButton5.addActionListener(this::DashboardButton5ActionPerformed);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Login/Logo.png"))); // NOI18N
-        jLabel1.setText("STRATA");
+        UsersButton5.setBackground(new java.awt.Color(102, 102, 102));
+        UsersButton5.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        UsersButton5.setForeground(new java.awt.Color(255, 255, 255));
+        UsersButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Dashboard Admin/users.png"))); // NOI18N
+        UsersButton5.setText("Users");
+        UsersButton5.setBorderPainted(false);
+        UsersButton5.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        UsersButton5.setName("Users"); // NOI18N
+        UsersButton5.addActionListener(this::UsersButton5ActionPerformed);
 
-        DashboardButton.setBackground(new java.awt.Color(102, 102, 102));
-        DashboardButton.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        DashboardButton.setForeground(new java.awt.Color(255, 255, 255));
-        DashboardButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Dashboard Admin/menu.png"))); // NOI18N
-        DashboardButton.setText("Dashboard");
-        DashboardButton.setBorderPainted(false);
-        DashboardButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        DashboardButton.setName("Dashboard"); // NOI18N
-        DashboardButton.addActionListener(this::DashboardButtonActionPerformed);
+        SettingsButton5.setBackground(new java.awt.Color(102, 102, 102));
+        SettingsButton5.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        SettingsButton5.setForeground(new java.awt.Color(255, 255, 255));
+        SettingsButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Dashboard Admin/settings.png"))); // NOI18N
+        SettingsButton5.setText("Settings");
+        SettingsButton5.setBorderPainted(false);
+        SettingsButton5.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        SettingsButton5.setName("Settings"); // NOI18N
+        SettingsButton5.addActionListener(this::SettingsButton5ActionPerformed);
 
-        LogsButton.setBackground(new java.awt.Color(163, 31, 19));
-        LogsButton.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        LogsButton.setForeground(new java.awt.Color(255, 255, 255));
-        LogsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Dashboard Admin/log.png"))); // NOI18N
-        LogsButton.setText("Login logs");
-        LogsButton.setBorderPainted(false);
-        LogsButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        LogsButton.setName("Login_logs"); // NOI18N
-        LogsButton.addActionListener(this::LogsButtonActionPerformed);
+        LogoutButton5.setBackground(new java.awt.Color(102, 102, 102));
+        LogoutButton5.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        LogoutButton5.setForeground(new java.awt.Color(255, 255, 255));
+        LogoutButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Dashboard Admin/log-out.png"))); // NOI18N
+        LogoutButton5.setText("Log out");
+        LogoutButton5.setBorderPainted(false);
+        LogoutButton5.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        LogoutButton5.setName("Logout"); // NOI18N
+        LogoutButton5.addActionListener(this::LogoutButton5ActionPerformed);
 
-        UsersButton.setBackground(new java.awt.Color(102, 102, 102));
-        UsersButton.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        UsersButton.setForeground(new java.awt.Color(255, 255, 255));
-        UsersButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Dashboard Admin/users.png"))); // NOI18N
-        UsersButton.setText("Users");
-        UsersButton.setBorderPainted(false);
-        UsersButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        UsersButton.setName("Users"); // NOI18N
-        UsersButton.addActionListener(this::UsersButtonActionPerformed);
+        jLabel16.setBackground(new java.awt.Color(102, 102, 102));
+        jLabel16.setFont(new java.awt.Font("Segoe UI Light", 1, 12)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel16.setText("OVERVIEW");
 
-        SettingsButton.setBackground(new java.awt.Color(102, 102, 102));
-        SettingsButton.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        SettingsButton.setForeground(new java.awt.Color(255, 255, 255));
-        SettingsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Dashboard Admin/settings.png"))); // NOI18N
-        SettingsButton.setText("Settings");
-        SettingsButton.setBorderPainted(false);
-        SettingsButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        SettingsButton.setName("Settings"); // NOI18N
-        SettingsButton.addActionListener(this::SettingsButtonActionPerformed);
+        jLabel17.setBackground(new java.awt.Color(102, 102, 102));
+        jLabel17.setFont(new java.awt.Font("Segoe UI Light", 1, 12)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel17.setText("SYSTEM");
 
-        LogoutButton.setBackground(new java.awt.Color(102, 102, 102));
-        LogoutButton.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        LogoutButton.setForeground(new java.awt.Color(255, 255, 255));
-        LogoutButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Dashboard Admin/log-out.png"))); // NOI18N
-        LogoutButton.setText("Log out");
-        LogoutButton.setBorderPainted(false);
-        LogoutButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        LogoutButton.setName("Logout"); // NOI18N
-        LogoutButton.addActionListener(this::LogoutButtonActionPerformed);
+        jLabel18.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        jLabel18.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Login/Logo.png"))); // NOI18N
+        jLabel18.setText("STRATA");
 
-        jLabel2.setBackground(new java.awt.Color(102, 102, 102));
-        jLabel2.setFont(new java.awt.Font("Segoe UI Light", 1, 12)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("OVERVIEW");
-
-        jLabel3.setBackground(new java.awt.Color(102, 102, 102));
-        jLabel3.setFont(new java.awt.Font("Segoe UI Light", 1, 12)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("SYSTEM");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
                 .addContainerGap(38, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(DashboardButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(LogsButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(UsersButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(SettingsButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(LogoutButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel2))
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(DashboardButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(UsersButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(SettingsButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(LogoutButton5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel17)
+                    .addComponent(jLabel16))
                 .addGap(33, 33, 33))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel1)
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
+                .addComponent(jLabel16)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(DashboardButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(DashboardButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(LogsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(UsersButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(76, 76, 76)
-                .addComponent(jLabel3)
+                .addComponent(UsersButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(134, 134, 134)
+                .addComponent(jLabel17)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(SettingsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(SettingsButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(LogoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(LogoutButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 163, Short.MAX_VALUE))
         );
+
+        setBackground(new java.awt.Color(251, 244, 238));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -375,19 +376,130 @@ public class LogsPanel extends javax.swing.JPanel {
 
         jLabel9.getAccessibleContext().setAccessibleName("Failed");
 
+        jPanel8.setBackground(new java.awt.Color(51, 51, 51));
+        jPanel8.setForeground(new java.awt.Color(255, 255, 255));
+
+        DashboardButton6.setBackground(new java.awt.Color(102, 102, 102));
+        DashboardButton6.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        DashboardButton6.setForeground(new java.awt.Color(255, 255, 255));
+        DashboardButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Dashboard Admin/menu.png"))); // NOI18N
+        DashboardButton6.setText("Home");
+        DashboardButton6.setBorderPainted(false);
+        DashboardButton6.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        DashboardButton6.setName("Dashboard"); // NOI18N
+        DashboardButton6.addActionListener(this::DashboardButton6ActionPerformed);
+
+        UsersButton6.setBackground(new java.awt.Color(102, 102, 102));
+        UsersButton6.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        UsersButton6.setForeground(new java.awt.Color(255, 255, 255));
+        UsersButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Dashboard Admin/users.png"))); // NOI18N
+        UsersButton6.setText("Users");
+        UsersButton6.setBorderPainted(false);
+        UsersButton6.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        UsersButton6.setName("Users"); // NOI18N
+        UsersButton6.addActionListener(this::UsersButton6ActionPerformed);
+
+        SettingsButton.setBackground(new java.awt.Color(102, 102, 102));
+        SettingsButton.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        SettingsButton.setForeground(new java.awt.Color(255, 255, 255));
+        SettingsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Dashboard Admin/settings.png"))); // NOI18N
+        SettingsButton.setText("Settings");
+        SettingsButton.setBorderPainted(false);
+        SettingsButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        SettingsButton.setName("Settings"); // NOI18N
+        SettingsButton.addActionListener(this::SettingsButtonActionPerformed);
+
+        LogoutButton.setBackground(new java.awt.Color(102, 102, 102));
+        LogoutButton.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        LogoutButton.setForeground(new java.awt.Color(255, 255, 255));
+        LogoutButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Dashboard Admin/log-out.png"))); // NOI18N
+        LogoutButton.setText("Log out");
+        LogoutButton.setBorderPainted(false);
+        LogoutButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        LogoutButton.setName("Logout"); // NOI18N
+        LogoutButton.addActionListener(this::LogoutButtonActionPerformed);
+
+        jLabel19.setBackground(new java.awt.Color(102, 102, 102));
+        jLabel19.setFont(new java.awt.Font("Segoe UI Light", 1, 12)); // NOI18N
+        jLabel19.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel19.setText("OVERVIEW");
+
+        jLabel20.setBackground(new java.awt.Color(102, 102, 102));
+        jLabel20.setFont(new java.awt.Font("Segoe UI Light", 1, 12)); // NOI18N
+        jLabel20.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel20.setText("SYSTEM");
+
+        jLabel21.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        jLabel21.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Login/Logo.png"))); // NOI18N
+        jLabel21.setText("STRATA");
+
+        UsersButton.setBackground(new java.awt.Color(163, 31, 19));
+        UsersButton.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        UsersButton.setForeground(new java.awt.Color(255, 255, 255));
+        UsersButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Dashboard Admin/log.png"))); // NOI18N
+        UsersButton.setText("Logs");
+        UsersButton.setBorderPainted(false);
+        UsersButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        UsersButton.setName("Users"); // NOI18N
+        UsersButton.addActionListener(this::UsersButtonActionPerformed);
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                .addContainerGap(38, Short.MAX_VALUE)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(DashboardButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(UsersButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(SettingsButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(LogoutButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(UsersButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel20)
+                    .addComponent(jLabel19))
+                .addGap(33, 33, 33))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel19)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(DashboardButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(UsersButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(UsersButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(76, 76, 76)
+                .addComponent(jLabel20)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(SettingsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(LogoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 681, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 701, Short.MAX_VALUE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(64, 64, 64)
                         .addComponent(totalLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(Success, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -397,7 +509,6 @@ public class LogsPanel extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -411,28 +522,53 @@ public class LogsPanel extends javax.swing.JPanel {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane8))
+            .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void LogsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogsButtonActionPerformed
-        // login logs function go to LogsPanel
-        loadTableData();
-        //loadSummaryData();
-    }//GEN-LAST:event_LogsButtonActionPerformed
-
-    private void DashboardButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DashboardButtonActionPerformed
+    private void DashboardButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DashboardButton5ActionPerformed
         // dashboard function go to DashboardPanel
-        parentFrame.setContentPane(new DashboardPanel(parentFrame, currentUsername));
-        parentFrame.revalidate();
-        parentFrame.repaint();
-    }//GEN-LAST:event_DashboardButtonActionPerformed
+    }//GEN-LAST:event_DashboardButton5ActionPerformed
 
-    private void UsersButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsersButtonActionPerformed
+    private void UsersButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsersButton5ActionPerformed
         // go to userPanel
-        parentFrame.setContentPane(new UserPanel(parentFrame, currentUsername));
+        parentFrame.setContentPane(new UserPanel(parentFrame, currentUsername, firstName));
         parentFrame.revalidate();
         parentFrame.repaint();
-    }//GEN-LAST:event_UsersButtonActionPerformed
+    }//GEN-LAST:event_UsersButton5ActionPerformed
+
+    private void SettingsButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsButton5ActionPerformed
+        // go to settings panel
+        parentFrame.setContentPane(new SettingsPanel(parentFrame, currentUsername, firstName));
+        parentFrame.revalidate();
+        parentFrame.repaint();
+    }//GEN-LAST:event_SettingsButton5ActionPerformed
+
+    private void LogoutButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogoutButton5ActionPerformed
+        // logout function go to LoginScreen
+        LogService.updateTimeOut();
+        parentFrame.setContentPane(new LoginScreen(parentFrame));
+        parentFrame.revalidate();
+        parentFrame.repaint();
+    }//GEN-LAST:event_LogoutButton5ActionPerformed
+
+    private void DashboardButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DashboardButton6ActionPerformed
+        // dashboard function go to DashboardPanel
+    }//GEN-LAST:event_DashboardButton6ActionPerformed
+
+    private void UsersButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsersButton6ActionPerformed
+        // go to userPanel
+        parentFrame.setContentPane(new UserPanel(parentFrame, currentUsername, firstName));
+        parentFrame.revalidate();
+        parentFrame.repaint();
+    }//GEN-LAST:event_UsersButton6ActionPerformed
+
+    private void SettingsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsButtonActionPerformed
+        // go to settings panel
+        parentFrame.setContentPane(new SettingsPanel(parentFrame, currentUsername, firstName));
+        parentFrame.revalidate();
+        parentFrame.repaint();
+    }//GEN-LAST:event_SettingsButtonActionPerformed
 
     private void LogoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogoutButtonActionPerformed
         // logout function go to LoginScreen
@@ -442,34 +578,39 @@ public class LogsPanel extends javax.swing.JPanel {
         parentFrame.repaint();
     }//GEN-LAST:event_LogoutButtonActionPerformed
 
-    private void SettingsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsButtonActionPerformed
-        // go to settings panel
-        parentFrame.setContentPane(new SettingsPanel(parentFrame, currentUsername));
-        parentFrame.revalidate();
-        parentFrame.repaint();
-    }//GEN-LAST:event_SettingsButtonActionPerformed
+    private void UsersButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsersButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_UsersButtonActionPerformed
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton DashboardButton;
+    private javax.swing.JButton DashboardButton5;
+    private javax.swing.JButton DashboardButton6;
     private javax.swing.JPanel Failed;
     private javax.swing.JButton LogoutButton;
-    private javax.swing.JButton LogsButton;
+    private javax.swing.JButton LogoutButton5;
     private javax.swing.JButton SettingsButton;
+    private javax.swing.JButton SettingsButton5;
     private javax.swing.JPanel Success;
     private javax.swing.JButton UsersButton;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JButton UsersButton5;
+    private javax.swing.JButton UsersButton6;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane8;

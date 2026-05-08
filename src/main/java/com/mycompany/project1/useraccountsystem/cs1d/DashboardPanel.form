@@ -195,7 +195,7 @@
                       <Component id="SettingsButton5" min="-2" pref="40" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="LogoutButton5" min="-2" pref="40" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="163" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="148" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -363,7 +363,7 @@
                       <Component id="DashboardHeader" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="DashboardLabel" alignment="0" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="730" max="32767" attributes="0"/>
+                  <EmptySpace pref="652" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

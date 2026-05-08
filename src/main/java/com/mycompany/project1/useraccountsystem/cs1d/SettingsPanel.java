@@ -18,10 +18,12 @@ public class SettingsPanel extends javax.swing.JPanel {
 
     private JFrame parentFrame;
     private final String currentUsername;
+    private final String firstName;
 
-    public SettingsPanel(JFrame frame, String username) {
+    public SettingsPanel(JFrame frame, String username, String firstName) {
         this.parentFrame = frame;
         this.currentUsername = username;
+        this.firstName = firstName;
         
         parentFrame.setSize(974, 634);
         parentFrame.setResizable(false);
@@ -167,16 +169,18 @@ public class SettingsPanel extends javax.swing.JPanel {
                 .addGap(0, 148, Short.MAX_VALUE))
         );
 
+        setBackground(new java.awt.Color(251, 244, 238));
         setPreferredSize(new java.awt.Dimension(896, 634));
 
         jPanel4.setBackground(new java.awt.Color(51, 51, 51));
         jPanel4.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel4.setPreferredSize(new java.awt.Dimension(182, 634));
 
         DashboardButton1.setBackground(new java.awt.Color(102, 102, 102));
         DashboardButton1.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         DashboardButton1.setForeground(new java.awt.Color(255, 255, 255));
         DashboardButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Dashboard Admin/menu.png"))); // NOI18N
-        DashboardButton1.setText("Dashboard");
+        DashboardButton1.setText("Home");
         DashboardButton1.setBorderPainted(false);
         DashboardButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         DashboardButton1.setName("Dashboard"); // NOI18N
@@ -232,7 +236,7 @@ public class SettingsPanel extends javax.swing.JPanel {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(38, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(DashboardButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -244,7 +248,7 @@ public class SettingsPanel extends javax.swing.JPanel {
                 .addGap(33, 33, 33))
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -284,7 +288,7 @@ public class SettingsPanel extends javax.swing.JPanel {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addComponent(jLabel5))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(484, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -309,9 +313,7 @@ public class SettingsPanel extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -328,7 +330,7 @@ public class SettingsPanel extends javax.swing.JPanel {
 
     private void LogsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogsButtonActionPerformed
         // login logs function go to LogsPanel
-        parentFrame.setContentPane(new LogsPanel(parentFrame, currentUsername));
+        parentFrame.setContentPane(new LogsPanel(parentFrame, currentUsername, firstName));
         parentFrame.revalidate();
         parentFrame.repaint();
         //loadSummaryData();
@@ -336,14 +338,14 @@ public class SettingsPanel extends javax.swing.JPanel {
 
     private void UsersButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsersButton2ActionPerformed
         // go to userPanel
-        parentFrame.setContentPane(new UserPanel(parentFrame, currentUsername));
+        parentFrame.setContentPane(new UserPanel(parentFrame, currentUsername, firstName));
         parentFrame.revalidate();
         parentFrame.repaint();
     }//GEN-LAST:event_UsersButton2ActionPerformed
 
     private void SettingsButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsButton2ActionPerformed
         // go to settings panel
-        parentFrame.setContentPane(new SettingsPanel(parentFrame, currentUsername));
+        parentFrame.setContentPane(new SettingsPanel(parentFrame, currentUsername, firstName));
         parentFrame.revalidate();
         parentFrame.repaint();
     }//GEN-LAST:event_SettingsButton2ActionPerformed
@@ -358,21 +360,21 @@ public class SettingsPanel extends javax.swing.JPanel {
 
     private void DashboardButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DashboardButton1ActionPerformed
         // dashboard function go to DashboardPanel
-        parentFrame.setContentPane(new DashboardPanel(parentFrame, currentUsername));
+        parentFrame.setContentPane(new DashboardPanel(parentFrame, currentUsername, firstName));
         parentFrame.revalidate();
         parentFrame.repaint();
     }//GEN-LAST:event_DashboardButton1ActionPerformed
 
     private void UsersButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsersButton3ActionPerformed
         // go to userPanel
-        parentFrame.setContentPane(new UserPanel(parentFrame, currentUsername));
+        parentFrame.setContentPane(new UserPanel(parentFrame, currentUsername, firstName));
         parentFrame.revalidate();
         parentFrame.repaint();
     }//GEN-LAST:event_UsersButton3ActionPerformed
 
     private void SettingsButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsButton3ActionPerformed
         // go to settings panel
-        parentFrame.setContentPane(new SettingsPanel(parentFrame, currentUsername));
+        parentFrame.setContentPane(new SettingsPanel(parentFrame, currentUsername, firstName));
         parentFrame.revalidate();
         parentFrame.repaint();
     }//GEN-LAST:event_SettingsButton3ActionPerformed
