@@ -129,15 +129,17 @@ public class LogsPanel extends javax.swing.JPanel {
         DashboardButton.setForeground(new java.awt.Color(255, 255, 255));
         DashboardButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Dashboard Admin/menu.png"))); // NOI18N
         DashboardButton.setText("Dashboard");
+        DashboardButton.setBorderPainted(false);
         DashboardButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         DashboardButton.setName("Dashboard"); // NOI18N
         DashboardButton.addActionListener(this::DashboardButtonActionPerformed);
 
-        LogsButton.setBackground(new java.awt.Color(102, 102, 102));
+        LogsButton.setBackground(new java.awt.Color(163, 31, 19));
         LogsButton.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         LogsButton.setForeground(new java.awt.Color(255, 255, 255));
         LogsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Dashboard Admin/log.png"))); // NOI18N
         LogsButton.setText("Login logs");
+        LogsButton.setBorderPainted(false);
         LogsButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         LogsButton.setName("Login_logs"); // NOI18N
         LogsButton.addActionListener(this::LogsButtonActionPerformed);
@@ -147,6 +149,7 @@ public class LogsPanel extends javax.swing.JPanel {
         UsersButton.setForeground(new java.awt.Color(255, 255, 255));
         UsersButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Dashboard Admin/users.png"))); // NOI18N
         UsersButton.setText("Users");
+        UsersButton.setBorderPainted(false);
         UsersButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         UsersButton.setName("Users"); // NOI18N
         UsersButton.addActionListener(this::UsersButtonActionPerformed);
@@ -156,6 +159,7 @@ public class LogsPanel extends javax.swing.JPanel {
         SettingsButton.setForeground(new java.awt.Color(255, 255, 255));
         SettingsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Dashboard Admin/settings.png"))); // NOI18N
         SettingsButton.setText("Settings");
+        SettingsButton.setBorderPainted(false);
         SettingsButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         SettingsButton.setName("Settings"); // NOI18N
         SettingsButton.addActionListener(this::SettingsButtonActionPerformed);
@@ -165,6 +169,7 @@ public class LogsPanel extends javax.swing.JPanel {
         LogoutButton.setForeground(new java.awt.Color(255, 255, 255));
         LogoutButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Dashboard Admin/log-out.png"))); // NOI18N
         LogoutButton.setText("Log out");
+        LogoutButton.setBorderPainted(false);
         LogoutButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         LogoutButton.setName("Logout"); // NOI18N
         LogoutButton.addActionListener(this::LogoutButtonActionPerformed);

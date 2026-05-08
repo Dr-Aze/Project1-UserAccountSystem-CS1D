@@ -100,7 +100,7 @@ public class LoginScreen extends javax.swing.JPanel {
             } else {
                 JOptionPane.showMessageDialog(this, "Login Successful! Welcome " + username);
                 // Switch the content pane to DashboardPanel for regular users
-                parentFrame.setContentPane(new DashboardPanel(parentFrame, username));
+                parentFrame.setContentPane(new DashboardPanel(parentFrame));
             }
 
             // 4. Refresh the Frame to show the new panel

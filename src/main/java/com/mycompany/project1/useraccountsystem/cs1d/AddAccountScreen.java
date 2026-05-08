@@ -12,16 +12,13 @@ import java.sql.PreparedStatement;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
-public class RegistrationScreen extends javax.swing.JPanel {
+public class AddAccountScreen extends javax.swing.JPanel {
     
     private JFrame parentFrame;
 
-    public RegistrationScreen(JFrame frame) {
+    public AddAccountScreen(JFrame frame) {
     this.parentFrame = frame;
     
-    parentFrame.setSize(680, 510);
-    parentFrame.setResizable(false);
-    parentFrame.setLocationRelativeTo(null);
     initComponents();
     }
     
@@ -48,8 +45,7 @@ public class RegistrationScreen extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        CancelButton = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -117,14 +113,11 @@ public class RegistrationScreen extends javax.swing.JPanel {
             .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        jLabel6.setText("Already have an account ?");
-
-        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(153, 0, 0));
-        jButton2.setText("Login");
-        jButton2.setBorder(null);
-        jButton2.addActionListener(this::jButton2ActionPerformed);
+        CancelButton.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        CancelButton.setForeground(new java.awt.Color(153, 0, 0));
+        CancelButton.setText("Cancel");
+        CancelButton.setBorder(null);
+        CancelButton.addActionListener(this::CancelButtonActionPerformed);
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         jLabel7.setText("or");
@@ -150,15 +143,14 @@ public class RegistrationScreen extends javax.swing.JPanel {
                                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(jLabel2)
                             .addComponent(jLabel5)
-                            .addComponent(jLabel1)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jLabel1)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(131, 131, 131)
-                        .addComponent(jLabel7)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel7))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(103, 103, 103)
+                        .addComponent(CancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(17, 17, 17)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -187,12 +179,10 @@ public class RegistrationScreen extends javax.swing.JPanel {
                 .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jButton2))
+                .addComponent(CancelButton)
                 .addGap(12, 12, 12))
         );
 
@@ -200,7 +190,6 @@ public class RegistrationScreen extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void SignupButton(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignupButton
-        //  Createaccount function
         //  Createaccount function
         String firstName = jTextField1.getText().trim();
         String lastName = jTextField2.getText().trim();
@@ -262,23 +251,22 @@ public class RegistrationScreen extends javax.swing.JPanel {
         // firstname function from registration system
     }//GEN-LAST:event_jTextField1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        openLogin();
+    private void CancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+        javax.swing.SwingUtilities.getWindowAncestor(this).dispose();
+    }//GEN-LAST:event_CancelButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton CancelButton;
     private javax.swing.JLabel Email;
     private javax.swing.JLabel Email1;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPasswordField jPasswordField1;

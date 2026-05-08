@@ -15,28 +15,26 @@ import javax.swing.JFrame;
 
 public class DashboardPanel extends javax.swing.JPanel {
 
-    private JFrame parentFrame;
-    private String username;
-    
-    public DashboardPanel(JFrame frame, String username) {
-        this.parentFrame = frame;
-        
-        parentFrame.setSize(916, 634);
-        parentFrame.setResizable(false);
-        parentFrame.setLocationRelativeTo(null);
-        
-        this.username = username;
+        private final JFrame parentFrame;
+        private final String username;
 
-        initComponents(); // MUST be on its own line
+        public DashboardPanel(JFrame frame, String username) {
+            this.parentFrame = frame;
+            this.username = username;
 
-        // You can safely use username AFTER initComponents()
-        System.out.println("Welcome " + username);
-    }
+            // Configure Frame settings
+            parentFrame.setSize(974, 634);
+            parentFrame.setResizable(false);
+            parentFrame.setLocationRelativeTo(null);
+
+            initComponents();
+
+            System.out.println("Dashboard loaded for: " + username);
+        }
 
     DashboardPanel(JFrame parentFrame) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -50,7 +48,6 @@ public class DashboardPanel extends javax.swing.JPanel {
         jPanel3 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         DashboardButton5 = new javax.swing.JButton();
-        LogsButton5 = new javax.swing.JButton();
         UsersButton5 = new javax.swing.JButton();
         SettingsButton5 = new javax.swing.JButton();
         LogoutButton5 = new javax.swing.JButton();
@@ -65,29 +62,22 @@ public class DashboardPanel extends javax.swing.JPanel {
         jPanel7.setBackground(new java.awt.Color(51, 51, 51));
         jPanel7.setForeground(new java.awt.Color(255, 255, 255));
 
-        DashboardButton5.setBackground(new java.awt.Color(102, 102, 102));
+        DashboardButton5.setBackground(new java.awt.Color(163, 31, 19));
         DashboardButton5.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         DashboardButton5.setForeground(new java.awt.Color(255, 255, 255));
         DashboardButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Dashboard Admin/menu.png"))); // NOI18N
         DashboardButton5.setText("Dashboard");
+        DashboardButton5.setBorderPainted(false);
         DashboardButton5.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         DashboardButton5.setName("Dashboard"); // NOI18N
         DashboardButton5.addActionListener(this::DashboardButton5ActionPerformed);
-
-        LogsButton5.setBackground(new java.awt.Color(102, 102, 102));
-        LogsButton5.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        LogsButton5.setForeground(new java.awt.Color(255, 255, 255));
-        LogsButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Dashboard Admin/log.png"))); // NOI18N
-        LogsButton5.setText("Login logs");
-        LogsButton5.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        LogsButton5.setName("Login_logs"); // NOI18N
-        LogsButton5.addActionListener(this::LogsButton5ActionPerformed);
 
         UsersButton5.setBackground(new java.awt.Color(102, 102, 102));
         UsersButton5.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         UsersButton5.setForeground(new java.awt.Color(255, 255, 255));
         UsersButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Dashboard Admin/users.png"))); // NOI18N
         UsersButton5.setText("Users");
+        UsersButton5.setBorderPainted(false);
         UsersButton5.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         UsersButton5.setName("Users"); // NOI18N
         UsersButton5.addActionListener(this::UsersButton5ActionPerformed);
@@ -97,6 +87,7 @@ public class DashboardPanel extends javax.swing.JPanel {
         SettingsButton5.setForeground(new java.awt.Color(255, 255, 255));
         SettingsButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Dashboard Admin/settings.png"))); // NOI18N
         SettingsButton5.setText("Settings");
+        SettingsButton5.setBorderPainted(false);
         SettingsButton5.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         SettingsButton5.setName("Settings"); // NOI18N
         SettingsButton5.addActionListener(this::SettingsButton5ActionPerformed);
@@ -106,6 +97,7 @@ public class DashboardPanel extends javax.swing.JPanel {
         LogoutButton5.setForeground(new java.awt.Color(255, 255, 255));
         LogoutButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Dashboard Admin/log-out.png"))); // NOI18N
         LogoutButton5.setText("Log out");
+        LogoutButton5.setBorderPainted(false);
         LogoutButton5.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         LogoutButton5.setName("Logout"); // NOI18N
         LogoutButton5.addActionListener(this::LogoutButton5ActionPerformed);
@@ -134,15 +126,14 @@ public class DashboardPanel extends javax.swing.JPanel {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(DashboardButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(LogsButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(UsersButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(SettingsButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(LogoutButton5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jLabel17)
                     .addComponent(jLabel16))
                 .addGap(33, 33, 33))
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -150,22 +141,20 @@ public class DashboardPanel extends javax.swing.JPanel {
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel18)
+                .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel16)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(DashboardButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(LogsButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addComponent(UsersButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(76, 76, 76)
+                .addGap(134, 134, 134)
                 .addComponent(jLabel17)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(SettingsButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(LogoutButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 136, Short.MAX_VALUE))
+                .addGap(0, 148, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -173,16 +162,16 @@ public class DashboardPanel extends javax.swing.JPanel {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(0, 0, 0)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(0, 0, 0)
                 .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(0, 0, 0))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -191,7 +180,7 @@ public class DashboardPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 681, Short.MAX_VALUE))
+                .addGap(0, 771, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -201,18 +190,7 @@ public class DashboardPanel extends javax.swing.JPanel {
 
     private void DashboardButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DashboardButton5ActionPerformed
         // dashboard function go to DashboardPanel
-        parentFrame.setContentPane(new DashboardPanel(parentFrame));
-        parentFrame.revalidate();
-        parentFrame.repaint();
     }//GEN-LAST:event_DashboardButton5ActionPerformed
-
-    private void LogsButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogsButton5ActionPerformed
-        // login logs function go to LogsPanel
-        parentFrame.setContentPane(new LogsPanel(parentFrame));
-        parentFrame.revalidate();
-        parentFrame.repaint();
-        //loadSummaryData();
-    }//GEN-LAST:event_LogsButton5ActionPerformed
 
     private void UsersButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsersButton5ActionPerformed
         // go to userPanel
@@ -240,7 +218,6 @@ public class DashboardPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton DashboardButton5;
     private javax.swing.JButton LogoutButton5;
-    private javax.swing.JButton LogsButton5;
     private javax.swing.JButton SettingsButton5;
     private javax.swing.JButton UsersButton5;
     private javax.swing.JLabel jLabel16;
