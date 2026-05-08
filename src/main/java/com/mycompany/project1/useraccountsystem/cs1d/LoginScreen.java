@@ -96,7 +96,7 @@ public class LoginScreen extends javax.swing.JPanel {
             if (role.equalsIgnoreCase("admin")) {
                 JOptionPane.showMessageDialog(this, "Admin Login Successful!");
                 // Switch the content pane to LogsPanel
-                parentFrame.setContentPane(new LogsPanel(parentFrame));
+                parentFrame.setContentPane(new LogsPanel(parentFrame, username));
             } else {
                 JOptionPane.showMessageDialog(this, "Login Successful! Welcome " + username);
                 // Switch the content pane to DashboardPanel for regular users

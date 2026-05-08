@@ -27,10 +27,12 @@ import javax.swing.table.DefaultTableModel;
  */
 
 public final class UserPanel extends javax.swing.JPanel {
-private final JFrame parentFrame;
+    private final JFrame parentFrame;
+    private final String currentUsername;
    
-    public UserPanel(JFrame frame) {
+    public UserPanel(JFrame frame, String username) {
         this.parentFrame = frame;
+        this.currentUsername = username;
 
         // Frame Setup
         Dimension lockSize = new Dimension(974, 634);
@@ -788,14 +790,14 @@ private final JFrame parentFrame;
 
     private void UsersButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsersButtonActionPerformed
         // go to userPanel
-        parentFrame.setContentPane(new UserPanel(parentFrame));
+        parentFrame.setContentPane(new UserPanel(parentFrame, currentUsername));
         parentFrame.revalidate();
         parentFrame.repaint();
     }//GEN-LAST:event_UsersButtonActionPerformed
 
     private void SettingsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsButtonActionPerformed
         // go to settings panel
-        parentFrame.setContentPane(new SettingsPanel(parentFrame));
+        parentFrame.setContentPane(new SettingsPanel(parentFrame, currentUsername));
         parentFrame.revalidate();
         parentFrame.repaint();
     }//GEN-LAST:event_SettingsButtonActionPerformed

@@ -17,9 +17,11 @@ import javax.swing.JOptionPane;
 public class SettingsPanel extends javax.swing.JPanel {
 
     private JFrame parentFrame;
+    private final String currentUsername;
 
-    public SettingsPanel(JFrame frame) {
+    public SettingsPanel(JFrame frame, String username) {
         this.parentFrame = frame;
+        this.currentUsername = username;
         
         parentFrame.setSize(974, 634);
         parentFrame.setResizable(false);
@@ -262,7 +264,7 @@ public class SettingsPanel extends javax.swing.JPanel {
                 .addComponent(SettingsButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(LogoutButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 142, Short.MAX_VALUE))
+                .addGap(0, 148, Short.MAX_VALUE))
         );
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
@@ -309,7 +311,7 @@ public class SettingsPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(0, 0, 0))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -326,7 +328,7 @@ public class SettingsPanel extends javax.swing.JPanel {
 
     private void LogsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogsButtonActionPerformed
         // login logs function go to LogsPanel
-        parentFrame.setContentPane(new LogsPanel(parentFrame));
+        parentFrame.setContentPane(new LogsPanel(parentFrame, currentUsername));
         parentFrame.revalidate();
         parentFrame.repaint();
         //loadSummaryData();
@@ -334,14 +336,14 @@ public class SettingsPanel extends javax.swing.JPanel {
 
     private void UsersButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsersButton2ActionPerformed
         // go to userPanel
-        parentFrame.setContentPane(new UserPanel(parentFrame));
+        parentFrame.setContentPane(new UserPanel(parentFrame, currentUsername));
         parentFrame.revalidate();
         parentFrame.repaint();
     }//GEN-LAST:event_UsersButton2ActionPerformed
 
     private void SettingsButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsButton2ActionPerformed
         // go to settings panel
-        parentFrame.setContentPane(new SettingsPanel(parentFrame));
+        parentFrame.setContentPane(new SettingsPanel(parentFrame, currentUsername));
         parentFrame.revalidate();
         parentFrame.repaint();
     }//GEN-LAST:event_SettingsButton2ActionPerformed
@@ -356,21 +358,21 @@ public class SettingsPanel extends javax.swing.JPanel {
 
     private void DashboardButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DashboardButton1ActionPerformed
         // dashboard function go to DashboardPanel
-        parentFrame.setContentPane(new DashboardPanel(parentFrame));
+        parentFrame.setContentPane(new DashboardPanel(parentFrame, currentUsername));
         parentFrame.revalidate();
         parentFrame.repaint();
     }//GEN-LAST:event_DashboardButton1ActionPerformed
 
     private void UsersButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsersButton3ActionPerformed
         // go to userPanel
-        parentFrame.setContentPane(new UserPanel(parentFrame));
+        parentFrame.setContentPane(new UserPanel(parentFrame, currentUsername));
         parentFrame.revalidate();
         parentFrame.repaint();
     }//GEN-LAST:event_UsersButton3ActionPerformed
 
     private void SettingsButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsButton3ActionPerformed
         // go to settings panel
-        parentFrame.setContentPane(new SettingsPanel(parentFrame));
+        parentFrame.setContentPane(new SettingsPanel(parentFrame, currentUsername));
         parentFrame.revalidate();
         parentFrame.repaint();
     }//GEN-LAST:event_SettingsButton3ActionPerformed

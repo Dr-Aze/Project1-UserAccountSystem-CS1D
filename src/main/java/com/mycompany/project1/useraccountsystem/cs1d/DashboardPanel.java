@@ -16,11 +16,11 @@ import javax.swing.JFrame;
 public class DashboardPanel extends javax.swing.JPanel {
 
         private final JFrame parentFrame;
-        private final String username;
+        private final String currentUsername;
 
         public DashboardPanel(JFrame frame, String username) {
             this.parentFrame = frame;
-            this.username = username;
+            this.currentUsername = username;
 
             // Configure Frame settings
             parentFrame.setSize(974, 634);
@@ -30,6 +30,10 @@ public class DashboardPanel extends javax.swing.JPanel {
             initComponents();
 
             System.out.println("Dashboard loaded for: " + username);
+            
+            DashboardLabel.setText("Welcome back, " + username + " - here's what's happening");
+            DashboardLabel.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 10));
+            DashboardLabel.setForeground(new java.awt.Color(33, 37, 41));
         }
 
     DashboardPanel(JFrame parentFrame) {
@@ -45,6 +49,9 @@ public class DashboardPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel4 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         DashboardButton5 = new javax.swing.JButton();
@@ -54,8 +61,44 @@ public class DashboardPanel extends javax.swing.JPanel {
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        DashboardHeader = new javax.swing.JLabel();
+        DashboardLabel = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
 
-        setBackground(new java.awt.Color(255, 255, 255));
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        jLabel4.setText("Login logs");
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel5.setText("Monitor all user login across Strata");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel5)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        setBackground(new java.awt.Color(251, 244, 238));
+        setForeground(new java.awt.Color(255, 255, 255));
 
         jPanel3.setBackground(new java.awt.Color(102, 102, 102));
 
@@ -66,7 +109,7 @@ public class DashboardPanel extends javax.swing.JPanel {
         DashboardButton5.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         DashboardButton5.setForeground(new java.awt.Color(255, 255, 255));
         DashboardButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Dashboard Admin/menu.png"))); // NOI18N
-        DashboardButton5.setText("Dashboard");
+        DashboardButton5.setText("Home");
         DashboardButton5.setBorderPainted(false);
         DashboardButton5.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         DashboardButton5.setName("Dashboard"); // NOI18N
@@ -154,7 +197,7 @@ public class DashboardPanel extends javax.swing.JPanel {
                 .addComponent(SettingsButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(LogoutButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 148, Short.MAX_VALUE))
+                .addGap(0, 163, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -174,17 +217,72 @@ public class DashboardPanel extends javax.swing.JPanel {
                 .addGap(0, 0, 0))
         );
 
+        jPanel5.setBackground(new java.awt.Color(251, 244, 238));
+
+        DashboardHeader.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        DashboardHeader.setText("Home");
+
+        DashboardLabel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        DashboardLabel.setText("-");
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(DashboardHeader)
+                    .addComponent(DashboardLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(730, Short.MAX_VALUE))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(DashboardHeader)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(DashboardLabel)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jButton1.setText("General");
+        jButton1.addActionListener(this::jButton1ActionPerformed);
+
+        jButton2.setText("College");
+        jButton2.addActionListener(this::jButton2ActionPerformed);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 771, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButton1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton2))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 579, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -194,14 +292,14 @@ public class DashboardPanel extends javax.swing.JPanel {
 
     private void UsersButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsersButton5ActionPerformed
         // go to userPanel
-        parentFrame.setContentPane(new UserPanel(parentFrame));
+        parentFrame.setContentPane(new UserPanel(parentFrame, currentUsername));
         parentFrame.revalidate();
         parentFrame.repaint();
     }//GEN-LAST:event_UsersButton5ActionPerformed
 
     private void SettingsButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsButton5ActionPerformed
         // go to settings panel
-        parentFrame.setContentPane(new SettingsPanel(parentFrame));
+        parentFrame.setContentPane(new SettingsPanel(parentFrame, currentUsername));
         parentFrame.revalidate();
         parentFrame.repaint();
     }//GEN-LAST:event_SettingsButton5ActionPerformed
@@ -214,16 +312,33 @@ public class DashboardPanel extends javax.swing.JPanel {
         parentFrame.repaint();
     }//GEN-LAST:event_LogoutButton5ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton DashboardButton5;
+    private javax.swing.JLabel DashboardHeader;
+    private javax.swing.JLabel DashboardLabel;
     private javax.swing.JButton LogoutButton5;
     private javax.swing.JButton SettingsButton5;
     private javax.swing.JButton UsersButton5;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }

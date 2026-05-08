@@ -12,9 +12,11 @@ import javax.swing.JOptionPane;
 public class LogsPanel extends javax.swing.JPanel {
     
     private JFrame parentFrame;
+    private final String currentUsername;
 
-    public LogsPanel(JFrame frame) {
+    public LogsPanel(JFrame frame, String username) {
         this.parentFrame = frame;
+        this.currentUsername = username;
         
         parentFrame.setSize(916, 634);
         parentFrame.setResizable(false);
@@ -420,14 +422,14 @@ public class LogsPanel extends javax.swing.JPanel {
 
     private void DashboardButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DashboardButtonActionPerformed
         // dashboard function go to DashboardPanel
-        parentFrame.setContentPane(new DashboardPanel(parentFrame));
+        parentFrame.setContentPane(new DashboardPanel(parentFrame, currentUsername));
         parentFrame.revalidate();
         parentFrame.repaint();
     }//GEN-LAST:event_DashboardButtonActionPerformed
 
     private void UsersButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsersButtonActionPerformed
         // go to userPanel
-        parentFrame.setContentPane(new UserPanel(parentFrame));
+        parentFrame.setContentPane(new UserPanel(parentFrame, currentUsername));
         parentFrame.revalidate();
         parentFrame.repaint();
     }//GEN-LAST:event_UsersButtonActionPerformed
@@ -442,7 +444,7 @@ public class LogsPanel extends javax.swing.JPanel {
 
     private void SettingsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsButtonActionPerformed
         // go to settings panel
-        parentFrame.setContentPane(new SettingsPanel(parentFrame));
+        parentFrame.setContentPane(new SettingsPanel(parentFrame, currentUsername));
         parentFrame.revalidate();
         parentFrame.repaint();
     }//GEN-LAST:event_SettingsButtonActionPerformed
