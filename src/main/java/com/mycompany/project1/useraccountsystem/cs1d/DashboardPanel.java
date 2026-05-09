@@ -66,9 +66,19 @@ public class DashboardPanel extends javax.swing.JPanel {
         jPanel5 = new javax.swing.JPanel();
         DashboardHeader = new javax.swing.JLabel();
         DashboardLabel = new javax.swing.JLabel();
+        TimeLabel = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        PostScrollPane = new javax.swing.JScrollPane();
+        AccountOverviewPanel = new javax.swing.JPanel();
+        AccountOverviewLabel = new javax.swing.JLabel();
+        TimeLabel1 = new javax.swing.JLabel();
+        SystemStatusPanel = new javax.swing.JPanel();
+        SystemStatusLabel = new javax.swing.JLabel();
+        TimeLabel2 = new javax.swing.JLabel();
+        QuickActionsPanel = new javax.swing.JPanel();
+        QuickActionsLabel = new javax.swing.JLabel();
+        TimeLabel3 = new javax.swing.JLabel();
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -199,7 +209,7 @@ public class DashboardPanel extends javax.swing.JPanel {
                 .addComponent(SettingsButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(LogoutButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 148, Short.MAX_VALUE))
+                .addGap(0, 205, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -227,6 +237,9 @@ public class DashboardPanel extends javax.swing.JPanel {
         DashboardLabel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         DashboardLabel.setText("-");
 
+        TimeLabel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        TimeLabel.setText("-");
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -235,8 +248,10 @@ public class DashboardPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(DashboardHeader)
-                    .addComponent(DashboardLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(652, Short.MAX_VALUE))
+                    .addComponent(DashboardLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE))
+                .addGap(543, 543, 543)
+                .addComponent(TimeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -244,8 +259,10 @@ public class DashboardPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(DashboardHeader)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(DashboardLabel)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(DashboardLabel)
+                    .addComponent(TimeLabel))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         jButton1.setText("General");
@@ -253,6 +270,96 @@ public class DashboardPanel extends javax.swing.JPanel {
 
         jButton2.setText("College");
         jButton2.addActionListener(this::jButton2ActionPerformed);
+
+        AccountOverviewPanel.setBackground(new java.awt.Color(255, 255, 255));
+        AccountOverviewPanel.setForeground(new java.awt.Color(255, 255, 255));
+
+        AccountOverviewLabel.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        AccountOverviewLabel.setText("Account Overview");
+
+        TimeLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        TimeLabel1.setText("-");
+
+        javax.swing.GroupLayout AccountOverviewPanelLayout = new javax.swing.GroupLayout(AccountOverviewPanel);
+        AccountOverviewPanel.setLayout(AccountOverviewPanelLayout);
+        AccountOverviewPanelLayout.setHorizontalGroup(
+            AccountOverviewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(AccountOverviewPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(AccountOverviewLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(TimeLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        AccountOverviewPanelLayout.setVerticalGroup(
+            AccountOverviewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(AccountOverviewPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(AccountOverviewLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(TimeLabel1)
+                .addContainerGap(134, Short.MAX_VALUE))
+        );
+
+        SystemStatusPanel.setBackground(new java.awt.Color(255, 255, 255));
+        SystemStatusPanel.setForeground(new java.awt.Color(255, 255, 255));
+
+        SystemStatusLabel.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        SystemStatusLabel.setText("System Status");
+
+        TimeLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        TimeLabel2.setText("-");
+
+        javax.swing.GroupLayout SystemStatusPanelLayout = new javax.swing.GroupLayout(SystemStatusPanel);
+        SystemStatusPanel.setLayout(SystemStatusPanelLayout);
+        SystemStatusPanelLayout.setHorizontalGroup(
+            SystemStatusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(SystemStatusPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(SystemStatusLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
+                .addComponent(TimeLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        SystemStatusPanelLayout.setVerticalGroup(
+            SystemStatusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(SystemStatusPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(SystemStatusLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(TimeLabel2)
+                .addContainerGap(134, Short.MAX_VALUE))
+        );
+
+        QuickActionsPanel.setBackground(new java.awt.Color(255, 255, 255));
+        QuickActionsPanel.setForeground(new java.awt.Color(255, 255, 255));
+
+        QuickActionsLabel.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        QuickActionsLabel.setText("Quick Actions");
+
+        TimeLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        TimeLabel3.setText("-");
+
+        javax.swing.GroupLayout QuickActionsPanelLayout = new javax.swing.GroupLayout(QuickActionsPanel);
+        QuickActionsPanel.setLayout(QuickActionsPanelLayout);
+        QuickActionsPanelLayout.setHorizontalGroup(
+            QuickActionsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(QuickActionsPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(QuickActionsLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(TimeLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        QuickActionsPanelLayout.setVerticalGroup(
+            QuickActionsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(QuickActionsPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(QuickActionsLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(TimeLabel3)
+                .addContainerGap(122, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -264,13 +371,17 @@ public class DashboardPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(PostScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 501, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton2))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 579, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addComponent(AccountOverviewPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(SystemStatusPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(QuickActionsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -278,12 +389,20 @@ public class DashboardPanel extends javax.swing.JPanel {
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(PostScrollPane)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(AccountOverviewPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(SystemStatusPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(QuickActionsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -324,11 +443,22 @@ public class DashboardPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel AccountOverviewLabel;
+    private javax.swing.JPanel AccountOverviewPanel;
     private javax.swing.JButton DashboardButton5;
     private javax.swing.JLabel DashboardHeader;
     private javax.swing.JLabel DashboardLabel;
     private javax.swing.JButton LogoutButton5;
+    private javax.swing.JScrollPane PostScrollPane;
+    private javax.swing.JLabel QuickActionsLabel;
+    private javax.swing.JPanel QuickActionsPanel;
     private javax.swing.JButton SettingsButton5;
+    private javax.swing.JLabel SystemStatusLabel;
+    private javax.swing.JPanel SystemStatusPanel;
+    private javax.swing.JLabel TimeLabel;
+    private javax.swing.JLabel TimeLabel1;
+    private javax.swing.JLabel TimeLabel2;
+    private javax.swing.JLabel TimeLabel3;
     private javax.swing.JButton UsersButton5;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -341,6 +471,5 @@ public class DashboardPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel7;
-    private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }
