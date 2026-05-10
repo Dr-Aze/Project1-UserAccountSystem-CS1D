@@ -83,7 +83,7 @@ public class AddAccountScreen extends javax.swing.JPanel {
         Email1.setText("Password");
         Email1.setName("Password"); // NOI18N
 
-        jButton1.setBackground(new java.awt.Color(0, 0, 0));
+        jButton1.setBackground(new java.awt.Color(102, 102, 102));
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Create Account");
@@ -99,6 +99,8 @@ public class AddAccountScreen extends javax.swing.JPanel {
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
 
+        jLabel3.setBackground(new java.awt.Color(51, 51, 51));
+        jLabel3.setForeground(new java.awt.Color(51, 51, 51));
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Login/400x400_logo.png"))); // NOI18N
         jLabel3.setText("jLabel3");
 

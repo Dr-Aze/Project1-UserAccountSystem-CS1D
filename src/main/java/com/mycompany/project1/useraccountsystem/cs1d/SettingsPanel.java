@@ -6,6 +6,10 @@ package com.mycompany.project1.useraccountsystem.cs1d;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  *
@@ -17,11 +21,15 @@ import javax.swing.JOptionPane;
 public class SettingsPanel extends javax.swing.JPanel {
 
     private JFrame parentFrame;
+    
     private final String currentUsername;
     private final String firstName;
+    private int currentUserId;
+    
 
-    public SettingsPanel(JFrame frame, String username, String firstName) {
+    public SettingsPanel(JFrame frame, int userId, String username, String firstName) {
         this.parentFrame = frame;
+        this.currentUserId = userId;
         this.currentUsername = username;
         this.firstName = firstName;
         
@@ -30,8 +38,54 @@ public class SettingsPanel extends javax.swing.JPanel {
         parentFrame.setLocationRelativeTo(null);
 
         initComponents();
-        //loadSummaryData();
+        loadUserData();
     }
+    private void loadUserData() {
+
+    try {
+        Connection conn = DatabaseConnection.getConnection();
+        String sql =
+            "SELECT first_name, last_name, email, role " +
+            "FROM users WHERE username=?";
+
+        PreparedStatement pst =
+            conn.prepareStatement(sql);
+
+        pst.setString(1, currentUsername);
+
+        ResultSet rs = pst.executeQuery();
+
+        if(rs.next()) {
+
+            FirstName.setText(
+                rs.getString("first_name")
+            );
+
+            LastName.setText(
+                rs.getString("last_name")
+            );
+
+            Email.setText(
+                rs.getString("email")
+            );
+
+            jComboBox1.setSelectedItem(
+                rs.getString("role")
+            );
+        }
+
+        rs.close();
+        pst.close();
+        conn.close();
+
+    } catch(SQLException e) {
+
+        JOptionPane.showMessageDialog(
+            this,
+            "Error loading user data: " + e.getMessage()
+        );
+    }
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -51,6 +105,9 @@ public class SettingsPanel extends javax.swing.JPanel {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
+        buttonGroup3 = new javax.swing.ButtonGroup();
         jPanel4 = new javax.swing.JPanel();
         DashboardButton1 = new javax.swing.JButton();
         UsersButton3 = new javax.swing.JButton();
@@ -62,6 +119,27 @@ public class SettingsPanel extends javax.swing.JPanel {
         jPanel5 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        FirstName = new javax.swing.JTextField();
+        Email = new javax.swing.JTextField();
+        LastName = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        SaveChanges = new javax.swing.JButton();
+        Cancel = new javax.swing.JButton();
+        NewPassword = new javax.swing.JPasswordField();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
+        UpdatePassword = new javax.swing.JButton();
+        ConfirmPassword = new javax.swing.JPasswordField();
+        jLabel14 = new javax.swing.JLabel();
+        CurrentPassword = new javax.swing.JPasswordField();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jLabel17 = new javax.swing.JLabel();
 
         jPanel3.setBackground(new java.awt.Color(51, 51, 51));
         jPanel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -169,12 +247,12 @@ public class SettingsPanel extends javax.swing.JPanel {
                 .addGap(0, 148, Short.MAX_VALUE))
         );
 
-        setBackground(new java.awt.Color(251, 244, 238));
-        setPreferredSize(new java.awt.Dimension(896, 634));
+        setBackground(new java.awt.Color(51, 51, 51));
+        setPreferredSize(new java.awt.Dimension(975, 635));
 
         jPanel4.setBackground(new java.awt.Color(51, 51, 51));
         jPanel4.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel4.setPreferredSize(new java.awt.Dimension(182, 634));
+        jPanel4.setPreferredSize(new java.awt.Dimension(180, 600));
 
         DashboardButton1.setBackground(new java.awt.Color(102, 102, 102));
         DashboardButton1.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
@@ -196,7 +274,7 @@ public class SettingsPanel extends javax.swing.JPanel {
         UsersButton3.setName("Users"); // NOI18N
         UsersButton3.addActionListener(this::UsersButton3ActionPerformed);
 
-        SettingsButton3.setBackground(new java.awt.Color(163, 31, 19));
+        SettingsButton3.setBackground(new java.awt.Color(153, 0, 0));
         SettingsButton3.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         SettingsButton3.setForeground(new java.awt.Color(255, 255, 255));
         SettingsButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Dashboard Admin/settings.png"))); // NOI18N
@@ -239,16 +317,16 @@ public class SettingsPanel extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(DashboardButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(UsersButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(SettingsButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(LogoutButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(DashboardButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                        .addComponent(UsersButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                        .addComponent(SettingsButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                        .addComponent(LogoutButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE))
                     .addComponent(jLabel11)
                     .addComponent(jLabel10))
                 .addGap(33, 33, 33))
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+                .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -262,16 +340,17 @@ public class SettingsPanel extends javax.swing.JPanel {
                 .addComponent(DashboardButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(UsersButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(134, 134, 134)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(SettingsButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(LogoutButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 148, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel5.setForeground(new java.awt.Color(51, 51, 51));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jLabel4.setText("Settings");
@@ -288,7 +367,7 @@ public class SettingsPanel extends javax.swing.JPanel {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addComponent(jLabel5))
-                .addContainerGap(484, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -300,24 +379,208 @@ public class SettingsPanel extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setForeground(new java.awt.Color(255, 255, 255));
+
+        FirstName.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        FirstName.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(153, 0, 0), null, null));
+        FirstName.setName("FirstName"); // NOI18N
+        FirstName.addActionListener(this::FirstNameActionPerformed);
+
+        Email.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(153, 0, 0), null, null));
+        Email.setName("Email"); // NOI18N
+        Email.addActionListener(this::EmailActionPerformed);
+
+        LastName.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(153, 0, 0), null, null));
+        LastName.setName("LastName"); // NOI18N
+        LastName.addActionListener(this::LastNameActionPerformed);
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel1.setText("First Name");
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel2.setText("Email");
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel3.setText("Last Name");
+
+        SaveChanges.setBackground(new java.awt.Color(153, 0, 0));
+        SaveChanges.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        SaveChanges.setText("Save Changes");
+        SaveChanges.setName("SaveChanges"); // NOI18N
+        SaveChanges.addActionListener(this::SaveChangesActionPerformed);
+
+        Cancel.setBackground(new java.awt.Color(102, 102, 102));
+        Cancel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        Cancel.setText("Cancel");
+        Cancel.addActionListener(this::CancelActionPerformed);
+
+        NewPassword.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(153, 0, 0), null, null));
+        NewPassword.setName("NewPassword"); // NOI18N
+        NewPassword.addActionListener(this::NewPasswordActionPerformed);
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel6.setText("New Password");
+
+        jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel13.setText("Confirm Password");
+
+        jButton3.setBackground(new java.awt.Color(102, 102, 102));
+        jButton3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButton3.setText("Cancel");
+        jButton3.addActionListener(this::jButton3ActionPerformed);
+
+        UpdatePassword.setBackground(new java.awt.Color(153, 0, 0));
+        UpdatePassword.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        UpdatePassword.setText("Update Password");
+        UpdatePassword.setName("Updatepassword"); // NOI18N
+        UpdatePassword.addActionListener(this::UpdatePasswordActionPerformed);
+
+        ConfirmPassword.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(153, 0, 0), null, null));
+        ConfirmPassword.setName("ConfirmPassword"); // NOI18N
+        ConfirmPassword.addActionListener(this::ConfirmPasswordActionPerformed);
+
+        jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel14.setText("Current Password");
+
+        CurrentPassword.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(153, 0, 0), null, null));
+        CurrentPassword.setName("CurrentPassword"); // NOI18N
+        CurrentPassword.addActionListener(this::CurrentPasswordActionPerformed);
+
+        jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        jLabel15.setText("ADMIN ACCOUNT");
+
+        jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        jLabel16.setText("PASSWORD");
+
+        jComboBox1.setBackground(new java.awt.Color(102, 102, 102));
+        jComboBox1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "User", " " }));
+        jComboBox1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jComboBox1.addActionListener(this::jComboBox1ActionPerformed);
+
+        jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel17.setText("Role");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(FirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Email, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel3)
+                                .addComponent(LastName, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(Cancel)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(SaveChanges, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)))
+                            .addComponent(jLabel17))
+                        .addContainerGap(247, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel15)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(NewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel6)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel14)
+                                        .addComponent(CurrentPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel13)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addComponent(jButton3)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(UpdatePassword))
+                                        .addComponent(ConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jLabel16))
+                        .addGap(0, 0, Short.MAX_VALUE))))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(42, 42, 42)
+                .addComponent(jLabel15)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(FirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Email, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(LastName, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel17)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Cancel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(SaveChanges, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel16)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel13)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(ConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel14)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(CurrentPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(NewPassword)
+                    .addComponent(UpdatePassword, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(187, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(0, 0, 0)
+                .addContainerGap()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 635, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -338,14 +601,14 @@ public class SettingsPanel extends javax.swing.JPanel {
 
     private void UsersButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsersButton2ActionPerformed
         // go to userPanel
-        parentFrame.setContentPane(new UserPanel(parentFrame, currentUsername, firstName));
+        parentFrame.setContentPane(new UserPanel(parentFrame, currentUserId, currentUsername, firstName));
         parentFrame.revalidate();
         parentFrame.repaint();
     }//GEN-LAST:event_UsersButton2ActionPerformed
 
     private void SettingsButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsButton2ActionPerformed
         // go to settings panel
-        parentFrame.setContentPane(new SettingsPanel(parentFrame, currentUsername, firstName));
+        parentFrame.setContentPane(new SettingsPanel(parentFrame, currentUserId, currentUsername, firstName));
         parentFrame.revalidate();
         parentFrame.repaint();
     }//GEN-LAST:event_SettingsButton2ActionPerformed
@@ -360,21 +623,21 @@ public class SettingsPanel extends javax.swing.JPanel {
 
     private void DashboardButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DashboardButton1ActionPerformed
         // dashboard function go to DashboardPanel
-        parentFrame.setContentPane(new DashboardPanel(parentFrame, currentUsername, firstName));
+        parentFrame.setContentPane(new DashboardPanel(parentFrame, currentUserId, currentUsername, firstName));
         parentFrame.revalidate();
         parentFrame.repaint();
     }//GEN-LAST:event_DashboardButton1ActionPerformed
 
     private void UsersButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsersButton3ActionPerformed
         // go to userPanel
-        parentFrame.setContentPane(new UserPanel(parentFrame, currentUsername, firstName));
+        parentFrame.setContentPane(new UserPanel(parentFrame, currentUserId, currentUsername, firstName));
         parentFrame.revalidate();
         parentFrame.repaint();
     }//GEN-LAST:event_UsersButton3ActionPerformed
 
     private void SettingsButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsButton3ActionPerformed
         // go to settings panel
-        parentFrame.setContentPane(new SettingsPanel(parentFrame, currentUsername, firstName));
+        parentFrame.setContentPane(new SettingsPanel(parentFrame,currentUserId, currentUsername, firstName));
         parentFrame.revalidate();
         parentFrame.repaint();
     }//GEN-LAST:event_SettingsButton3ActionPerformed
@@ -382,30 +645,294 @@ public class SettingsPanel extends javax.swing.JPanel {
     private void LogoutButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogoutButton3ActionPerformed
         // logout function go to LoginScreen
         LogService.updateTimeOut();
-        parentFrame.setContentPane(new LoginScreen(parentFrame));
-        parentFrame.revalidate();
-        parentFrame.repaint();
+        parentFrame.dispose();
+
+        JFrame loginFrame = new JFrame("Login");
+        loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        loginFrame.setSize(974, 634);
+        loginFrame.setResizable(false);
+        loginFrame.setLocationRelativeTo(null);
+
+        loginFrame.setContentPane(new LoginScreen(loginFrame));
+
+        loginFrame.setVisible(true);
     }//GEN-LAST:event_LogoutButton3ActionPerformed
+
+    private void FirstNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FirstNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_FirstNameActionPerformed
+
+    private void EmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_EmailActionPerformed
+
+    private void LastNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LastNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_LastNameActionPerformed
+
+    private void NewPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NewPasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_NewPasswordActionPerformed
+
+    private void CancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelActionPerformed
+        // cancelbutton for profile
+        loadUserData();
+    }//GEN-LAST:event_CancelActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // cancelbutton for password
+        NewPassword.setText("");
+        ConfirmPassword.setText("");
+
+    JOptionPane.showMessageDialog(
+            this,
+            "Password fields cleared."
+        );
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void UpdatePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdatePasswordActionPerformed
+        // updatepassword buttton
+        String currentPasswordValue =
+            new String(CurrentPassword.getPassword());
+        String newPassword =
+            new String(NewPassword.getPassword());
+        String confirmPassword =
+        new String(ConfirmPassword.getPassword());
+
+    // Empty validation
+    if(newPassword.isEmpty() ||
+       confirmPassword.isEmpty()) {
+
+        JOptionPane.showMessageDialog(
+                this,
+                "Please complete password fields.",
+                "Validation Error",
+                JOptionPane.ERROR_MESSAGE
+        );
+        return;
+    }
+
+    // Minimum length
+    if(newPassword.length() < 8) {
+
+        JOptionPane.showMessageDialog(
+                this,
+                "Password must be at least 8 characters.",
+                "Validation Error",
+                JOptionPane.ERROR_MESSAGE
+        );
+        return;
+    }
+
+    // Match validation
+    if(!newPassword.equals(confirmPassword)) {
+
+        JOptionPane.showMessageDialog(
+                this,
+                "Passwords do not match.",
+                "Validation Error",
+                JOptionPane.ERROR_MESSAGE
+        );
+        return;
+    }
+    try {
+
+        Connection conn = DatabaseConnection.getConnection();
+
+        // Check current password
+        String checkSql =
+            "SELECT * FROM users WHERE username=? AND password=?";
+
+        PreparedStatement checkPst =
+            conn.prepareStatement(checkSql);
+
+        checkPst.setString(1, currentUsername);
+        checkPst.setString(2, currentPasswordValue);
+
+        ResultSet rs = checkPst.executeQuery();
+
+        if(rs.next()) {
+
+            // Update password
+            String updateSql =
+                "UPDATE users SET password=? WHERE username=?";
+
+            PreparedStatement updatePst =
+                conn.prepareStatement(updateSql);
+
+            updatePst.setString(1, newPassword);
+            updatePst.setString(2, currentUsername);
+
+            updatePst.executeUpdate();
+
+            JOptionPane.showMessageDialog(
+                this,
+                "Password updated successfully!"
+            );
+
+            updatePst.close();
+
+            NewPassword.setText("");
+            ConfirmPassword.setText("");
+            CurrentPassword.setText("");
+
+        } else {
+
+            JOptionPane.showMessageDialog(
+                this,
+                "Current password is incorrect.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE
+            );
+        }
+
+        rs.close();
+        checkPst.close();
+        conn.close();
+
+    } catch(SQLException e) {
+
+        JOptionPane.showMessageDialog(
+            this,
+            "Database Error: " + e.getMessage()
+        );
+    }
+
+    }//GEN-LAST:event_UpdatePasswordActionPerformed
+
+    private void SaveChangesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveChangesActionPerformed
+        // savechanges button
+        String firstNameValue = FirstName.getText().trim();
+        String lastNameValue = LastName.getText().trim();
+        String emailValue = Email.getText().trim();
+
+    // Validation
+       if(firstNameValue.isEmpty() ||
+          lastNameValue.isEmpty() ||
+          emailValue.isEmpty()) {
+
+           JOptionPane.showMessageDialog(
+                this,
+                "Please fill in all fields.",
+                "Validation Error",
+                JOptionPane.ERROR_MESSAGE
+            );
+            return;
+        }
+
+    // Email validation
+       if(!emailValue.contains("@") || !emailValue.contains(".")) {
+
+           JOptionPane.showMessageDialog(
+                this,
+                "Invalid email address.",
+                "Validation Error",
+                JOptionPane.ERROR_MESSAGE
+            );
+            return;
+        }
+       
+       try {
+        Connection conn = DatabaseConnection.getConnection();
+        String roleValue = jComboBox1.getSelectedItem().toString().trim();
+        String sql =
+        "UPDATE users SET first_name=?, last_name=?, email=?, role=? WHERE username=?";
+
+        PreparedStatement pst = conn.prepareStatement(sql);
+
+        pst.setString(1, firstNameValue);
+        pst.setString(2, lastNameValue);
+        pst.setString(3, emailValue);
+        pst.setString(4, roleValue);
+        pst.setString(5, currentUsername);
+       
+
+        int updated = pst.executeUpdate();
+
+        if(updated > 0) {
+
+            JOptionPane.showMessageDialog(
+                this,
+                "Profile updated successfully!"
+            );
+
+        } else {
+
+            JOptionPane.showMessageDialog(
+                this,
+                "Update failed."
+            );
+        }
+
+        pst.close();
+        conn.close();
+
+    } catch(SQLException e) {
+
+        JOptionPane.showMessageDialog(
+            this,
+            "Database Error: " + e.getMessage()
+        );
+    }
+    }//GEN-LAST:event_SaveChangesActionPerformed
+
+    private void ConfirmPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfirmPasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ConfirmPasswordActionPerformed
+
+    private void CurrentPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CurrentPasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CurrentPasswordActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+        String role =
+        jComboBox1.getSelectedItem().toString();
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Cancel;
+    private javax.swing.JPasswordField ConfirmPassword;
+    private javax.swing.JPasswordField CurrentPassword;
     private javax.swing.JButton DashboardButton;
     private javax.swing.JButton DashboardButton1;
+    private javax.swing.JTextField Email;
+    private javax.swing.JTextField FirstName;
+    private javax.swing.JTextField LastName;
     private javax.swing.JButton LogoutButton2;
     private javax.swing.JButton LogoutButton3;
     private javax.swing.JButton LogsButton;
+    private javax.swing.JPasswordField NewPassword;
+    private javax.swing.JButton SaveChanges;
     private javax.swing.JButton SettingsButton2;
     private javax.swing.JButton SettingsButton3;
+    private javax.swing.JButton UpdatePassword;
     private javax.swing.JButton UsersButton2;
     private javax.swing.JButton UsersButton3;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
+    private javax.swing.ButtonGroup buttonGroup3;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
