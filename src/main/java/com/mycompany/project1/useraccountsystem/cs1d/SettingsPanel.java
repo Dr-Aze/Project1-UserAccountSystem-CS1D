@@ -868,7 +868,7 @@ public class SettingsPanel extends javax.swing.JPanel {
 
     private void DashboardButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DashboardButton1ActionPerformed
         // dashboard function go to DashboardPanel
-        parentFrame.setContentPane(new DashboardPanel(parentFrame, currentUserId, currentUsername, firstName));
+        parentFrame.setContentPane(new AdminDashboardPanel(parentFrame, currentUserId, currentUsername, firstName));
         parentFrame.revalidate();
         parentFrame.repaint();
     }//GEN-LAST:event_DashboardButton1ActionPerformed

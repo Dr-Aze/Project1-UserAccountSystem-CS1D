@@ -36,11 +36,11 @@ public class LoginScreen extends javax.swing.JPanel {
 
         // Load background image
         try {
-            java.net.URL imgUrl = getClass().getResource("/BACKGROUND LOGIN-edited.png");
+            java.net.URL imgUrl = getClass().getResource("/Login/BACKGROUND LOGIN-edited.png");
             if (imgUrl != null) {
                 backgroundImage = ImageIO.read(imgUrl);
             } else {
-                System.out.println("Resource not found: /BACKGROUND LOGIN-edited.png");
+                System.out.println("Resource not found: /Login/BACKGROUND LOGIN-edited.png");
             }
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -94,7 +94,7 @@ public class LoginScreen extends javax.swing.JPanel {
 
             if (role.equalsIgnoreCase("admin")) {
                 JOptionPane.showMessageDialog(this, "Admin Login Successful!");
-                parentFrame.setContentPane(new LogsPanel(parentFrame, username, firstName));
+                parentFrame.setContentPane(new AdminDashboardPanel(parentFrame, userId, username, firstName));
             } else {
                 JOptionPane.showMessageDialog(this, "Login Successful! Welcome " + firstName);
                 // PASS BOTH: Email for logic, FirstName for greeting

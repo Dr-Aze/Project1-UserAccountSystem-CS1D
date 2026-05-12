@@ -9,6 +9,7 @@ import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -25,14 +26,15 @@ import javax.swing.table.DefaultTableModel;
  * renzz12345
  * DrAze
  */
-
 public final class UserPanel extends javax.swing.JPanel {
+
     private final JFrame parentFrame;
     private final String currentUsername;
     private final String firstName;
-    private final int currentUserId;    
-   
+    private final int currentUserId;
+
     public UserPanel(JFrame frame, int userId, String username, String firstName) {
+
         this.parentFrame = frame;
         this.currentUserId = userId;
         this.currentUsername = username;
@@ -40,227 +42,416 @@ public final class UserPanel extends javax.swing.JPanel {
 
         // Frame Setup
         Dimension lockSize = new Dimension(974, 634);
+
         this.setPreferredSize(lockSize);
         this.setMinimumSize(lockSize);
         this.setMaximumSize(lockSize);
-        
+
         initComponents();
+
         updateStatCards();
-        
-        // Load data using your connection file
         loadMySQLData();
     }
 
     public void loadMySQLData() {
-    String[] columnNames = {"USER", "JOINED", "LAST LOGIN", "TOTAL LOGIN", "ACTIONS"};
 
-    DefaultTableModel model = new DefaultTableModel(null, columnNames) {
-        @Override
-        public boolean isCellEditable(int row, int column) {
-            return column == 4; // Only the 'Actions' column
-        }
-    };
+        // Added hidden ID column
+        String[] columnNames = {
+            "ID",
+            "USER",
+            "JOINED",
+            "LAST LOGIN",
+            "TOTAL LOGIN",
+            "ACTIONS"
+        };
 
-    try (Connection conn = DatabaseConnection.getConnection()) {
-        String query = """
-                SELECT 
-                    U.user_id,
-                    U.first_name,
-                    U.email,
-            
-                    DATE_FORMAT(U.created_at, '%M %d, %Y') AS joined,
-            
-                    DATE_FORMAT(MAX(L.time_in), '%M %d, %Y %h:%i %p') AS last_login,
-            
-                    COUNT(L.log_id) AS total_login
-            
-                FROM users U
-            
-                LEFT JOIN user_logs L
-                    ON U.user_id = L.user_id
-            
-                GROUP BY 
-                    U.user_id,
-                    U.first_name,
-                    U.email,
-                    U.created_at
-    """;
+        DefaultTableModel model = new DefaultTableModel(null, columnNames) {
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+
+                // ACTIONS column only
+                return column == 5;
+            }
+        };
+
+        try (Connection conn = DatabaseConnection.getConnection()) {
+
+            String query = """
+                    SELECT 
+                        U.user_id,
+                        U.first_name,
+                        U.email,
+
+                        DATE_FORMAT(U.created_at, '%M %d, %Y') AS joined,
+
+                        DATE_FORMAT(MAX(L.time_in), '%M %d, %Y %h:%i %p') AS last_login,
+
+                        COUNT(L.log_id) AS total_login
+
+                    FROM users U
+
+                    LEFT JOIN user_logs L
+                        ON U.user_id = L.user_id
+
+                    GROUP BY 
+                        U.user_id,
+                        U.first_name,
+                        U.email,
+                        U.created_at
+                    """;
 
             Statement st = conn.createStatement();
+
             ResultSet rs = st.executeQuery(query);
 
             while (rs.next()) {
-            String name = rs.getString("first_name");
-            String email = rs.getString("email");
 
-            // Use HTML to put the email on a new line and make it smaller/gray
-            String userDisplay = "<html>"
-                    + "<table cellpadding='10'>" // This adds 10px padding on all sides
-                    + "<tr><td>"
-                    + "<b>" + name + "</b><br>"
-                    + "<font color='dcdbd7'>" + email + "</font>"
-                    + "</td></tr>"
-                    + "</table></html>";
-            String lastLogin = rs.getString("last_login");
-            model.addRow(new Object[]{
-                userDisplay,
-                rs.getString("joined"),
-                lastLogin == null ? "Never" : lastLogin,
-                rs.getInt("total_login"),
-     
-                "" // Actions
-            });
-        }
+                String name = rs.getString("first_name");
+                String email = rs.getString("email");
+
+                String userDisplay =
+                        "<html>"
+                        + "<table cellpadding='10'>"
+                        + "<tr><td>"
+                        + "<b>" + name + "</b><br>"
+                        + "<font color='dcdbd7'>" + email + "</font>"
+                        + "</td></tr>"
+                        + "</table></html>";
+
+                String lastLogin = rs.getString("last_login");
+
+                model.addRow(new Object[]{
+                    rs.getInt("user_id"), // Hidden ID
+                    userDisplay,
+                    rs.getString("joined"),
+                    lastLogin == null ? "Never" : lastLogin,
+                    rs.getInt("total_login"),
+                    ""
+                });
+            }
+
             UserTable.setModel(model);
-            applyTableSettings(); // Re-attach your ActionButtonsRenderer and Editor
+
+            applyTableSettings();
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "SQL Error: " + e.getMessage());
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "SQL Error: " + e.getMessage()
+            );
+
             e.printStackTrace();
         }
     }
 
     private void applyTableSettings() {
-        // Design properties
+
         UserTable.setRowHeight(50);
+
         UserTable.setShowVerticalLines(false);
+
         UserTable.setIntercellSpacing(new Dimension(0, 1));
-        
-        // Create a renderer that centers text
-        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+
+        // Hide ID column
+        UserTable.getColumnModel().getColumn(0).setMinWidth(0);
+        UserTable.getColumnModel().getColumn(0).setMaxWidth(0);
+        UserTable.getColumnModel().getColumn(0).setWidth(0);
+
+        // Center renderer
+        DefaultTableCellRenderer centerRenderer =
+                new DefaultTableCellRenderer();
+
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
 
-        for (int i = 1; i < 4; i++) {
-            UserTable.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        // Center JOINED / LAST LOGIN / TOTAL LOGIN
+        for (int i = 2; i < 5; i++) {
+
+            UserTable.getColumnModel()
+                    .getColumn(i)
+                    .setCellRenderer(centerRenderer);
         }
 
-        // Assign the Buttons to the last column
+        // ACTION COLUMN
         int actionCol = UserTable.getColumnCount() - 1;
-        UserTable.getColumnModel().getColumn(actionCol).setCellRenderer(new ActionButtonsRenderer());
-        UserTable.getColumnModel().getColumn(actionCol).setCellEditor(new ActionButtonsEditor());
 
-        // Setup Cursor Hover Logic
+        UserTable.getColumnModel()
+                .getColumn(actionCol)
+                .setCellRenderer(new ActionButtonsRenderer());
+
+        UserTable.getColumnModel()
+                .getColumn(actionCol)
+                .setCellEditor(new ActionButtonsEditor());
+
         setupTableCursor();
     }
 
     private void setupTableCursor() {
+
         UserTable.addMouseMotionListener(new MouseMotionAdapter() {
+
             @Override
             public void mouseMoved(MouseEvent e) {
+
                 int col = UserTable.columnAtPoint(e.getPoint());
-                UserTable.setCursor(col == UserTable.getColumnCount() - 1 
-                    ? Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) 
-                    : Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+
+                UserTable.setCursor(
+                        col == UserTable.getColumnCount() - 1
+                        ? Cursor.getPredefinedCursor(Cursor.HAND_CURSOR)
+                        : Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR)
+                );
             }
         });
     }
-        
-    //The Panel that holds the buttons
+
+    // PANEL FOR BUTTONS
     class ActionPanel extends javax.swing.JPanel {
-    public javax.swing.JButton deleteBtn = new javax.swing.JButton();
 
-    public ActionPanel() {
-        setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 5));
-        setOpaque(true);
+        public javax.swing.JButton deleteBtn =
+                new javax.swing.JButton();
 
-        try {
-            // Load icons from your resources folder
-            // Adjust the path "/icons/edit.png" to match your actual file location
-            deleteBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/USER UI/Trash.png")));
-        } catch (Exception e) {
-            // Fallback to text if icons fail to load
-            deleteBtn.setText("Del");
-        }
+        public ActionPanel() {
 
-        styleIconButton(deleteBtn);
+            setLayout(
+                    new java.awt.FlowLayout(
+                            java.awt.FlowLayout.CENTER,
+                            10,
+                            5
+                    )
+            );
 
-        java.awt.GridBagConstraints gbc = new java.awt.GridBagConstraints();
-        gbc.insets = new java.awt.Insets(0, 5, 0, 5); // 5px horizontal gap
+            setOpaque(true);
 
-        add(deleteBtn, gbc);
+            try {
+
+                deleteBtn.setIcon(
+                        new javax.swing.ImageIcon(
+                                getClass().getResource("/USER UI/Trash.png")
+                        )
+                );
+
+            } catch (Exception e) {
+
+                deleteBtn.setText("Del");
+            }
+
+            styleIconButton(deleteBtn);
+
+            add(deleteBtn);
         }
 
         private void styleIconButton(javax.swing.JButton btn) {
+
             btn.setBorderPainted(false);
+
             btn.setContentAreaFilled(false);
+
             btn.setFocusPainted(false);
-            btn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-            // Ensures the button is only as large as the icon and centered
-            btn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-            btn.setVerticalAlignment(javax.swing.SwingConstants.CENTER);
-            btn.setMargin(new java.awt.Insets(0, 0, 0, 0));
+
+            btn.setCursor(
+                    new java.awt.Cursor(
+                            java.awt.Cursor.HAND_CURSOR
+                    )
+            );
+
+            btn.setHorizontalAlignment(
+                    javax.swing.SwingConstants.CENTER
+            );
+
+            btn.setVerticalAlignment(
+                    javax.swing.SwingConstants.CENTER
+            );
+
+            btn.setMargin(
+                    new java.awt.Insets(0, 0, 0, 0)
+            );
         }
     }
 
-    //Renderer (Controls what the user sees)
-    class ActionButtonsRenderer extends javax.swing.table.DefaultTableCellRenderer {
+    // RENDERER
+    class ActionButtonsRenderer
+            extends javax.swing.table.DefaultTableCellRenderer {
+
         private final ActionPanel panel = new ActionPanel();
 
         @Override
-        public java.awt.Component getTableCellRendererComponent(javax.swing.JTable table, Object value,
-                boolean isSelected, boolean hasFocus, int row, int column) {
-            // Match the background to the row selection
-            panel.setBackground(isSelected ? table.getSelectionBackground() : table.getBackground());
+        public java.awt.Component getTableCellRendererComponent(
+                javax.swing.JTable table,
+                Object value,
+                boolean isSelected,
+                boolean hasFocus,
+                int row,
+                int column
+        ) {
+
+            panel.setBackground(
+                    isSelected
+                    ? table.getSelectionBackground()
+                    : table.getBackground()
+            );
+
             return panel;
         }
     }
 
-    //Editor (Controls the click logic)
-    class ActionButtonsEditor extends javax.swing.AbstractCellEditor implements javax.swing.table.TableCellEditor {
+    // EDITOR
+    class ActionButtonsEditor
+            extends javax.swing.AbstractCellEditor
+            implements javax.swing.table.TableCellEditor {
+
         private final ActionPanel panel = new ActionPanel();
 
         public ActionButtonsEditor() {
-            // DELETE BUTTON LOGIC
+
             panel.deleteBtn.addActionListener(e -> {
-                int result = javax.swing.JOptionPane.showConfirmDialog(null, "Remove this user permanently?");
-                if (result == javax.swing.JOptionPane.YES_OPTION) {
-                    // Add your database delete code here
+
+                int selectedRow = UserTable.getEditingRow();
+
+                if (selectedRow < 0) {
+
+                    fireEditingStopped();
+                    return;
                 }
+
+                // Hidden ID column
+                int userId = Integer.parseInt(
+                        UserTable.getValueAt(selectedRow, 0).toString()
+                );
+
+                int result = JOptionPane.showConfirmDialog(
+                        null,
+                        "Remove this user permanently?",
+                        "Confirm Delete",
+                        JOptionPane.YES_NO_OPTION
+                );
+
+                if (result == JOptionPane.YES_OPTION) {
+
+                    try (Connection conn =
+                            DatabaseConnection.getConnection()) {
+
+                        String query =
+                                "DELETE FROM users WHERE user_id = ?";
+
+                        PreparedStatement pst =
+                                conn.prepareStatement(query);
+
+                        pst.setInt(1, userId);
+
+                        int rows = pst.executeUpdate();
+
+                        if (rows > 0) {
+
+                            JOptionPane.showMessageDialog(
+                                    null,
+                                    "User deleted successfully."
+                            );
+
+                            // Refresh
+                            loadMySQLData();
+                            updateStatCards();
+
+                        } else {
+
+                            JOptionPane.showMessageDialog(
+                                    null,
+                                    "User not found."
+                            );
+                        }
+
+                    } catch (SQLException ex) {
+
+                        JOptionPane.showMessageDialog(
+                                null,
+                                "SQL Error: " + ex.getMessage()
+                        );
+
+                        ex.printStackTrace();
+                    }
+                }
+
                 fireEditingStopped();
             });
         }
 
         @Override
-        public java.awt.Component getTableCellEditorComponent(javax.swing.JTable table, Object value, boolean isSelected, int row, int column) {
-            panel.setBackground(table.getSelectionBackground());
+        public java.awt.Component getTableCellEditorComponent(
+                javax.swing.JTable table,
+                Object value,
+                boolean isSelected,
+                int row,
+                int column
+        ) {
+
+            panel.setBackground(
+                    table.getSelectionBackground()
+            );
+
             return panel;
         }
 
         @Override
-        public Object getCellEditorValue() { return null; }
+        public Object getCellEditorValue() {
+
+            return null;
+        }
     }
-    
+
     public void updateStatCards() {
-        try (Connection conn = DatabaseConnection.getConnection()) {
-            // Query to get total users and users joined today
+
+        try (Connection conn =
+                DatabaseConnection.getConnection()) {
+
             String query = """
                             SELECT 
                                 (SELECT COUNT(*) FROM users) as total,
-                                (SELECT COUNT(*) FROM users WHERE DATE(created_at) = CURDATE()) as today
+                                (SELECT COUNT(*) 
+                                 FROM users 
+                                 WHERE DATE(created_at) = CURDATE()) as today
                            """;
 
             Statement st = conn.createStatement();
+
             ResultSet rs = st.executeQuery(query);
 
             if (rs.next()) {
+
                 int total = rs.getInt("total");
+
                 int today = rs.getInt("today");
 
-                //The Total Users Number
                 TotalUsersLabel.setText(String.valueOf(total));
-                TotalUsersLabel.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 10));
-                TotalUsersLabel.setForeground(new java.awt.Color(33, 37, 41));
 
-                // The Trend Label
-                // You might need to add this label in your NetBeans Design tab first
+                TotalUsersLabel.setFont(
+                        new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 10)
+                );
+
+                TotalUsersLabel.setForeground(
+                        new java.awt.Color(33, 37, 41)
+                );
+
                 TrendLabel.setText("+" + today + " today");
-                TrendLabel.setForeground(new java.awt.Color(40, 167, 69)); // Success Green
-                TrendLabel.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 8));
+
+                TrendLabel.setForeground(
+                        new java.awt.Color(40, 167, 69)
+                );
+
+                TrendLabel.setFont(
+                        new java.awt.Font(
+                                "Segoe UI",
+                                java.awt.Font.BOLD,
+                                8
+                        )
+                );
             }
+
         } catch (SQLException e) {
+
             e.printStackTrace();
         }
     }
+
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -811,6 +1002,9 @@ public final class UserPanel extends javax.swing.JPanel {
 
     private void HomeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HomeButtonActionPerformed
         // dashboard function go to DashboardPanel
+        parentFrame.setContentPane(new AdminDashboardPanel(parentFrame, currentUserId, currentUsername, firstName));
+        parentFrame.revalidate();
+        parentFrame.repaint();
     }//GEN-LAST:event_HomeButtonActionPerformed
 
     private void UsersButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsersButtonActionPerformed

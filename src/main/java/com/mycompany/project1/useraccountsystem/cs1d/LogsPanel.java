@@ -21,7 +21,7 @@ public class LogsPanel extends javax.swing.JPanel {
         this.currentUsername = username;
         this.firstName = firstName;
         
-        parentFrame.setSize(916, 634);
+        parentFrame.setSize(974, 634);
         parentFrame.setResizable(false);
         parentFrame.setLocationRelativeTo(null);
 
@@ -532,6 +532,9 @@ public class LogsPanel extends javax.swing.JPanel {
 
     private void DashboardButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DashboardButton5ActionPerformed
         // dashboard function go to DashboardPanel
+        parentFrame.setContentPane(new AdminDashboardPanel(parentFrame, currentUserId, currentUsername, firstName));
+        parentFrame.revalidate();
+        parentFrame.repaint();
     }//GEN-LAST:event_DashboardButton5ActionPerformed
 
     private void UsersButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsersButton5ActionPerformed

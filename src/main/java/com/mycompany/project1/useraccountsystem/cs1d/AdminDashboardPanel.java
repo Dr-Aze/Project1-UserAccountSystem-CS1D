@@ -35,7 +35,7 @@ public class AdminDashboardPanel extends javax.swing.JPanel {
 
             System.out.println("Dashboard loaded for: " + username);
             
-            DashboardLabel.setText("Welcome back, " + firstName + " - here's what's happening");
+            DashboardLabel.setText("Welcome back, " + username + " - here's what's happening");
             DashboardLabel.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 12));
             DashboardLabel.setForeground(new java.awt.Color(33, 37, 41));
         }
@@ -74,6 +74,9 @@ public class AdminDashboardPanel extends javax.swing.JPanel {
         QuickActionsPanel = new javax.swing.JPanel();
         QuickActionsLabel = new javax.swing.JLabel();
         TimeLabel3 = new javax.swing.JLabel();
+        ActivitylogPanel = new javax.swing.JPanel();
+        QuickActionsLabel1 = new javax.swing.JLabel();
+        TimeLabel4 = new javax.swing.JLabel();
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -104,8 +107,10 @@ public class AdminDashboardPanel extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        setBackground(new java.awt.Color(51, 51, 51));
+        setBackground(new java.awt.Color(251, 244, 238));
         setForeground(new java.awt.Color(255, 255, 255));
+        setMaximumSize(new java.awt.Dimension(974, 634));
+        setMinimumSize(new java.awt.Dimension(974, 634));
 
         jPanel3.setBackground(new java.awt.Color(102, 102, 102));
 
@@ -209,7 +214,7 @@ public class AdminDashboardPanel extends javax.swing.JPanel {
                 .addComponent(jLabel20)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(LogoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 200, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -245,7 +250,7 @@ public class AdminDashboardPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(DashboardHeader)
-                    .addComponent(DashboardLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE))
+                    .addComponent(DashboardLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(543, 543, 543)
                 .addComponent(TimeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -264,7 +269,6 @@ public class AdminDashboardPanel extends javax.swing.JPanel {
 
         AccountOverviewPanel.setBackground(new java.awt.Color(102, 102, 102));
         AccountOverviewPanel.setForeground(new java.awt.Color(255, 255, 255));
-        AccountOverviewPanel.setPreferredSize(new java.awt.Dimension(259, 160));
 
         AccountOverviewLabel.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         AccountOverviewLabel.setText("Account Overview");
@@ -297,7 +301,7 @@ public class AdminDashboardPanel extends javax.swing.JPanel {
 
         SystemStatusPanel.setBackground(new java.awt.Color(102, 102, 102));
         SystemStatusPanel.setForeground(new java.awt.Color(255, 255, 255));
-        SystemStatusPanel.setPreferredSize(new java.awt.Dimension(259, 160));
+        SystemStatusPanel.setPreferredSize(new java.awt.Dimension(256, 160));
 
         SystemStatusLabel.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         SystemStatusLabel.setText("System Status");
@@ -361,6 +365,39 @@ public class AdminDashboardPanel extends javax.swing.JPanel {
                 .addContainerGap(105, Short.MAX_VALUE))
         );
 
+        ActivitylogPanel.setBackground(new java.awt.Color(102, 102, 102));
+        ActivitylogPanel.setForeground(new java.awt.Color(255, 255, 255));
+        ActivitylogPanel.setPreferredSize(new java.awt.Dimension(256, 160));
+
+        QuickActionsLabel1.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        QuickActionsLabel1.setText("Recent Activity Log");
+
+        TimeLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        TimeLabel4.setText("-");
+
+        javax.swing.GroupLayout ActivitylogPanelLayout = new javax.swing.GroupLayout(ActivitylogPanel);
+        ActivitylogPanel.setLayout(ActivitylogPanelLayout);
+        ActivitylogPanelLayout.setHorizontalGroup(
+            ActivitylogPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ActivitylogPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(ActivitylogPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(ActivitylogPanelLayout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(TimeLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(QuickActionsLabel1))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        ActivitylogPanelLayout.setVerticalGroup(
+            ActivitylogPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ActivitylogPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(QuickActionsLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(TimeLabel4)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -373,9 +410,11 @@ public class AdminDashboardPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(QuickActionsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(SystemStatusPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(AccountOverviewPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(SystemStatusPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(AccountOverviewPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(2, 2, 2))
+                    .addComponent(ActivitylogPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 782, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -389,7 +428,9 @@ public class AdminDashboardPanel extends javax.swing.JPanel {
                     .addComponent(QuickActionsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(SystemStatusPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(AccountOverviewPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(ActivitylogPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 367, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -423,19 +464,25 @@ public class AdminDashboardPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel AccountOverviewLabel;
     private javax.swing.JPanel AccountOverviewPanel;
+    private javax.swing.JPanel ActivitylogPanel;
     private javax.swing.JLabel DashboardHeader;
     private javax.swing.JLabel DashboardLabel;
     private javax.swing.JButton HomeButton;
     private javax.swing.JButton LogoutButton;
     private javax.swing.JButton LogsButton;
     private javax.swing.JLabel QuickActionsLabel;
+    private javax.swing.JLabel QuickActionsLabel1;
+    private javax.swing.JLabel QuickActionsLabel5;
     private javax.swing.JPanel QuickActionsPanel;
+    private javax.swing.JPanel QuickActionsPanel4;
     private javax.swing.JLabel SystemStatusLabel;
     private javax.swing.JPanel SystemStatusPanel;
     private javax.swing.JLabel TimeLabel;
     private javax.swing.JLabel TimeLabel1;
     private javax.swing.JLabel TimeLabel2;
     private javax.swing.JLabel TimeLabel3;
+    private javax.swing.JLabel TimeLabel4;
+    private javax.swing.JLabel TimeLabel8;
     private javax.swing.JButton UsersButton;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
