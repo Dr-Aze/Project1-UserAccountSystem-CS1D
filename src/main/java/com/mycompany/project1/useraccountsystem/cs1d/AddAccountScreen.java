@@ -69,17 +69,17 @@ public class AddAccountScreen extends javax.swing.JPanel {
         emailField.addActionListener(this::emailFieldActionPerformed);
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        jLabel2.setText("Last Name");
+        jLabel2.setText("Last Name*");
 
         Email.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        Email.setText("Email");
+        Email.setText("Email*");
 
         passwordField.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(204, 0, 0), null, null));
         passwordField.setName("Password"); // NOI18N
         passwordField.addActionListener(this::passwordFieldActionPerformed);
 
         Email1.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        Email1.setText("Password");
+        Email1.setText("Password*");
         Email1.setName("Password"); // NOI18N
 
         jButton1.setBackground(new java.awt.Color(102, 102, 102));
@@ -91,7 +91,7 @@ public class AddAccountScreen extends javax.swing.JPanel {
         jButton1.addActionListener(this::SignupButton);
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        jLabel4.setText("First Name");
+        jLabel4.setText("First Name*");
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel5.setText("Create your Account");
@@ -128,7 +128,7 @@ public class AddAccountScreen extends javax.swing.JPanel {
         usernameField.addActionListener(this::usernameFieldActionPerformed);
 
         Email2.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        Email2.setText("User Name");
+        Email2.setText("User Name*");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

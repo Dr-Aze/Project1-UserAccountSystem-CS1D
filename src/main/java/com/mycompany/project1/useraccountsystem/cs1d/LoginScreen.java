@@ -202,11 +202,11 @@ public class LoginScreen extends javax.swing.JPanel {
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(60, 63, 65));
-        jLabel5.setText("Email ");
+        jLabel5.setText("Email*");
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(60, 63, 65));
-        jLabel6.setText("Password");
+        jLabel6.setText("Password*");
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(60, 63, 65));
