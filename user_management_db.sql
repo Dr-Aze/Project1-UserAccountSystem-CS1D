@@ -23,7 +23,7 @@ CREATE TABLE `users` (
   `total_login` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table `users` (Kept as per original)
+-- Dumping data for table `users` 
 INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `email`, `username`, `password`, `created_at`, `role`, `total_login`) VALUES
 (1, 'Admin', 'Admin', 'admin', 'Admin', 'admin', '2026-05-05 14:42:15', 'admin', NULL),
 (2, 'renz', 'palmes', 'renz@gmail.com', 'renz', '1432', '2026-05-05 14:42:15', 'user', NULL),

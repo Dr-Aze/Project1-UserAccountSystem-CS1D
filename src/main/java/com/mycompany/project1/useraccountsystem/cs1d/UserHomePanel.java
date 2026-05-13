@@ -47,13 +47,15 @@ public class UserHomePanel extends javax.swing.JPanel {
             DashboardLabel.setForeground(new java.awt.Color(33, 37, 41));
             
             usernameLabel.setText(currentUsername);
-            accountidLabel.setText(String.valueOf(currentUsername));
+            accountidLabel.setText(String.valueOf(currentUserId));
             
             fetchMemberSince();
             fetchLastLogin();
             loadTableData();
         }
     
+        
+        
     private void fetchMemberSince() {
         String query = "SELECT DATE_FORMAT(created_at, '%M %d, %Y') AS member_since FROM users WHERE user_id = ?";
 
@@ -630,7 +632,7 @@ public class UserHomePanel extends javax.swing.JPanel {
 
     private void SettingsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsButtonActionPerformed
         // TODO add your handling code here:
-        parentFrame.setContentPane(new AdminUserPanel(parentFrame, currentUserId, currentUsername));
+        parentFrame.setContentPane(new UserSettingsPanel(parentFrame, currentUserId, currentUsername));
         parentFrame.revalidate();
         parentFrame.repaint();
     }//GEN-LAST:event_SettingsButtonActionPerformed

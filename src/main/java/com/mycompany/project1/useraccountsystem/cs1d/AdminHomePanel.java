@@ -47,7 +47,7 @@ public class AdminHomePanel extends javax.swing.JPanel {
             DashboardLabel.setForeground(new java.awt.Color(33, 37, 41));
             
             usernameLabel.setText(currentUsername);
-            accountidLabel.setText(String.valueOf(currentUsername));
+            accountidLabel.setText(String.valueOf(currentUserId));
             
             fetchMemberSince();
             fetchLastLogin();

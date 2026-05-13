@@ -48,8 +48,10 @@ public class LoginScreen extends javax.swing.JPanel {
 
         initComponents();
         setOpaque(false);
+        
+        PasswordField.addActionListener(evt -> doLogin());
     }
-
+    
     @Override
     protected void paintComponent(Graphics g) {
         if (backgroundImage != null) {
@@ -57,84 +59,99 @@ public class LoginScreen extends javax.swing.JPanel {
         }
         super.paintComponent(g);
     }
-    
+
     private void doLogin() {
         String emailInput = LoginField.getText().trim();
         String passwordInput = new String(PasswordField.getPassword());
 
         if (emailInput.isEmpty() || passwordInput.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Enter email and password!");
+            JOptionPane.showMessageDialog(this, "Please enter both email and password.");
             return;
         }
 
-        // userData index: 0 = role, 1 = first_name, 2 = email
-        String[] userData = authenticate(emailInput, passwordInput);
+        // Authenticate via Email, but grab the ID and Username
+        UserData user = authenticate(emailInput, passwordInput);
 
-        if (userData != null) {
-            String role = userData[0];
-            String firstName = userData[1];
-            String username = userData[2];
+        if (user != null) {
+            Session.setUserId(user.userId);
+            logUserSession(user.userId);
 
-            int userId = getUserId(username);
-            Session.setUserId(userId);
-
-            // Handle Logging
-            try (Connection conn = DatabaseConnection.getConnection()) {
-                String sql = "INSERT INTO user_logs (user_id, time_in) VALUES (?, NOW())";
-                PreparedStatement ps = conn.prepareStatement(sql, java.sql.Statement.RETURN_GENERATED_KEYS);
-                ps.setInt(1, userId);
-                ps.executeUpdate();
-                ResultSet rs = ps.getGeneratedKeys();
-                if (rs.next()) {
-                    Session.setLogId(rs.getInt(1));
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            if (role.equalsIgnoreCase("admin")) {
+            if (user.role.equalsIgnoreCase("admin")) {
                 JOptionPane.showMessageDialog(this, "Admin Login Successful!");
-                parentFrame.setContentPane(new AdminHomePanel(parentFrame, userId, username));
+                // Matches constructor: (JFrame, int, String)
+                parentFrame.setContentPane(new AdminHomePanel(parentFrame, user.userId, user.username));
             } else {
-                JOptionPane.showMessageDialog(this, "Login Successful! Welcome " + username);
-                parentFrame.setContentPane(new UserHomePanel(parentFrame, userId, username));
+                JOptionPane.showMessageDialog(this, "Welcome " + user.username);
+                // Matches constructor: (JFrame, int, String)
+                parentFrame.setContentPane(new UserHomePanel(parentFrame, user.userId, user.username));
             }
 
             parentFrame.revalidate();
             parentFrame.repaint();
         } else {
-            JOptionPane.showMessageDialog(this, "Invalid email or password!");
+            JOptionPane.showMessageDialog(this, "Invalid email or password!", "Login Failed", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    private String[] authenticate(String email, String password) {
-        try (Connection con = DatabaseConnection.getConnection()) {
-            // Select role, first_name, and email from DB
-            String sql = "SELECT role, first_name, email FROM users WHERE email = ? AND password = ?";
-            PreparedStatement pst = con.prepareStatement(sql);
+    private UserData authenticate(String email, String password) {
+        // We filter by EMAIL, but we fetch the USERNAME and USER_ID
+        String sql = "SELECT user_id, role, username FROM users WHERE email = ? AND password = ?";
+
+        try (Connection con = DatabaseConnection.getConnection(); PreparedStatement pst = con.prepareStatement(sql)) {
+
             pst.setString(1, email);
             pst.setString(2, password);
 
-            ResultSet rs = pst.executeQuery();
-            if (rs.next()) {
-                return new String[]{
-                    rs.getString("role"),
-                    rs.getString("first_name"),
-                    rs.getString("email")
-                };
+            try (ResultSet rs = pst.executeQuery()) {
+                if (rs.next()) {
+                    return new UserData(
+                            rs.getInt("user_id"),
+                            rs.getString("role"),
+                            rs.getString("username")
+                    );
+                }
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Database Error: " + e.getMessage());
+            e.printStackTrace();
         }
         return null;
     }
+    
+    private void logUserSession(int userId) {
+        String sql = "INSERT INTO user_logs (user_id, time_in) VALUES (?, NOW())";
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement ps = conn.prepareStatement(sql, java.sql.Statement.RETURN_GENERATED_KEYS)) {
 
+            ps.setInt(1, userId);
+            ps.executeUpdate();
+
+            try (ResultSet rs = ps.getGeneratedKeys()) {
+                if (rs.next()) {
+                    Session.setLogId(rs.getInt(1));
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Logging failed: " + e.getMessage());
+        }
+    }
 
     public void openRegistration() {
         RegistrationScreen regPanel = new RegistrationScreen(parentFrame);
         parentFrame.setContentPane(regPanel);
         parentFrame.revalidate();
         parentFrame.repaint();
+    }
+    
+    private static class UserData {
+
+        int userId;
+        String role;
+        String username;
+
+        UserData(int id, String role, String username) {
+            this.userId = id;
+            this.role = role;
+            this.username = username;
+        }
     }
 
    
@@ -314,27 +331,6 @@ public class LoginScreen extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
-
-    private int getUserId(String username) {
-        int userId = -1;
-        
-        try (Connection con = DatabaseConnection.getConnection()) {
-            String sql = "SELECT user_id FROM users WHERE email = ?";
-        PreparedStatement ps = con.prepareStatement(sql);
-        ps.setString(1, username);
-
-        ResultSet rs = ps.executeQuery();
-
-        if (rs.next()) {
-            userId = rs.getInt("user_id");
-        }
-
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(this, "getUserId error: " + e.getMessage());
-    }
-
-    return userId;
-    }
 }
 
        
