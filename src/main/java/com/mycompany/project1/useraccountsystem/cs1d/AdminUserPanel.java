@@ -396,14 +396,13 @@ public final class AdminUserPanel extends javax.swing.JPanel {
     }
     
     private void openEditAccountPanel(int userId) {
-        // 1. Create the dialog to hold the SettingsPanel
-        JDialog dialog = new JDialog(parentFrame, "Edit User Profile", true);
+        
+        JDialog regDialog = new JDialog(parentFrame, "Edit User Profile", true);
+        
 
-        // 2. Instantiate your SettingsPanel (Pass the current admin username for context)
-        AdminSettingsPanel editPanel = new AdminSettingsPanel(parentFrame, currentUserId, currentUsername);
+        AdminSettingsPanel regContent = new AdminSettingsPanel(parentFrame, currentUserId, currentUsername); 
+        regDialog.add(regContent);
 
-        // 3. Fetch the data for the specific user being edited
-        // Note: Ensure your AdminSettingsPanel has a method to fetch data by ID
         try (Connection conn = DatabaseConnection.getConnection()) {
             String sql = "SELECT first_name, last_name, email, role FROM users WHERE user_id = ?";
             PreparedStatement pst = conn.prepareStatement(sql);
@@ -411,8 +410,7 @@ public final class AdminUserPanel extends javax.swing.JPanel {
             ResultSet rs = pst.executeQuery();
 
             if (rs.next()) {
-                // Use the method we established for the UI in image_71c646.png
-                editPanel.setEditData(
+                regContent.setEditData(
                         userId,
                         rs.getString("first_name"),
                         rs.getString("last_name"),
@@ -425,15 +423,11 @@ public final class AdminUserPanel extends javax.swing.JPanel {
             return;
         }
 
-        // 4. Configure and show the dialog
-        dialog.getContentPane().add(editPanel);
-        dialog.pack();
-        dialog.setLocationRelativeTo(parentFrame);
-        dialog.setResizable(false);
-        dialog.setVisible(true); // Program execution pauses here until dialog is closed
+        regDialog.setUndecorated(true);
+        regDialog.pack();
+        regDialog.setLocationRelativeTo(parentFrame);
+        regDialog.setVisible(true);
 
-        // 5. Refresh your table after the edit is done
-        loadMySQLData();
         updateStatCards();
     }
 
@@ -987,7 +981,7 @@ public final class AdminUserPanel extends javax.swing.JPanel {
 
     private void HomeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HomeButtonActionPerformed
         // dashboard function go to DashboardPanel
-        parentFrame.setContentPane(new AdminDashboardPanel(parentFrame, currentUserId, currentUsername));
+        parentFrame.setContentPane(new AdminHomePanel(parentFrame, currentUserId, currentUsername));
         parentFrame.revalidate();
         parentFrame.repaint();
     }//GEN-LAST:event_HomeButtonActionPerformed

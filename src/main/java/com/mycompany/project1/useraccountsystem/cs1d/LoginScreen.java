@@ -94,11 +94,10 @@ public class LoginScreen extends javax.swing.JPanel {
 
             if (role.equalsIgnoreCase("admin")) {
                 JOptionPane.showMessageDialog(this, "Admin Login Successful!");
-                parentFrame.setContentPane(new AdminDashboardPanel(parentFrame, userId, username));
+                parentFrame.setContentPane(new AdminHomePanel(parentFrame, userId, username));
             } else {
                 JOptionPane.showMessageDialog(this, "Login Successful! Welcome " + username);
-                // PASS BOTH: Email for logic, FirstName for greeting
-                parentFrame.setContentPane(new UserDashboardPanel(parentFrame, userId, username));
+                parentFrame.setContentPane(new UserHomePanel(parentFrame, userId, username));
             }
 
             parentFrame.revalidate();

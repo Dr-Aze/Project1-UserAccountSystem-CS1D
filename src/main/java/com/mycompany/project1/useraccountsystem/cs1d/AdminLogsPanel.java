@@ -531,7 +531,7 @@ public class AdminLogsPanel extends javax.swing.JPanel {
 
     private void DashboardButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DashboardButton5ActionPerformed
         // dashboard function go to DashboardPanel
-        parentFrame.setContentPane(new AdminDashboardPanel(parentFrame, currentUserId, currentUsername));
+        parentFrame.setContentPane(new AdminHomePanel(parentFrame, currentUserId, currentUsername));
         parentFrame.revalidate();
         parentFrame.repaint();
     }//GEN-LAST:event_DashboardButton5ActionPerformed
@@ -557,6 +557,9 @@ public class AdminLogsPanel extends javax.swing.JPanel {
 
     private void HomeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HomeButtonActionPerformed
         // dashboard function go to DashboardPanel
+        parentFrame.setContentPane(new AdminHomePanel(parentFrame, currentUserId, currentUsername));
+        parentFrame.revalidate();
+        parentFrame.repaint();
     }//GEN-LAST:event_HomeButtonActionPerformed
 
     private void UsersButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsersButtonActionPerformed

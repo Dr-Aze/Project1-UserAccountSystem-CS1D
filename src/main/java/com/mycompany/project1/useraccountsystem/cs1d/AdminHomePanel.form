@@ -663,7 +663,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="15" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Account Overview"/>
+            <Property name="text" type="java.lang.String" value="Session Logs"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="TimeLabel4">

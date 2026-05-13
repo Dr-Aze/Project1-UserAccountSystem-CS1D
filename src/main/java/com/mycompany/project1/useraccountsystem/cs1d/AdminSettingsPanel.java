@@ -32,17 +32,13 @@ public class AdminSettingsPanel extends javax.swing.JPanel {
         this.currentUserId = userId;
         this.currentUsername = username;
         
-        parentFrame.setSize(974, 634);
-        parentFrame.setResizable(false);
-        parentFrame.setLocationRelativeTo(null);
-
         initComponents();
         loadCurrentUserData();
     }
          
     public void setEditData(int userId, String fName, String lName, String email, String role) {
         this.editingUserId = userId;
-        this.jLabel15.setText("EDITING" +currentUsername +" ACCOUNT");
+        this.jLabel15.setText("EDITING ACCOUNT");
         this.firstNameField.setText(fName);
         this.LastName.setText(lName);
         this.emailField.setText(email);
@@ -91,13 +87,6 @@ public class AdminSettingsPanel extends javax.swing.JPanel {
         buttonGroup1 = new javax.swing.ButtonGroup();
         buttonGroup2 = new javax.swing.ButtonGroup();
         buttonGroup3 = new javax.swing.ButtonGroup();
-        jPanel4 = new javax.swing.JPanel();
-        DashboardButton1 = new javax.swing.JButton();
-        SettingsButton3 = new javax.swing.JButton();
-        LogoutButton3 = new javax.swing.JButton();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -229,103 +218,13 @@ public class AdminSettingsPanel extends javax.swing.JPanel {
                 .addGap(0, 148, Short.MAX_VALUE))
         );
 
-        setBackground(new java.awt.Color(51, 51, 51));
-        setMaximumSize(new java.awt.Dimension(954, 604));
-        setMinimumSize(new java.awt.Dimension(954, 604));
-        setPreferredSize(new java.awt.Dimension(954, 604));
-
-        jPanel4.setBackground(new java.awt.Color(51, 51, 51));
-        jPanel4.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel4.setPreferredSize(new java.awt.Dimension(180, 600));
-
-        DashboardButton1.setBackground(new java.awt.Color(102, 102, 102));
-        DashboardButton1.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        DashboardButton1.setForeground(new java.awt.Color(255, 255, 255));
-        DashboardButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Dashboard Admin/menu.png"))); // NOI18N
-        DashboardButton1.setText("Home");
-        DashboardButton1.setBorderPainted(false);
-        DashboardButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        DashboardButton1.setName("Dashboard"); // NOI18N
-        DashboardButton1.addActionListener(this::DashboardButton1ActionPerformed);
-
-        SettingsButton3.setBackground(new java.awt.Color(153, 0, 0));
-        SettingsButton3.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        SettingsButton3.setForeground(new java.awt.Color(255, 255, 255));
-        SettingsButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Dashboard Admin/settings.png"))); // NOI18N
-        SettingsButton3.setText("Settings");
-        SettingsButton3.setBorderPainted(false);
-        SettingsButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        SettingsButton3.setName("Settings"); // NOI18N
-        SettingsButton3.addActionListener(this::SettingsButton3ActionPerformed);
-
-        LogoutButton3.setBackground(new java.awt.Color(102, 102, 102));
-        LogoutButton3.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        LogoutButton3.setForeground(new java.awt.Color(255, 255, 255));
-        LogoutButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Dashboard Admin/log-out.png"))); // NOI18N
-        LogoutButton3.setText("Log out");
-        LogoutButton3.setBorderPainted(false);
-        LogoutButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        LogoutButton3.setName("Logout"); // NOI18N
-        LogoutButton3.addActionListener(this::LogoutButton3ActionPerformed);
-
-        jLabel10.setBackground(new java.awt.Color(102, 102, 102));
-        jLabel10.setFont(new java.awt.Font("Segoe UI Light", 1, 12)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setText("OVERVIEW");
-
-        jLabel11.setBackground(new java.awt.Color(102, 102, 102));
-        jLabel11.setFont(new java.awt.Font("Segoe UI Light", 1, 12)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel11.setText("SYSTEM");
-
-        jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Login/Logo.png"))); // NOI18N
-        jLabel12.setText("STRATA");
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10)
-                            .addComponent(jLabel11)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(DashboardButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(SettingsButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(LogoutButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 0, Short.MAX_VALUE))))
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel12)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(DashboardButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(76, 76, 76)
-                .addComponent(jLabel11)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(SettingsButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(LogoutButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 234, Short.MAX_VALUE))
-        );
+        setBackground(new java.awt.Color(255, 255, 255));
+        setMinimumSize(new java.awt.Dimension(567, 479));
+        setPreferredSize(new java.awt.Dimension(567, 479));
 
         jPanel5.setBackground(new java.awt.Color(251, 244, 238));
         jPanel5.setForeground(new java.awt.Color(51, 51, 51));
+        jPanel5.setPreferredSize(new java.awt.Dimension(545, 55));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jLabel4.setText("Settings");
@@ -342,7 +241,7 @@ public class AdminSettingsPanel extends javax.swing.JPanel {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addComponent(jLabel5))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(365, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -356,9 +255,8 @@ public class AdminSettingsPanel extends javax.swing.JPanel {
 
         jPanel1.setBackground(new java.awt.Color(251, 244, 238));
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel1.setMaximumSize(new java.awt.Dimension(954, 604));
-        jPanel1.setMinimumSize(new java.awt.Dimension(954, 604));
-        jPanel1.setPreferredSize(new java.awt.Dimension(954, 604));
+        jPanel1.setMinimumSize(new java.awt.Dimension(545, 396));
+        jPanel1.setPreferredSize(new java.awt.Dimension(545, 396));
 
         firstNameField.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         firstNameField.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(153, 0, 0), null, null));
@@ -433,7 +331,7 @@ public class AdminSettingsPanel extends javax.swing.JPanel {
 
         jComboBox1.setBackground(new java.awt.Color(102, 102, 102));
         jComboBox1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "User", " " }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "User", "" }));
         jComboBox1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jComboBox1.addActionListener(this::jComboBox1ActionPerformed);
 
@@ -447,48 +345,44 @@ public class AdminSettingsPanel extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel15)
-                            .addComponent(jLabel16))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(firstNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel2))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel3)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(Cancel)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(SaveChanges))
-                                    .addComponent(jLabel17)
-                                    .addComponent(LastName)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(NewPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel6)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel14)
-                                        .addComponent(CurrentPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(ConfirmPasswordField)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel13)
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jButton3)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(UpdatePassword)))))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addComponent(jLabel15)
+                    .addComponent(jLabel16)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(firstNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel1)
+                                .addComponent(jLabel2))
+                            .addGap(18, 18, 18)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel3)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(Cancel)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(SaveChanges))
+                                .addComponent(jLabel17)
+                                .addComponent(LastName)))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(NewPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel6)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel14)
+                                    .addComponent(CurrentPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGap(18, 18, 18)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(ConfirmPasswordField)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jLabel13)
+                                    .addGap(0, 0, Short.MAX_VALUE))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jButton3)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(UpdatePassword))))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -537,7 +431,7 @@ public class AdminSettingsPanel extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(UpdatePassword, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -545,29 +439,26 @@ public class AdminSettingsPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 762, Short.MAX_VALUE)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 604, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(16, Short.MAX_VALUE)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 531, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void DashboardButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DashboardButtonActionPerformed
         // dashboard function go to DashboardPanel
-        parentFrame.setContentPane(new UserDashboardPanel(parentFrame));
+        parentFrame.setContentPane(new UserHomePanel(parentFrame));
         parentFrame.revalidate();
         parentFrame.repaint();
     }//GEN-LAST:event_DashboardButtonActionPerformed
@@ -602,34 +493,18 @@ public class AdminSettingsPanel extends javax.swing.JPanel {
         parentFrame.repaint();
     }//GEN-LAST:event_LogoutButton2ActionPerformed
 
-    private void firstNameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_firstNameFieldActionPerformed
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_firstNameFieldActionPerformed
+        String role = jComboBox1.getSelectedItem().toString();
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
-    private void emailFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailFieldActionPerformed
+    private void CurrentPasswordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CurrentPasswordFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_emailFieldActionPerformed
+    }//GEN-LAST:event_CurrentPasswordFieldActionPerformed
 
-    private void LastNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LastNameActionPerformed
+    private void ConfirmPasswordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfirmPasswordFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_LastNameActionPerformed
-
-    private void NewPasswordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NewPasswordFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_NewPasswordFieldActionPerformed
-
-    private void CancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelActionPerformed
-        // cancelbutton for profile
-        closeParentDialog();
-    }//GEN-LAST:event_CancelActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // cancelbutton for password
-        NewPasswordField.setText("");
-        ConfirmPasswordField.setText("");
-
-    JOptionPane.showMessageDialog(this, "Password fields cleared.");
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_ConfirmPasswordFieldActionPerformed
 
     private void UpdatePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdatePasswordActionPerformed
         // updatepassword buttton
@@ -664,6 +539,23 @@ public class AdminSettingsPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_UpdatePasswordActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // cancelbutton for password
+        NewPasswordField.setText("");
+        ConfirmPasswordField.setText("");
+
+        JOptionPane.showMessageDialog(this, "Password fields cleared.");
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void NewPasswordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NewPasswordFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_NewPasswordFieldActionPerformed
+
+    private void CancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelActionPerformed
+        // cancelbutton for profile
+        closeParentDialog();
+    }//GEN-LAST:event_CancelActionPerformed
+
     private void SaveChangesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveChangesActionPerformed
         // savechanges button
         String fName = firstNameField.getText().trim();
@@ -695,49 +587,17 @@ public class AdminSettingsPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_SaveChangesActionPerformed
 
-    private void ConfirmPasswordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfirmPasswordFieldActionPerformed
+    private void LastNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LastNameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_ConfirmPasswordFieldActionPerformed
+    }//GEN-LAST:event_LastNameActionPerformed
 
-    private void CurrentPasswordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CurrentPasswordFieldActionPerformed
+    private void emailFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_CurrentPasswordFieldActionPerformed
+    }//GEN-LAST:event_emailFieldActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void firstNameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_firstNameFieldActionPerformed
         // TODO add your handling code here:
-        String role =
-        jComboBox1.getSelectedItem().toString();
-    }//GEN-LAST:event_jComboBox1ActionPerformed
-
-    private void LogoutButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogoutButton3ActionPerformed
-        // logout function go to LoginScreen
-        LogService.updateTimeOut();
-        parentFrame.dispose();
-
-        JFrame loginFrame = new JFrame("Login");
-        loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        loginFrame.setSize(974, 634);
-        loginFrame.setResizable(false);
-        loginFrame.setLocationRelativeTo(null);
-
-        loginFrame.setContentPane(new LoginScreen(loginFrame));
-
-        loginFrame.setVisible(true);
-    }//GEN-LAST:event_LogoutButton3ActionPerformed
-
-    private void SettingsButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsButton3ActionPerformed
-        // go to settings panel
-        parentFrame.setContentPane(new AdminSettingsPanel(parentFrame,currentUserId, currentUsername));
-        parentFrame.revalidate();
-        parentFrame.repaint();
-    }//GEN-LAST:event_SettingsButton3ActionPerformed
-
-    private void DashboardButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DashboardButton1ActionPerformed
-        // dashboard function go to DashboardPanel
-        parentFrame.setContentPane(new AdminDashboardPanel(parentFrame, currentUserId, currentUsername));
-        parentFrame.revalidate();
-        parentFrame.repaint();
-    }//GEN-LAST:event_DashboardButton1ActionPerformed
+    }//GEN-LAST:event_firstNameFieldActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -745,15 +605,12 @@ public class AdminSettingsPanel extends javax.swing.JPanel {
     private javax.swing.JPasswordField ConfirmPasswordField;
     private javax.swing.JPasswordField CurrentPasswordField;
     private javax.swing.JButton DashboardButton;
-    private javax.swing.JButton DashboardButton1;
     private javax.swing.JTextField LastName;
     private javax.swing.JButton LogoutButton2;
-    private javax.swing.JButton LogoutButton3;
     private javax.swing.JButton LogsButton;
     private javax.swing.JPasswordField NewPasswordField;
     private javax.swing.JButton SaveChanges;
     private javax.swing.JButton SettingsButton2;
-    private javax.swing.JButton SettingsButton3;
     private javax.swing.JButton UpdatePassword;
     private javax.swing.JButton UsersButton2;
     private javax.swing.ButtonGroup buttonGroup1;
@@ -764,9 +621,6 @@ public class AdminSettingsPanel extends javax.swing.JPanel {
     private javax.swing.JButton jButton3;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
@@ -782,7 +636,6 @@ public class AdminSettingsPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     // End of variables declaration//GEN-END:variables
 

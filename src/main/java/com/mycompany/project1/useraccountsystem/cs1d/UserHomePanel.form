@@ -56,10 +56,19 @@
   </NonVisualComponents>
   <Properties>
     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-      <Color blue="33" green="33" red="33" type="rgb"/>
+      <Color blue="ff" green="ff" red="ff" type="rgb"/>
     </Property>
     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
       <Color blue="ff" green="ff" red="ff" type="rgb"/>
+    </Property>
+    <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+      <Dimension value="[974, 634]"/>
+    </Property>
+    <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+      <Dimension value="[944, 604]"/>
+    </Property>
+    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+      <Dimension value="[944, 604]"/>
     </Property>
   </Properties>
   <AuxValues>
@@ -81,16 +90,16 @@
               <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jPanel5" max="32767" attributes="0"/>
+                  <Component id="jPanel5" alignment="0" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="PostScrollPane" min="-2" pref="501" max="-2" attributes="0"/>
+                              <Component id="PostScrollPane" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="SystemStatusPanel" max="32767" attributes="0"/>
-                                  <Component id="AccountOverviewPanel" max="32767" attributes="0"/>
-                                  <Component id="QuickActionsPanel" max="32767" attributes="0"/>
+                                  <Component id="SystemStatusPanel" alignment="0" max="-2" attributes="0"/>
+                                  <Component id="QuickActionsPanel" alignment="0" max="-2" attributes="0"/>
+                                  <Component id="AccountOverviewPanel" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" attributes="0">
@@ -112,23 +121,23 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="jButton2" pref="35" max="32767" attributes="0"/>
                   <Component id="jButton1" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace type="unrelated" max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Group type="102" attributes="0">
+              <EmptySpace max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
                       <Component id="AccountOverviewPanel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="SystemStatusPanel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="QuickActionsPanel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="QuickActionsPanel" min="140" pref="140" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="PostScrollPane" min="-2" pref="492" max="-2" attributes="0"/>
+                  <Component id="PostScrollPane" alignment="1" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -357,11 +366,10 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="DashboardHeader" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="DashboardLabel" alignment="0" pref="127" max="32767" attributes="0"/>
+                      <Component id="DashboardLabel" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="543" max="-2" attributes="0"/>
-                  <Component id="TimeLabel" min="-2" pref="100" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="TimeLabel" min="-2" pref="106" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -369,11 +377,13 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="DashboardHeader" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="DashboardLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="TimeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="TimeLabel" min="-2" pref="16" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Component id="DashboardHeader" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="DashboardLabel" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace pref="28" max="32767" attributes="0"/>
               </Group>
@@ -424,6 +434,14 @@
       </Events>
     </Component>
     <Container class="javax.swing.JScrollPane" name="PostScrollPane">
+      <Properties>
+        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[501, 462]"/>
+        </Property>
+        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[501, 462]"/>
+        </Property>
+      </Properties>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
     </Container>
@@ -434,6 +452,9 @@
         </Property>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
+        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[245, 144]"/>
         </Property>
       </Properties>
 
@@ -449,7 +470,7 @@
                       </Group>
                       <Component id="AccountOverviewLabel" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="140" max="32767" attributes="0"/>
+                  <EmptySpace pref="110" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -460,7 +481,7 @@
                   <Component id="AccountOverviewLabel" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="TimeLabel1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="105" max="32767" attributes="0"/>
+                  <EmptySpace pref="89" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -492,6 +513,9 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
+        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[245, 160]"/>
+        </Property>
       </Properties>
 
       <Layout>
@@ -506,7 +530,7 @@
                       </Group>
                       <Component id="SystemStatusLabel" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="133" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -549,6 +573,9 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
+        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[245, 144]"/>
+        </Property>
       </Properties>
 
       <Layout>
@@ -563,7 +590,7 @@
                       </Group>
                       <Component id="QuickActionsLabel" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="133" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -574,7 +601,7 @@
                   <Component id="QuickActionsLabel" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="TimeLabel3" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="105" max="32767" attributes="0"/>
+                  <EmptySpace pref="85" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

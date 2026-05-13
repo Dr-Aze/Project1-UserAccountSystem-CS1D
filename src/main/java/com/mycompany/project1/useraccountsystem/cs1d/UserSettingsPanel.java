@@ -366,9 +366,9 @@ public class UserSettingsPanel extends javax.swing.JPanel {
 
         jPanel1.setBackground(new java.awt.Color(251, 244, 238));
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel1.setMaximumSize(new java.awt.Dimension(954, 604));
-        jPanel1.setMinimumSize(new java.awt.Dimension(954, 604));
-        jPanel1.setPreferredSize(new java.awt.Dimension(954, 604));
+        jPanel1.setMaximumSize(new java.awt.Dimension(762, 531));
+        jPanel1.setMinimumSize(new java.awt.Dimension(762, 531));
+        jPanel1.setPreferredSize(new java.awt.Dimension(762, 531));
 
         FirstName.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         FirstName.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(153, 0, 0), null, null));
@@ -511,7 +511,6 @@ public class UserSettingsPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(LastName, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(69, 69, 69)))
-                .addGap(18, 18, 18)
                 .addComponent(jLabel16)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -542,7 +541,7 @@ public class UserSettingsPanel extends javax.swing.JPanel {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 762, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -553,14 +552,14 @@ public class UserSettingsPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 531, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void DashboardButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DashboardButtonActionPerformed
         // dashboard function go to DashboardPanel
-        parentFrame.setContentPane(new UserDashboardPanel(parentFrame));
+        parentFrame.setContentPane(new UserHomePanel(parentFrame));
         parentFrame.revalidate();
         parentFrame.repaint();
     }//GEN-LAST:event_DashboardButtonActionPerformed
@@ -839,7 +838,7 @@ public class UserSettingsPanel extends javax.swing.JPanel {
 
     private void DashboardButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DashboardButton1ActionPerformed
         // dashboard function go to DashboardPanel
-        parentFrame.setContentPane(new UserDashboardPanel(parentFrame, currentUserId, currentUsername));
+        parentFrame.setContentPane(new UserHomePanel(parentFrame, currentUserId, currentUsername));
         parentFrame.revalidate();
         parentFrame.repaint();
     }//GEN-LAST:event_DashboardButton1ActionPerformed
