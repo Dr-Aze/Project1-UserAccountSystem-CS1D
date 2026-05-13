@@ -4,7 +4,16 @@
  */
 package com.mycompany.project1.useraccountsystem.cs1d;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -15,9 +24,9 @@ import javax.swing.JFrame;
 
 public class AdminHomePanel extends javax.swing.JPanel {
 
-        private final JFrame parentFrame;
-        private final String currentUsername;
-        private int currentUserId;
+    private final JFrame parentFrame;
+    private final String currentUsername;
+    private int currentUserId;
 
         public AdminHomePanel(JFrame frame, int userId, String username) {
             this.parentFrame = frame;
@@ -33,11 +42,93 @@ public class AdminHomePanel extends javax.swing.JPanel {
 
             System.out.println("Dashboard loaded for: " + username);
             
-            DashboardLabel.setText("Welcome back, " + username + " - here's what's happening");
+            DashboardLabel.setText("Welcome back, " + username +" - here's what's happening");
             DashboardLabel.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 12));
             DashboardLabel.setForeground(new java.awt.Color(33, 37, 41));
+            
+            usernameLabel.setText(currentUsername);
+            accountidLabel.setText(String.valueOf(currentUsername));
+            
+            fetchMemberSince();
+            fetchLastLogin();
+            loadTableData();
         }
+    
+    private void fetchMemberSince() {
+        String query = "SELECT DATE_FORMAT(created_at, '%M %d, %Y') AS member_since FROM users WHERE user_id = ?";
 
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
+
+            pstmt.setInt(1, currentUserId);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    membersinceLabel.setText(rs.getString("member_since"));
+                }
+            }
+        } catch (SQLException e) {
+            membersinceLabel.setText("Not Available");
+        }
+    }
+    
+    private void fetchLastLogin() {
+        // Query to get the most recent time_in for this user
+        String query = """
+                       SELECT 
+                        DATE_FORMAT(time_in, '%Y-%m-%d  %l:%i %p') AS last_log 
+                        FROM user_logs WHERE user_id = ? 
+                        ORDER BY time_in DESC LIMIT 1
+                       """;
+
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
+
+            pstmt.setInt(1, currentUserId);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    // TimeLabel9 is your "Last Login" value label
+                    lastloginLabel.setText(rs.getString("last_log"));
+                } else {
+                    lastloginLabel.setText("No logs found");
+                }
+            }
+        } catch (SQLException e) {
+            lastloginLabel.setText("Error");
+        }
+    }
+
+    public void loadTableData() {
+        DefaultTableModel model = (DefaultTableModel) RecentActivityLogTable.getModel();
+        model.setRowCount(0);
+
+        String query = """
+                       SELECT 
+                        DATE_FORMAT(time_in, '%H:%i:%s') AS time_only 
+                        FROM user_logs
+                        WHERE user_id = ?
+                        ORDER BY time_in DESC
+                       """;
+
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
+
+            pstmt.setInt(1, currentUserId);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    // We add the Timestamp from the DB, then add hardcoded Strings for Action and Status
+                    model.addRow(new Object[]{
+                        rs.getString("time_only"),
+                        "Logged In",
+                        "Success"
+                    });
+                }
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Database Error: " + e.getMessage());
+        }
+    }
+    
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -62,19 +153,29 @@ public class AdminHomePanel extends javax.swing.JPanel {
         jPanel5 = new javax.swing.JPanel();
         DashboardHeader = new javax.swing.JLabel();
         DashboardLabel = new javax.swing.JLabel();
-        TimeLabel = new javax.swing.JLabel();
         AccountOverviewPanel = new javax.swing.JPanel();
         AccountOverviewLabel = new javax.swing.JLabel();
-        TimeLabel1 = new javax.swing.JLabel();
+        usernameLabel = new javax.swing.JLabel();
+        AccountIDHeader = new javax.swing.JLabel();
+        MemberSinceHeader = new javax.swing.JLabel();
+        UsernameHeader = new javax.swing.JLabel();
+        accountidLabel = new javax.swing.JLabel();
+        membersinceLabel = new javax.swing.JLabel();
         SystemStatusPanel = new javax.swing.JPanel();
         SystemStatusLabel = new javax.swing.JLabel();
-        TimeLabel2 = new javax.swing.JLabel();
+        SettingsButton = new javax.swing.JButton();
         QuickActionsPanel = new javax.swing.JPanel();
         QuickActionsLabel = new javax.swing.JLabel();
         TimeLabel3 = new javax.swing.JLabel();
+        TimeLabel5 = new javax.swing.JLabel();
+        TimeLabel6 = new javax.swing.JLabel();
+        TimeLabel7 = new javax.swing.JLabel();
+        TimeLabel8 = new javax.swing.JLabel();
+        lastloginLabel = new javax.swing.JLabel();
         AccountOverviewPanel1 = new javax.swing.JPanel();
         AccountOverviewLabel1 = new javax.swing.JLabel();
-        TimeLabel4 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        RecentActivityLogTable = new javax.swing.JTable();
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -107,9 +208,9 @@ public class AdminHomePanel extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(251, 244, 238));
         setForeground(new java.awt.Color(255, 255, 255));
-        setMaximumSize(new java.awt.Dimension(954, 604));
-        setMinimumSize(new java.awt.Dimension(954, 604));
-        setPreferredSize(new java.awt.Dimension(954, 604));
+        setMaximumSize(null);
+        setMinimumSize(new java.awt.Dimension(944, 604));
+        setPreferredSize(new java.awt.Dimension(944, 604));
         setRequestFocusEnabled(false);
 
         jPanel3.setBackground(new java.awt.Color(102, 102, 102));
@@ -239,9 +340,6 @@ public class AdminHomePanel extends javax.swing.JPanel {
         DashboardLabel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         DashboardLabel.setText("-");
 
-        TimeLabel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        TimeLabel.setText("-");
-
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -249,10 +347,12 @@ public class AdminHomePanel extends javax.swing.JPanel {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(DashboardHeader)
-                    .addComponent(DashboardLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE))
-                .addGap(543, 543, 543)
-                .addComponent(TimeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(DashboardLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(DashboardHeader)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -261,13 +361,11 @@ public class AdminHomePanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(DashboardHeader)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(DashboardLabel)
-                    .addComponent(TimeLabel))
+                .addComponent(DashboardLabel)
                 .addContainerGap(28, Short.MAX_VALUE))
         );
 
-        AccountOverviewPanel.setBackground(new java.awt.Color(102, 102, 102));
+        AccountOverviewPanel.setBackground(new java.awt.Color(255, 255, 255));
         AccountOverviewPanel.setForeground(new java.awt.Color(255, 255, 255));
         AccountOverviewPanel.setPreferredSize(new java.awt.Dimension(256, 160));
         AccountOverviewPanel.setRequestFocusEnabled(false);
@@ -276,8 +374,23 @@ public class AdminHomePanel extends javax.swing.JPanel {
         AccountOverviewLabel.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         AccountOverviewLabel.setText("Account Overview");
 
-        TimeLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        TimeLabel1.setText("-");
+        usernameLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        usernameLabel.setText("-");
+
+        AccountIDHeader.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        AccountIDHeader.setText("Account ID");
+
+        MemberSinceHeader.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        MemberSinceHeader.setText("Member Since");
+
+        UsernameHeader.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        UsernameHeader.setText("Username");
+
+        accountidLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        accountidLabel.setText("-");
+
+        membersinceLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        membersinceLabel.setText("-");
 
         javax.swing.GroupLayout AccountOverviewPanelLayout = new javax.swing.GroupLayout(AccountOverviewPanel);
         AccountOverviewPanel.setLayout(AccountOverviewPanelLayout);
@@ -287,30 +400,54 @@ public class AdminHomePanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(AccountOverviewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(AccountOverviewPanelLayout.createSequentialGroup()
+                        .addComponent(AccountOverviewLabel)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(AccountOverviewPanelLayout.createSequentialGroup()
                         .addGap(6, 6, 6)
-                        .addComponent(TimeLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(AccountOverviewLabel))
-                .addContainerGap(121, Short.MAX_VALUE))
+                        .addGroup(AccountOverviewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(UsernameHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(AccountOverviewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(AccountIDHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(MemberSinceHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                        .addGroup(AccountOverviewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(usernameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(accountidLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(membersinceLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap())
         );
         AccountOverviewPanelLayout.setVerticalGroup(
             AccountOverviewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(AccountOverviewPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(AccountOverviewLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(TimeLabel1)
-                .addContainerGap(105, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(AccountOverviewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(usernameLabel)
+                    .addComponent(UsernameHeader))
+                .addGap(18, 18, 18)
+                .addGroup(AccountOverviewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(AccountIDHeader)
+                    .addComponent(accountidLabel))
+                .addGap(18, 18, 18)
+                .addGroup(AccountOverviewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(MemberSinceHeader)
+                    .addComponent(membersinceLabel))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
-        SystemStatusPanel.setBackground(new java.awt.Color(102, 102, 102));
+        SystemStatusPanel.setBackground(new java.awt.Color(255, 255, 255));
         SystemStatusPanel.setForeground(new java.awt.Color(255, 255, 255));
         SystemStatusPanel.setPreferredSize(new java.awt.Dimension(256, 160));
 
         SystemStatusLabel.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        SystemStatusLabel.setText("System Status");
+        SystemStatusLabel.setText("Quick Actions");
 
-        TimeLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        TimeLabel2.setText("-");
+        SettingsButton.setBackground(new java.awt.Color(215, 223, 226));
+        SettingsButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        SettingsButton.setText("Settings");
+        SettingsButton.setToolTipText("");
+        SettingsButton.addActionListener(this::SettingsButtonActionPerformed);
 
         javax.swing.GroupLayout SystemStatusPanelLayout = new javax.swing.GroupLayout(SystemStatusPanel);
         SystemStatusPanel.setLayout(SystemStatusPanelLayout);
@@ -320,32 +457,49 @@ public class AdminHomePanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(SystemStatusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(SystemStatusPanelLayout.createSequentialGroup()
+                        .addComponent(SystemStatusLabel)
+                        .addGap(0, 131, Short.MAX_VALUE))
+                    .addGroup(SystemStatusPanelLayout.createSequentialGroup()
                         .addGap(6, 6, 6)
-                        .addComponent(TimeLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(SystemStatusLabel))
-                .addContainerGap(139, Short.MAX_VALUE))
+                        .addComponent(SettingsButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         SystemStatusPanelLayout.setVerticalGroup(
             SystemStatusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(SystemStatusPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(SystemStatusLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(TimeLabel2)
-                .addContainerGap(105, Short.MAX_VALUE))
+                .addGap(42, 42, 42)
+                .addComponent(SettingsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(56, Short.MAX_VALUE))
         );
 
-        QuickActionsPanel.setBackground(new java.awt.Color(102, 102, 102));
+        QuickActionsPanel.setBackground(new java.awt.Color(255, 255, 255));
         QuickActionsPanel.setForeground(new java.awt.Color(255, 255, 255));
         QuickActionsPanel.setPreferredSize(new java.awt.Dimension(258, 160));
         QuickActionsPanel.setRequestFocusEnabled(false);
         QuickActionsPanel.setVerifyInputWhenFocusTarget(false);
 
         QuickActionsLabel.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        QuickActionsLabel.setText("Quick Actions");
+        QuickActionsLabel.setText("System Status");
 
-        TimeLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        TimeLabel3.setText("-");
+        TimeLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        TimeLabel3.setText("Database Status:");
+
+        TimeLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        TimeLabel5.setText("Localhost:");
+
+        TimeLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        TimeLabel6.setText("Last Login:");
+
+        TimeLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        TimeLabel7.setText("Connected");
+
+        TimeLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        TimeLabel8.setText("XAMPP");
+
+        lastloginLabel.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        lastloginLabel.setText("-");
 
         javax.swing.GroupLayout QuickActionsPanelLayout = new javax.swing.GroupLayout(QuickActionsPanel);
         QuickActionsPanel.setLayout(QuickActionsPanelLayout);
@@ -354,11 +508,23 @@ public class AdminHomePanel extends javax.swing.JPanel {
             .addGroup(QuickActionsPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(QuickActionsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(QuickActionsLabel)
                     .addGroup(QuickActionsPanelLayout.createSequentialGroup()
                         .addGap(6, 6, 6)
-                        .addComponent(TimeLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(QuickActionsLabel))
-                .addContainerGap(131, Short.MAX_VALUE))
+                        .addGroup(QuickActionsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(QuickActionsPanelLayout.createSequentialGroup()
+                                .addComponent(TimeLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(TimeLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE))
+                            .addGroup(QuickActionsPanelLayout.createSequentialGroup()
+                                .addGroup(QuickActionsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(TimeLabel6)
+                                    .addComponent(TimeLabel5))
+                                .addGap(18, 18, 18)
+                                .addGroup(QuickActionsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lastloginLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(TimeLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                .addContainerGap())
         );
         QuickActionsPanelLayout.setVerticalGroup(
             QuickActionsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -366,11 +532,21 @@ public class AdminHomePanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(QuickActionsLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(TimeLabel3)
-                .addContainerGap(105, Short.MAX_VALUE))
+                .addGroup(QuickActionsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(TimeLabel3)
+                    .addComponent(TimeLabel7))
+                .addGap(18, 18, 18)
+                .addGroup(QuickActionsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(TimeLabel5)
+                    .addComponent(TimeLabel8))
+                .addGap(18, 18, 18)
+                .addGroup(QuickActionsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(TimeLabel6)
+                    .addComponent(lastloginLabel))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
-        AccountOverviewPanel1.setBackground(new java.awt.Color(102, 102, 102));
+        AccountOverviewPanel1.setBackground(new java.awt.Color(255, 255, 255));
         AccountOverviewPanel1.setForeground(new java.awt.Color(255, 255, 255));
         AccountOverviewPanel1.setPreferredSize(new java.awt.Dimension(782, 373));
         AccountOverviewPanel1.setRequestFocusEnabled(false);
@@ -379,8 +555,32 @@ public class AdminHomePanel extends javax.swing.JPanel {
         AccountOverviewLabel1.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         AccountOverviewLabel1.setText("Session Logs");
 
-        TimeLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        TimeLabel4.setText("-");
+        RecentActivityLogTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Timestamp", "Action", "Status"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                true, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(RecentActivityLogTable);
+        if (RecentActivityLogTable.getColumnModel().getColumnCount() > 0) {
+            RecentActivityLogTable.getColumnModel().getColumn(0).setResizable(false);
+            RecentActivityLogTable.getColumnModel().getColumn(1).setResizable(false);
+            RecentActivityLogTable.getColumnModel().getColumn(2).setResizable(false);
+        }
+        RecentActivityLogTable.getAccessibleContext().setAccessibleDescription("");
 
         javax.swing.GroupLayout AccountOverviewPanel1Layout = new javax.swing.GroupLayout(AccountOverviewPanel1);
         AccountOverviewPanel1.setLayout(AccountOverviewPanel1Layout);
@@ -391,18 +591,20 @@ public class AdminHomePanel extends javax.swing.JPanel {
                 .addGroup(AccountOverviewPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(AccountOverviewPanel1Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
-                        .addComponent(TimeLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(AccountOverviewLabel1))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1))
+                    .addGroup(AccountOverviewPanel1Layout.createSequentialGroup()
+                        .addComponent(AccountOverviewLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         AccountOverviewPanel1Layout.setVerticalGroup(
             AccountOverviewPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(AccountOverviewPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(AccountOverviewLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(TimeLabel4)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -415,15 +617,13 @@ public class AdminHomePanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(AccountOverviewPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 762, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(AccountOverviewPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(QuickActionsPanel, 243, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(SystemStatusPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)))
-                        .addContainerGap())))
+                        .addComponent(AccountOverviewPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(QuickActionsPanel, 243, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(SystemStatusPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE))
+                    .addComponent(AccountOverviewPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 752, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -444,6 +644,7 @@ public class AdminHomePanel extends javax.swing.JPanel {
 
     private void HomeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HomeButtonActionPerformed
         // dashboard function go to DashboardPanel
+        loadTableData();
     }//GEN-LAST:event_HomeButtonActionPerformed
 
     private void UsersButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsersButtonActionPerformed
@@ -468,8 +669,16 @@ public class AdminHomePanel extends javax.swing.JPanel {
         parentFrame.repaint();
     }//GEN-LAST:event_LogoutButtonActionPerformed
 
+    private void SettingsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsButtonActionPerformed
+        // TODO add your handling code here:
+        parentFrame.setContentPane(new AdminUserPanel(parentFrame, currentUserId, currentUsername));
+        parentFrame.revalidate();
+        parentFrame.repaint();
+    }//GEN-LAST:event_SettingsButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel AccountIDHeader;
     private javax.swing.JLabel AccountOverviewLabel;
     private javax.swing.JLabel AccountOverviewLabel1;
     private javax.swing.JPanel AccountOverviewPanel;
@@ -479,16 +688,21 @@ public class AdminHomePanel extends javax.swing.JPanel {
     private javax.swing.JButton HomeButton;
     private javax.swing.JButton LogoutButton;
     private javax.swing.JButton LogsButton;
+    private javax.swing.JLabel MemberSinceHeader;
     private javax.swing.JLabel QuickActionsLabel;
     private javax.swing.JPanel QuickActionsPanel;
+    private javax.swing.JTable RecentActivityLogTable;
+    private javax.swing.JButton SettingsButton;
     private javax.swing.JLabel SystemStatusLabel;
     private javax.swing.JPanel SystemStatusPanel;
-    private javax.swing.JLabel TimeLabel;
-    private javax.swing.JLabel TimeLabel1;
-    private javax.swing.JLabel TimeLabel2;
     private javax.swing.JLabel TimeLabel3;
-    private javax.swing.JLabel TimeLabel4;
+    private javax.swing.JLabel TimeLabel5;
+    private javax.swing.JLabel TimeLabel6;
+    private javax.swing.JLabel TimeLabel7;
+    private javax.swing.JLabel TimeLabel8;
+    private javax.swing.JLabel UsernameHeader;
     private javax.swing.JButton UsersButton;
+    private javax.swing.JLabel accountidLabel;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel23;
@@ -498,5 +712,9 @@ public class AdminHomePanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lastloginLabel;
+    private javax.swing.JLabel membersinceLabel;
+    private javax.swing.JLabel usernameLabel;
     // End of variables declaration//GEN-END:variables
 }

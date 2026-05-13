@@ -559,7 +559,7 @@ public class UserSettingsPanel extends javax.swing.JPanel {
 
     private void DashboardButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DashboardButtonActionPerformed
         // dashboard function go to DashboardPanel
-        parentFrame.setContentPane(new UserHomePanel(parentFrame));
+        parentFrame.setContentPane(new UserHomePanel(parentFrame, currentUserId, currentUsername));
         parentFrame.revalidate();
         parentFrame.repaint();
     }//GEN-LAST:event_DashboardButtonActionPerformed

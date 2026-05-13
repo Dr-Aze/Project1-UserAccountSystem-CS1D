@@ -449,39 +449,22 @@ public class AdminSettingsPanel extends javax.swing.JPanel {
 
     private void DashboardButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DashboardButtonActionPerformed
         // dashboard function go to DashboardPanel
-        parentFrame.setContentPane(new UserHomePanel(parentFrame));
-        parentFrame.revalidate();
-        parentFrame.repaint();
     }//GEN-LAST:event_DashboardButtonActionPerformed
 
     private void LogsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogsButtonActionPerformed
         // login logs function go to LogsPanel
-        parentFrame.setContentPane(new AdminLogsPanel(parentFrame, currentUsername));
-        parentFrame.revalidate();
-        parentFrame.repaint();
-        //loadSummaryData();
     }//GEN-LAST:event_LogsButtonActionPerformed
 
     private void UsersButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsersButton2ActionPerformed
         // go to userPanel
-        parentFrame.setContentPane(new AdminUserPanel(parentFrame, currentUserId, currentUsername));
-        parentFrame.revalidate();
-        parentFrame.repaint();
     }//GEN-LAST:event_UsersButton2ActionPerformed
 
     private void SettingsButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsButton2ActionPerformed
         // go to settings panel
-        parentFrame.setContentPane(new AdminSettingsPanel(parentFrame, currentUserId, currentUsername));
-        parentFrame.revalidate();
-        parentFrame.repaint();
     }//GEN-LAST:event_SettingsButton2ActionPerformed
 
     private void LogoutButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogoutButton2ActionPerformed
         // logout function go to LoginScreen
-        LogService.updateTimeOut();
-        parentFrame.setContentPane(new LoginScreen(parentFrame));
-        parentFrame.revalidate();
-        parentFrame.repaint();
     }//GEN-LAST:event_LogoutButton2ActionPerformed
 
     private void RoleComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RoleComboBoxActionPerformed

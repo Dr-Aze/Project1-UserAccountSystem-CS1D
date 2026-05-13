@@ -133,13 +133,7 @@ public final class AdminUserPanel extends javax.swing.JPanel {
 
             applyTableSettings();
 
-        } catch (SQLException e) {
-
-            JOptionPane.showMessageDialog(
-                    this,
-                    "SQL Error: " + e.getMessage()
-            );
-
+        } catch (SQLException e) {JOptionPane.showMessageDialog(this, "SQL Error: "+ e.getMessage());
             e.printStackTrace();
         }
     }
@@ -158,8 +152,7 @@ public final class AdminUserPanel extends javax.swing.JPanel {
         UserTable.getColumnModel().getColumn(0).setWidth(0);
 
         // Center renderer
-        DefaultTableCellRenderer centerRenderer =
-                new DefaultTableCellRenderer();
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
 
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
 
@@ -377,16 +370,18 @@ public final class AdminUserPanel extends javax.swing.JPanel {
                 int today = rs.getInt("today");
 
                 TotalUsersLabel.setText(String.valueOf(total));
-
                 TotalUsersLabel.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 10));
-
                 TotalUsersLabel.setForeground(new java.awt.Color(33, 37, 41));
-
-                TrendLabel.setText("+" + today + " today");
-
-                TrendLabel.setForeground(new java.awt.Color(40, 167, 69));
-
-                TrendLabel.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD,8));
+                
+                if (today > 0){
+                    TrendLabel.setText("+" + today + " today");
+                    TrendLabel.setForeground(new java.awt.Color(40, 167, 69));
+                    TrendLabel.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD,8));
+                }else {
+                    TrendLabel.setText("-" + today + " today");
+                    TrendLabel.setForeground(new java.awt.Color(255, 0, 0));
+                    TrendLabel.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 8));
+                    }                    
             }
 
         } catch (SQLException e) {
@@ -418,8 +413,7 @@ public final class AdminUserPanel extends javax.swing.JPanel {
                         rs.getString("role")
                 );
             }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Error fetching user: " + e.getMessage());
+        } catch (SQLException e) {JOptionPane.showMessageDialog(this, "Error fetching user: " + e.getMessage());
             return;
         }
 
