@@ -18,7 +18,7 @@ public class Project1UserAccountSystemCS1D {
 
     public static void main(String[] args) {
 
-        JFrame frame = new JFrame("Strata Login System");
+        JFrame frame = new JFrame("Strata Account System");
         
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
@@ -34,9 +34,7 @@ public class Project1UserAccountSystemCS1D {
                 );
 
                 if (confirm == JOptionPane.YES_OPTION) {
-
                     LogService.updateTimeOut(); // 🔥 important
-
                     System.exit(0);
                 }
             }
