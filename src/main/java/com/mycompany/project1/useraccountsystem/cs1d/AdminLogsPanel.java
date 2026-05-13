@@ -102,12 +102,6 @@ public class AdminLogsPanel extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         jScrollPane8 = new javax.swing.JScrollPane();
         userTable = new javax.swing.JTable();
-        totalLogin = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
-        Success = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
-        Failed = new javax.swing.JPanel();
-        jLabel9 = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         HomeButton = new javax.swing.JButton();
         UsersButton = new javax.swing.JButton();
@@ -304,9 +298,9 @@ public class AdminLogsPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        userTable.setMinimumSize(new java.awt.Dimension(470, 622));
+        userTable.setMinimumSize(new java.awt.Dimension(469, 622));
         userTable.setName("userTable"); // NOI18N
-        userTable.setPreferredSize(new java.awt.Dimension(470, 562));
+        userTable.setPreferredSize(new java.awt.Dimension(469, 622));
         userTable.setRowHeight(16);
         userTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane8.setViewportView(userTable);
@@ -319,75 +313,6 @@ public class AdminLogsPanel extends javax.swing.JPanel {
             userTable.getColumnModel().getColumn(3).setPreferredWidth(165);
         }
         userTable.getAccessibleContext().setAccessibleName("");
-
-        totalLogin.setBackground(new java.awt.Color(255, 255, 255));
-        totalLogin.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        totalLogin.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
-
-        javax.swing.GroupLayout totalLoginLayout = new javax.swing.GroupLayout(totalLogin);
-        totalLogin.setLayout(totalLoginLayout);
-        totalLoginLayout.setHorizontalGroup(
-            totalLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, totalLoginLayout.createSequentialGroup()
-                .addContainerGap(72, Short.MAX_VALUE)
-                .addComponent(jLabel7)
-                .addGap(28, 28, 28))
-        );
-        totalLoginLayout.setVerticalGroup(
-            totalLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, totalLoginLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel7)
-                .addGap(40, 40, 40))
-        );
-
-        jLabel7.getAccessibleContext().setAccessibleName("Total");
-
-        Success.setBackground(new java.awt.Color(255, 255, 255));
-        Success.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        Success.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
-
-        javax.swing.GroupLayout SuccessLayout = new javax.swing.GroupLayout(Success);
-        Success.setLayout(SuccessLayout);
-        SuccessLayout.setHorizontalGroup(
-            SuccessLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(SuccessLayout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(jLabel8)
-                .addContainerGap(71, Short.MAX_VALUE))
-        );
-        SuccessLayout.setVerticalGroup(
-            SuccessLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SuccessLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel8)
-                .addGap(39, 39, 39))
-        );
-
-        jLabel8.getAccessibleContext().setAccessibleName("Successful");
-
-        Failed.setBackground(new java.awt.Color(255, 255, 255));
-        Failed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        Failed.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
-
-        javax.swing.GroupLayout FailedLayout = new javax.swing.GroupLayout(Failed);
-        Failed.setLayout(FailedLayout);
-        FailedLayout.setHorizontalGroup(
-            FailedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(FailedLayout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(jLabel9)
-                .addContainerGap(73, Short.MAX_VALUE))
-        );
-        FailedLayout.setVerticalGroup(
-            FailedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FailedLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel9)
-                .addGap(39, 39, 39))
-        );
-
-        jLabel9.getAccessibleContext().setAccessibleName("Failed");
 
         jPanel8.setBackground(new java.awt.Color(51, 51, 51));
         jPanel8.setForeground(new java.awt.Color(255, 255, 255));
@@ -489,7 +414,7 @@ public class AdminLogsPanel extends javax.swing.JPanel {
                 .addComponent(jLabel20)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(LogoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 170, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -501,13 +426,7 @@ public class AdminLogsPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(totalLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(232, 232, 232)
-                        .addComponent(Success, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 212, Short.MAX_VALUE)
-                        .addComponent(Failed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane8)
+                    .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 752, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -517,14 +436,9 @@ public class AdminLogsPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(totalLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Failed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Success, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 469, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, 604, Short.MAX_VALUE)
         );
@@ -585,13 +499,11 @@ public class AdminLogsPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton DashboardButton5;
-    private javax.swing.JPanel Failed;
     private javax.swing.JButton HomeButton;
     private javax.swing.JButton LogoutButton;
     private javax.swing.JButton LogoutButton5;
     private javax.swing.JButton LogsButton;
     private javax.swing.JButton SettingsButton5;
-    private javax.swing.JPanel Success;
     private javax.swing.JButton UsersButton;
     private javax.swing.JButton UsersButton5;
     private javax.swing.JLabel jLabel16;
@@ -603,9 +515,6 @@ public class AdminLogsPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel7;
@@ -615,7 +524,6 @@ public class AdminLogsPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextArea jTextArea4;
-    private javax.swing.JPanel totalLogin;
     private javax.swing.JTable userTable;
     // End of variables declaration//GEN-END:variables
 }
