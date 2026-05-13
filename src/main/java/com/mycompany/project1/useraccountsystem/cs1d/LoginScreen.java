@@ -59,8 +59,8 @@ public class LoginScreen extends javax.swing.JPanel {
     }
     
     private void doLogin() {
-        String emailInput = jTextField1.getText().trim();
-        String passwordInput = new String(jPasswordField2.getPassword());
+        String emailInput = LoginField.getText().trim();
+        String passwordInput = new String(PasswordField.getPassword());
 
         if (emailInput.isEmpty() || passwordInput.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Enter email and password!");
@@ -144,14 +144,14 @@ public class LoginScreen extends javax.swing.JPanel {
 
         jLabel2 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
+        LoginField = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-        jPasswordField2 = new javax.swing.JPasswordField();
+        PasswordField = new javax.swing.JPasswordField();
         jLabel8 = new javax.swing.JLabel();
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
@@ -165,19 +165,19 @@ public class LoginScreen extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(480, 680));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(153, 0, 0), null, null));
         jPanel1.setForeground(new java.awt.Color(60, 63, 65));
+        jPanel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jPanel1.setMaximumSize(new java.awt.Dimension(400, 488));
         jPanel1.setMinimumSize(new java.awt.Dimension(400, 488));
         jPanel1.setPreferredSize(new java.awt.Dimension(400, 488));
         jPanel1.setRequestFocusEnabled(false);
 
-        jTextField1.setBackground(new java.awt.Color(51, 51, 51));
-        jTextField1.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        jTextField1.setForeground(new java.awt.Color(255, 255, 255));
-        jTextField1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(204, 0, 0), null, null));
-        jTextField1.setSelectionColor(new java.awt.Color(0, 0, 204));
-        jTextField1.addActionListener(this::jTextField1ActionPerformed);
+        LoginField.setBackground(new java.awt.Color(51, 51, 51));
+        LoginField.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        LoginField.setForeground(new java.awt.Color(255, 255, 255));
+        LoginField.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(204, 0, 0), null, null));
+        LoginField.setSelectionColor(new java.awt.Color(0, 0, 204));
+        LoginField.addActionListener(this::LoginFieldActionPerformed);
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(60, 63, 65));
@@ -207,12 +207,12 @@ public class LoginScreen extends javax.swing.JPanel {
         jButton4.setText("Sign Up");
         jButton4.addActionListener(this::jButton4ActionPerformed);
 
-        jPasswordField2.setBackground(new java.awt.Color(51, 51, 51));
-        jPasswordField2.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        jPasswordField2.setForeground(new java.awt.Color(255, 255, 255));
-        jPasswordField2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(204, 0, 0), null, null));
-        jPasswordField2.setSelectionColor(new java.awt.Color(0, 0, 204));
-        jPasswordField2.addActionListener(this::jPasswordField2ActionPerformed);
+        PasswordField.setBackground(new java.awt.Color(51, 51, 51));
+        PasswordField.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        PasswordField.setForeground(new java.awt.Color(255, 255, 255));
+        PasswordField.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(204, 0, 0), null, null));
+        PasswordField.setSelectionColor(new java.awt.Color(0, 0, 204));
+        PasswordField.addActionListener(this::PasswordFieldActionPerformed);
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(60, 63, 65));
@@ -235,14 +235,14 @@ public class LoginScreen extends javax.swing.JPanel {
                                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(18, 18, 18)
                                     .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(PasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(LoginField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel4)
                             .addComponent(jLabel7)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(79, 79, 79)
                         .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addContainerGap(54, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -256,11 +256,11 @@ public class LoginScreen extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(LoginField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(PasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -292,16 +292,18 @@ public class LoginScreen extends javax.swing.JPanel {
         openRegistration();
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void jPasswordField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField2ActionPerformed
+    private void PasswordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PasswordFieldActionPerformed
         // password 
-    }//GEN-LAST:event_jPasswordField2ActionPerformed
+    }//GEN-LAST:event_PasswordFieldActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void LoginFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_LoginFieldActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField LoginField;
+    private javax.swing.JPasswordField PasswordField;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel2;
@@ -311,8 +313,6 @@ public class LoginScreen extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField jPasswordField2;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 
     private int getUserId(String username) {
