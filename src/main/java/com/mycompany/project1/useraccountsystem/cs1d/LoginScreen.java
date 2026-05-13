@@ -77,7 +77,6 @@ public class LoginScreen extends javax.swing.JPanel {
             logUserSession(user.userId);
 
             if (user.role.equalsIgnoreCase("admin")) {
-                JOptionPane.showMessageDialog(this, "Admin Login Successful!");
                 // Matches constructor: (JFrame, int, String)
                 parentFrame.setContentPane(new AdminHomePanel(parentFrame, user.userId, user.username));
             } else {
@@ -193,6 +192,7 @@ public class LoginScreen extends javax.swing.JPanel {
         LoginField.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         LoginField.setForeground(new java.awt.Color(255, 255, 255));
         LoginField.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(204, 0, 0), null, null));
+        LoginField.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         LoginField.setSelectionColor(new java.awt.Color(0, 0, 204));
         LoginField.addActionListener(this::LoginFieldActionPerformed);
 

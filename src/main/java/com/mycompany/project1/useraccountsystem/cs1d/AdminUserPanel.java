@@ -289,8 +289,6 @@ public final class AdminUserPanel extends javax.swing.JPanel {
                     fireEditingStopped();
                     return;
                 }
-
-                // Hidden ID column
                 int userId = Integer.parseInt(UserTable.getValueAt(selectedRow, 0).toString());
                 int result = JOptionPane.showConfirmDialog(
                         null,
@@ -299,28 +297,35 @@ public final class AdminUserPanel extends javax.swing.JPanel {
                         JOptionPane.YES_NO_OPTION
                 );
 
+                // Inside ActionButtonsEditor -> deleteBtn ActionListener
                 if (result == JOptionPane.YES_OPTION) {
                     try (Connection conn = DatabaseConnection.getConnection()) {
-                        String query = "DELETE FROM users WHERE user_id = ?";
+                        // Start a transaction to ensure both deletes happen or neither does
+                        conn.setAutoCommit(false);
 
-                        PreparedStatement pst = conn.prepareStatement(query);
+                        try (PreparedStatement pstLogs = conn.prepareStatement("DELETE FROM user_logs WHERE user_id = ?"); 
+                             PreparedStatement pstUser = conn.prepareStatement("DELETE FROM users WHERE user_id = ?")) {
 
-                        pst.setInt(1, userId);
+                            pstLogs.setInt(1, userId);
+                            pstLogs.executeUpdate();
 
-                        int rows = pst.executeUpdate();
+                            pstUser.setInt(1, userId);
+                            int rows = pstUser.executeUpdate();
 
-                        if (rows > 0) {JOptionPane.showMessageDialog(null, "User deleted successfully.");
-                            // Refresh
-                            loadMySQLData();
-                            updateStatCards();
-
-                        } else {JOptionPane.showMessageDialog(null, "User not found.");
+                            if (rows > 0) {
+                                conn.commit();
+                                JOptionPane.showMessageDialog(null, "User deleted successfully.");
+                                loadMySQLData();
+                                updateStatCards();
+                            } else {
+                                conn.rollback();
+                            }
+                        } catch (SQLException ex) {
+                            conn.rollback();
+                            throw ex;
                         }
-
                     } catch (SQLException ex) {
-
-                        JOptionPane.showMessageDialog( null, "SQL Error: " + ex.getMessage());
-                        ex.printStackTrace();
+                        JOptionPane.showMessageDialog(null, "Database Error: " + ex.getMessage());
                     }
                 }
                 fireEditingStopped();
@@ -948,28 +953,18 @@ public final class AdminUserPanel extends javax.swing.JPanel {
 
     private void AddUserButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddUserButtonActionPerformed
         // TODO add your handling code here:   
-        // 1. Create the Dialog
         JDialog regDialog = new JDialog(parentFrame, "New Registration", true);
 
-        // 2. Set behavior: Dispose only closes the popup
         regDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 
-        // 3. Add your screen
         AddAccountScreen regContent = new AddAccountScreen(parentFrame);
+        
         regDialog.add(regContent);
-
-        // 4. Styling
         regDialog.setUndecorated(true);
-
-        // IMPORTANT: pack() sets the dialog to the 680x510 size of regContent
-        // without affecting the parentFrame's size.
         regDialog.pack();
         regDialog.setLocationRelativeTo(parentFrame);
-
-        // 5. Show it
         regDialog.setVisible(true);
 
-        // 6. Refresh the Table after popup is closed
         loadMySQLData();
     }//GEN-LAST:event_AddUserButtonActionPerformed
 

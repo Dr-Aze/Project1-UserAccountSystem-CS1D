@@ -25,10 +25,7 @@ CREATE TABLE `users` (
 
 -- Dumping data for table `users` 
 INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `email`, `username`, `password`, `created_at`, `role`, `total_login`) VALUES
-(1, 'Admin', 'Admin', 'admin', 'Admin', 'admin', '2026-05-05 14:42:15', 'admin', NULL),
-(2, 'renz', 'palmes', 'renz@gmail.com', 'renz', '1432', '2026-05-05 14:42:15', 'user', NULL),
-(4, 'hezron', 'del rosario', 'hezron@gmail.com', 'hezron', '1234', '2026-05-05 14:42:15', 'user', NULL);
-
+(1, 'Admin', 'Admin', 'admin', 'Admin', 'admin', '2026-05-05 14:42:15', 'admin', NULL)
 -- --------------------------------------------------------
 
 --
