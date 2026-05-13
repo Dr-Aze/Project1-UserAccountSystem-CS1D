@@ -26,14 +26,14 @@ import javax.swing.table.DefaultTableModel;
  * renzz12345
  * DrAze
  */
-public final class UserPanel extends javax.swing.JPanel {
+public final class AdminUserPanel extends javax.swing.JPanel {
 
     private final JFrame parentFrame;
     private final String currentUsername;
     private final String firstName;
     private final int currentUserId;
 
-    public UserPanel(JFrame frame, int userId, String username, String firstName) {
+    public AdminUserPanel(JFrame frame, int userId, String username, String firstName) {
 
         this.parentFrame = frame;
         this.currentUserId = userId;
@@ -1013,7 +1013,7 @@ public final class UserPanel extends javax.swing.JPanel {
 
     private void LogsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogsButtonActionPerformed
         // TODO add your handling code here:
-        parentFrame.setContentPane(new LogsPanel(parentFrame, currentUsername, firstName));
+        parentFrame.setContentPane(new AdminLogsPanel(parentFrame, currentUsername, firstName));
         parentFrame.revalidate();
         parentFrame.repaint();
     }//GEN-LAST:event_LogsButtonActionPerformed

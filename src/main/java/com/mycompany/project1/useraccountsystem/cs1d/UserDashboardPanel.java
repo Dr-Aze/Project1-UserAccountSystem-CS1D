@@ -13,14 +13,14 @@ import javax.swing.JFrame;
  * DrAze
  */
 
-public class DashboardPanel extends javax.swing.JPanel {
+public class UserDashboardPanel extends javax.swing.JPanel {
 
         private final JFrame parentFrame;
         private final String currentUsername;
         private final String firstName;
         private int currentUserId;
 
-        public DashboardPanel(JFrame frame, int userId, String username, String firstName) {
+        public UserDashboardPanel(JFrame frame, int userId, String username, String firstName) {
             this.parentFrame = frame;
             this.currentUserId = userId;
             this.currentUsername = username;
@@ -40,7 +40,7 @@ public class DashboardPanel extends javax.swing.JPanel {
             DashboardLabel.setForeground(new java.awt.Color(33, 37, 41));
         }
 
-    DashboardPanel(JFrame parentFrame) {
+    UserDashboardPanel(JFrame parentFrame) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
@@ -407,14 +407,11 @@ public class DashboardPanel extends javax.swing.JPanel {
 
     private void DashboardButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DashboardButton5ActionPerformed
         // dashboard function go to DashboardPanel
-        parentFrame.setContentPane(new DashboardPanel(parentFrame, currentUserId, currentUsername, firstName));
-        parentFrame.revalidate();
-        parentFrame.repaint();
     }//GEN-LAST:event_DashboardButton5ActionPerformed
 
     private void SettingsButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsButton5ActionPerformed
         // go to settings panel
-        parentFrame.setContentPane(new SettingsPanel(parentFrame, currentUserId, currentUsername, firstName));
+        parentFrame.setContentPane(new UserSettingsPanel(parentFrame, currentUserId, currentUsername, firstName));
         parentFrame.revalidate();
         parentFrame.repaint();
     }//GEN-LAST:event_SettingsButton5ActionPerformed
@@ -422,9 +419,17 @@ public class DashboardPanel extends javax.swing.JPanel {
     private void LogoutButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogoutButton5ActionPerformed
         // logout function go to LoginScreen
         LogService.updateTimeOut();
-        parentFrame.setContentPane(new LoginScreen(parentFrame));
-        parentFrame.revalidate();
-        parentFrame.repaint();
+        parentFrame.dispose();
+
+        JFrame loginFrame = new JFrame("Login");
+        loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        loginFrame.setSize(974, 634);
+        loginFrame.setResizable(false);
+        loginFrame.setLocationRelativeTo(null);
+
+        loginFrame.setContentPane(new LoginScreen(loginFrame));
+
+        loginFrame.setVisible(true);
     }//GEN-LAST:event_LogoutButton5ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

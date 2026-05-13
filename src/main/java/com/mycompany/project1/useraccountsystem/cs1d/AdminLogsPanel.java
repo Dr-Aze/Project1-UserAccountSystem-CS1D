@@ -9,14 +9,14 @@ import java.sql.*;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-public class LogsPanel extends javax.swing.JPanel {
+public class AdminLogsPanel extends javax.swing.JPanel {
     
     private JFrame parentFrame;
     private final String currentUsername;
     private final String firstName;
     private int currentUserId;
 
-    public LogsPanel(JFrame frame, String username, String firstName) {
+    public AdminLogsPanel(JFrame frame, String username, String firstName) {
         this.parentFrame = frame;
         this.currentUsername = username;
         this.firstName = firstName;
@@ -540,14 +540,14 @@ public class LogsPanel extends javax.swing.JPanel {
 
     private void UsersButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsersButton5ActionPerformed
         // go to userPanel
-        parentFrame.setContentPane(new UserPanel(parentFrame, currentUserId, currentUsername, firstName));
+        parentFrame.setContentPane(new AdminUserPanel(parentFrame, currentUserId, currentUsername, firstName));
         parentFrame.revalidate();
         parentFrame.repaint();
     }//GEN-LAST:event_UsersButton5ActionPerformed
 
     private void SettingsButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsButton5ActionPerformed
         // go to settings panel
-        parentFrame.setContentPane(new SettingsPanel(parentFrame, currentUserId, currentUsername, firstName));
+        parentFrame.setContentPane(new UserSettingsPanel(parentFrame, currentUserId, currentUsername, firstName));
         parentFrame.revalidate();
         parentFrame.repaint();
     }//GEN-LAST:event_SettingsButton5ActionPerformed
@@ -566,7 +566,7 @@ public class LogsPanel extends javax.swing.JPanel {
 
     private void UsersButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsersButtonActionPerformed
         // go to userPanel
-        parentFrame.setContentPane(new UserPanel(parentFrame, currentUserId, currentUsername, firstName));
+        parentFrame.setContentPane(new AdminUserPanel(parentFrame, currentUserId, currentUsername, firstName));
         parentFrame.revalidate();
         parentFrame.repaint();
     }//GEN-LAST:event_UsersButtonActionPerformed

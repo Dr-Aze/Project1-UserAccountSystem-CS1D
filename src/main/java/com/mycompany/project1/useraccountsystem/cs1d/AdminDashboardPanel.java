@@ -450,14 +450,14 @@ public class AdminDashboardPanel extends javax.swing.JPanel {
 
     private void UsersButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsersButtonActionPerformed
         // go to userPanel
-        parentFrame.setContentPane(new UserPanel(parentFrame, currentUserId, currentUsername, firstName));
+        parentFrame.setContentPane(new AdminUserPanel(parentFrame, currentUserId, currentUsername, firstName));
         parentFrame.revalidate();
         parentFrame.repaint();
     }//GEN-LAST:event_UsersButtonActionPerformed
 
     private void LogsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogsButtonActionPerformed
         // TODO add your handling code here:
-        parentFrame.setContentPane(new LogsPanel(parentFrame, currentUsername, firstName));
+        parentFrame.setContentPane(new AdminLogsPanel(parentFrame, currentUsername, firstName));
         parentFrame.revalidate();
         parentFrame.repaint();
     }//GEN-LAST:event_LogsButtonActionPerformed

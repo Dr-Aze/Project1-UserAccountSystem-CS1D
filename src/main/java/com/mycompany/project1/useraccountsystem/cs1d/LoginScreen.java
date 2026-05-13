@@ -96,9 +96,9 @@ public class LoginScreen extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Admin Login Successful!");
                 parentFrame.setContentPane(new AdminDashboardPanel(parentFrame, userId, username, firstName));
             } else {
-                JOptionPane.showMessageDialog(this, "Login Successful! Welcome " + firstName);
+                JOptionPane.showMessageDialog(this, "Login Successful! Welcome " + username);
                 // PASS BOTH: Email for logic, FirstName for greeting
-                parentFrame.setContentPane(new DashboardPanel(parentFrame, userId, username, firstName));
+                parentFrame.setContentPane(new UserDashboardPanel(parentFrame, userId, username, firstName));
             }
 
             parentFrame.revalidate();

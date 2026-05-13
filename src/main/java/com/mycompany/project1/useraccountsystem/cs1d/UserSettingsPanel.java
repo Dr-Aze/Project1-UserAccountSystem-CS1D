@@ -18,7 +18,7 @@ import java.sql.SQLException;
  * DrAze
  */
 
-public class SettingsPanel extends javax.swing.JPanel {
+public class UserSettingsPanel extends javax.swing.JPanel {
 
     private JFrame parentFrame;
     
@@ -27,7 +27,7 @@ public class SettingsPanel extends javax.swing.JPanel {
     private int currentUserId;
     
 
-    public SettingsPanel(JFrame frame, int userId, String username, String firstName) {
+    public UserSettingsPanel(JFrame frame, int userId, String username, String firstName) {
         this.parentFrame = frame;
         this.currentUserId = userId;
         this.currentUsername = username;
@@ -43,40 +43,38 @@ public class SettingsPanel extends javax.swing.JPanel {
     private void loadUserData() {
 
     try {
-        Connection conn = DatabaseConnection.getConnection();
-        String sql =
-            "SELECT first_name, last_name, email, role " +
-            "FROM users WHERE username=?";
-
-        PreparedStatement pst =
-            conn.prepareStatement(sql);
-
-        pst.setString(1, currentUsername);
-
-        ResultSet rs = pst.executeQuery();
-
-        if(rs.next()) {
-
-            FirstName.setText(
-                rs.getString("first_name")
-            );
-
-            LastName.setText(
-                rs.getString("last_name")
-            );
-
-            Email.setText(
-                rs.getString("email")
-            );
-
-            jComboBox1.setSelectedItem(
-                rs.getString("role")
-            );
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            String sql =
+                    """
+                    SELECT first_name, last_name, email, role 
+                    FROM users WHERE username=?
+                    """;
+            
+            PreparedStatement pst =
+                    conn.prepareStatement(sql);
+            
+            pst.setString(1, currentUsername);
+            
+            ResultSet rs = pst.executeQuery();
+            
+            if(rs.next()) {
+                
+                FirstName.setText(
+                        rs.getString("first_name")
+                );
+                
+                LastName.setText(
+                        rs.getString("last_name")
+                );
+                
+                Email.setText(
+                        rs.getString("email")
+                );                               
+            }
+            
+            rs.close();
+            pst.close();
         }
-
-        rs.close();
-        pst.close();
-        conn.close();
 
     } catch(SQLException e) {
 
@@ -135,10 +133,7 @@ public class SettingsPanel extends javax.swing.JPanel {
         ConfirmPassword = new javax.swing.JPasswordField();
         jLabel14 = new javax.swing.JLabel();
         CurrentPassword = new javax.swing.JPasswordField();
-        jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jLabel17 = new javax.swing.JLabel();
 
         jPanel3.setBackground(new java.awt.Color(51, 51, 51));
         jPanel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -402,12 +397,18 @@ public class SettingsPanel extends javax.swing.JPanel {
         SaveChanges.setBackground(new java.awt.Color(153, 0, 0));
         SaveChanges.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         SaveChanges.setText("Save Changes");
+        SaveChanges.setMaximumSize(new java.awt.Dimension(110, 23));
+        SaveChanges.setMinimumSize(new java.awt.Dimension(110, 23));
         SaveChanges.setName("SaveChanges"); // NOI18N
+        SaveChanges.setPreferredSize(new java.awt.Dimension(110, 41));
         SaveChanges.addActionListener(this::SaveChangesActionPerformed);
 
         Cancel.setBackground(new java.awt.Color(102, 102, 102));
         Cancel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         Cancel.setText("Cancel");
+        Cancel.setMaximumSize(new java.awt.Dimension(110, 41));
+        Cancel.setMinimumSize(new java.awt.Dimension(110, 41));
+        Cancel.setPreferredSize(new java.awt.Dimension(110, 41));
         Cancel.addActionListener(this::CancelActionPerformed);
 
         NewPassword.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(153, 0, 0), null, null));
@@ -442,20 +443,8 @@ public class SettingsPanel extends javax.swing.JPanel {
         CurrentPassword.setName("CurrentPassword"); // NOI18N
         CurrentPassword.addActionListener(this::CurrentPasswordActionPerformed);
 
-        jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        jLabel15.setText("ADMIN ACCOUNT");
-
         jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jLabel16.setText("PASSWORD");
-
-        jComboBox1.setBackground(new java.awt.Color(102, 102, 102));
-        jComboBox1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "User", " " }));
-        jComboBox1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jComboBox1.addActionListener(this::jComboBox1ActionPerformed);
-
-        jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel17.setText("Role");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -470,22 +459,20 @@ public class SettingsPanel extends javax.swing.JPanel {
                             .addComponent(Email, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1)
                             .addComponent(jLabel2))
-                        .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel3)
-                                .addComponent(LastName, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(Cancel)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(SaveChanges, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)))
-                            .addComponent(jLabel17))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(LastName, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(30, 30, 30)
+                                .addComponent(Cancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(SaveChanges, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel15)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(NewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -508,9 +495,7 @@ public class SettingsPanel extends javax.swing.JPanel {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(42, 42, 42)
-                .addComponent(jLabel15)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(69, 69, 69)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
@@ -519,19 +504,15 @@ public class SettingsPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Email, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(Email, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Cancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(SaveChanges, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(LastName, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel17)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Cancel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(SaveChanges, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(69, 69, 69)))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel16)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -574,36 +555,32 @@ public class SettingsPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 531, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void DashboardButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DashboardButtonActionPerformed
         // dashboard function go to DashboardPanel
-        parentFrame.setContentPane(new DashboardPanel(parentFrame));
+        parentFrame.setContentPane(new UserDashboardPanel(parentFrame));
         parentFrame.revalidate();
         parentFrame.repaint();
     }//GEN-LAST:event_DashboardButtonActionPerformed
 
     private void LogsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogsButtonActionPerformed
         // login logs function go to LogsPanel
-        parentFrame.setContentPane(new LogsPanel(parentFrame, currentUsername, firstName));
-        parentFrame.revalidate();
-        parentFrame.repaint();
-        //loadSummaryData();
     }//GEN-LAST:event_LogsButtonActionPerformed
 
     private void UsersButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsersButton2ActionPerformed
         // go to userPanel
-        parentFrame.setContentPane(new UserPanel(parentFrame, currentUserId, currentUsername, firstName));
+        parentFrame.setContentPane(new AdminUserPanel(parentFrame, currentUserId, currentUsername, firstName));
         parentFrame.revalidate();
         parentFrame.repaint();
     }//GEN-LAST:event_UsersButton2ActionPerformed
 
     private void SettingsButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsButton2ActionPerformed
         // go to settings panel
-        parentFrame.setContentPane(new SettingsPanel(parentFrame, currentUserId, currentUsername, firstName));
+        parentFrame.setContentPane(new UserSettingsPanel(parentFrame, currentUserId, currentUsername, firstName));
         parentFrame.revalidate();
         parentFrame.repaint();
     }//GEN-LAST:event_SettingsButton2ActionPerformed
@@ -790,18 +767,15 @@ public class SettingsPanel extends javax.swing.JPanel {
             return;
         }
        
-       try {
-        Connection conn = DatabaseConnection.getConnection();
-        String roleValue = jComboBox1.getSelectedItem().toString().trim();
+       try { Connection conn = DatabaseConnection.getConnection();
         String sql =
-        "UPDATE users SET first_name=?, last_name=?, email=?, role=? WHERE username=?";
+        "UPDATE users SET first_name=?, last_name=?, email=? WHERE username=?";
 
         PreparedStatement pst = conn.prepareStatement(sql);
 
         pst.setString(1, firstNameValue);
         pst.setString(2, lastNameValue);
         pst.setString(3, emailValue);
-        pst.setString(4, roleValue);
         pst.setString(5, currentUsername);
        
 
@@ -825,13 +799,13 @@ public class SettingsPanel extends javax.swing.JPanel {
         pst.close();
         conn.close();
 
-    } catch(SQLException e) {
+        } catch(SQLException e) {
 
-        JOptionPane.showMessageDialog(
-            this,
-            "Database Error: " + e.getMessage()
-        );
-    }
+            JOptionPane.showMessageDialog(
+                this,
+                "Database Error: " + e.getMessage()
+            );
+        }
     }//GEN-LAST:event_SaveChangesActionPerformed
 
     private void ConfirmPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfirmPasswordActionPerformed
@@ -841,12 +815,6 @@ public class SettingsPanel extends javax.swing.JPanel {
     private void CurrentPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CurrentPasswordActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_CurrentPasswordActionPerformed
-
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
-        String role =
-        jComboBox1.getSelectedItem().toString();
-    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void LogoutButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogoutButton3ActionPerformed
         // logout function go to LoginScreen
@@ -866,14 +834,14 @@ public class SettingsPanel extends javax.swing.JPanel {
 
     private void SettingsButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsButton3ActionPerformed
         // go to settings panel
-        parentFrame.setContentPane(new SettingsPanel(parentFrame,currentUserId, currentUsername, firstName));
+        parentFrame.setContentPane(new UserSettingsPanel(parentFrame,currentUserId, currentUsername, firstName));
         parentFrame.revalidate();
         parentFrame.repaint();
     }//GEN-LAST:event_SettingsButton3ActionPerformed
 
     private void DashboardButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DashboardButton1ActionPerformed
         // dashboard function go to DashboardPanel
-        parentFrame.setContentPane(new AdminDashboardPanel(parentFrame, currentUserId, currentUsername, firstName));
+        parentFrame.setContentPane(new UserDashboardPanel(parentFrame, currentUserId, currentUsername, firstName));
         parentFrame.revalidate();
         parentFrame.repaint();
     }//GEN-LAST:event_DashboardButton1ActionPerformed
@@ -901,16 +869,13 @@ public class SettingsPanel extends javax.swing.JPanel {
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.ButtonGroup buttonGroup3;
     private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
