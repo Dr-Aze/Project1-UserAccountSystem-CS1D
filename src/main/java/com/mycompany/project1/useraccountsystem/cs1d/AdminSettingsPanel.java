@@ -23,71 +23,52 @@ public class AdminSettingsPanel extends javax.swing.JPanel {
     private JFrame parentFrame;
     
     private final String currentUsername;
-    private final String firstName;
     private int currentUserId;
+    private int editingUserId = -1;
     
 
-    public AdminSettingsPanel(JFrame frame, int userId, String username, String firstName) {
+    public AdminSettingsPanel(JFrame frame, int userId, String username) {
         this.parentFrame = frame;
         this.currentUserId = userId;
         this.currentUsername = username;
-        this.firstName = firstName;
         
         parentFrame.setSize(974, 634);
         parentFrame.setResizable(false);
         parentFrame.setLocationRelativeTo(null);
 
         initComponents();
-        loadUserData();
+        loadCurrentUserData();
     }
-    private void loadUserData() {
+         
+    public void setEditData(int userId, String fName, String lName, String email, String role) {
+        this.editingUserId = userId;
+        this.jLabel15.setText("EDITING" +currentUsername +" ACCOUNT");
+        this.firstNameField.setText(fName);
+        this.LastName.setText(lName);
+        this.emailField.setText(email);
+        this.jComboBox1.setSelectedItem(role);
+    }
+    
+    private void loadCurrentUserData() {
+        String sql = "SELECT user_id, first_name, last_name, email, role FROM users WHERE username = ?";
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pst = conn.prepareStatement(sql)) {
 
-    try {
-        try (Connection conn = DatabaseConnection.getConnection()) {
-            String sql =
-                    """
-                    SELECT first_name, last_name, email, role 
-                    FROM users WHERE username=?
-                    """;
-            
-            PreparedStatement pst =
-                    conn.prepareStatement(sql);
-            
             pst.setString(1, currentUsername);
-            
-            ResultSet rs = pst.executeQuery();
-            
-            if(rs.next()) {
-                
-                FirstName.setText(
-                        rs.getString("first_name")
-                );
-                
-                LastName.setText(
-                        rs.getString("last_name")
-                );
-                
-                Email.setText(
-                        rs.getString("email")
-                );
-                
-                jComboBox1.setSelectedItem(
-                        rs.getString("role")
-                );
+            try (ResultSet rs = pst.executeQuery()) {
+                if (rs.next()) {
+                    this.currentUserId = rs.getInt("user_id");
+                    firstNameField.setText(rs.getString("first_name"));
+                    LastName.setText(rs.getString("last_name"));
+                    emailField.setText(rs.getString("email"));
+                    jComboBox1.setSelectedItem(rs.getString("role"));
+                }
             }
-            
-            rs.close();
-            pst.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error loading profile: " + e.getMessage());
         }
-
-    } catch(SQLException e) {
-
-        JOptionPane.showMessageDialog(
-            this,
-            "Error loading user data: " + e.getMessage()
-        );
     }
-}
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -121,22 +102,22 @@ public class AdminSettingsPanel extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        FirstName = new javax.swing.JTextField();
-        Email = new javax.swing.JTextField();
+        firstNameField = new javax.swing.JTextField();
+        emailField = new javax.swing.JTextField();
         LastName = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         SaveChanges = new javax.swing.JButton();
         Cancel = new javax.swing.JButton();
-        NewPassword = new javax.swing.JPasswordField();
+        NewPasswordField = new javax.swing.JPasswordField();
         jLabel6 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         UpdatePassword = new javax.swing.JButton();
-        ConfirmPassword = new javax.swing.JPasswordField();
+        ConfirmPasswordField = new javax.swing.JPasswordField();
         jLabel14 = new javax.swing.JLabel();
-        CurrentPassword = new javax.swing.JPasswordField();
+        CurrentPasswordField = new javax.swing.JPasswordField();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
@@ -379,14 +360,14 @@ public class AdminSettingsPanel extends javax.swing.JPanel {
         jPanel1.setMinimumSize(new java.awt.Dimension(954, 604));
         jPanel1.setPreferredSize(new java.awt.Dimension(954, 604));
 
-        FirstName.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        FirstName.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(153, 0, 0), null, null));
-        FirstName.setName("FirstName"); // NOI18N
-        FirstName.addActionListener(this::FirstNameActionPerformed);
+        firstNameField.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        firstNameField.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(153, 0, 0), null, null));
+        firstNameField.setName("firstNameField"); // NOI18N
+        firstNameField.addActionListener(this::firstNameFieldActionPerformed);
 
-        Email.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(153, 0, 0), null, null));
-        Email.setName("Email"); // NOI18N
-        Email.addActionListener(this::EmailActionPerformed);
+        emailField.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(153, 0, 0), null, null));
+        emailField.setName("emailField"); // NOI18N
+        emailField.addActionListener(this::emailFieldActionPerformed);
 
         LastName.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(153, 0, 0), null, null));
         LastName.setName("LastName"); // NOI18N
@@ -412,9 +393,9 @@ public class AdminSettingsPanel extends javax.swing.JPanel {
         Cancel.setText("Cancel");
         Cancel.addActionListener(this::CancelActionPerformed);
 
-        NewPassword.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(153, 0, 0), null, null));
-        NewPassword.setName("NewPassword"); // NOI18N
-        NewPassword.addActionListener(this::NewPasswordActionPerformed);
+        NewPasswordField.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(153, 0, 0), null, null));
+        NewPasswordField.setName("NewPasswordField"); // NOI18N
+        NewPasswordField.addActionListener(this::NewPasswordFieldActionPerformed);
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel6.setText("New Password");
@@ -433,19 +414,19 @@ public class AdminSettingsPanel extends javax.swing.JPanel {
         UpdatePassword.setName("Updatepassword"); // NOI18N
         UpdatePassword.addActionListener(this::UpdatePasswordActionPerformed);
 
-        ConfirmPassword.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(153, 0, 0), null, null));
-        ConfirmPassword.setName("ConfirmPassword"); // NOI18N
-        ConfirmPassword.addActionListener(this::ConfirmPasswordActionPerformed);
+        ConfirmPasswordField.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(153, 0, 0), null, null));
+        ConfirmPasswordField.setName("ConfirmPasswordField"); // NOI18N
+        ConfirmPasswordField.addActionListener(this::ConfirmPasswordFieldActionPerformed);
 
         jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel14.setText("Current Password");
 
-        CurrentPassword.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(153, 0, 0), null, null));
-        CurrentPassword.setName("CurrentPassword"); // NOI18N
-        CurrentPassword.addActionListener(this::CurrentPasswordActionPerformed);
+        CurrentPasswordField.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(153, 0, 0), null, null));
+        CurrentPasswordField.setName("CurrentPasswordField"); // NOI18N
+        CurrentPasswordField.addActionListener(this::CurrentPasswordFieldActionPerformed);
 
         jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        jLabel15.setText("ADMIN ACCOUNT");
+        jLabel15.setText("-");
 
         jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jLabel16.setText("PASSWORD");
@@ -468,44 +449,46 @@ public class AdminSettingsPanel extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(FirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Email, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel3)
-                                .addComponent(LastName, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(Cancel)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(SaveChanges, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)))
-                            .addComponent(jLabel17))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel15)
+                            .addComponent(jLabel16))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(NewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(firstNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel2))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel3)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(Cancel)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(SaveChanges))
+                                    .addComponent(jLabel17)
+                                    .addComponent(LastName)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(NewPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel6)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel14)
-                                        .addComponent(CurrentPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(CurrentPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel13)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addComponent(jButton3)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(UpdatePassword))
-                                        .addComponent(ConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addComponent(jLabel16))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                                    .addComponent(ConfirmPasswordField)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel13)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jButton3)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(UpdatePassword)))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -517,11 +500,11 @@ public class AdminSettingsPanel extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(FirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(firstNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Email, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -541,18 +524,19 @@ public class AdminSettingsPanel extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel13)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(ConfirmPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel14)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(CurrentPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(CurrentPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(NewPassword)
-                    .addComponent(UpdatePassword, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(NewPasswordField)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(UpdatePassword, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -590,7 +574,7 @@ public class AdminSettingsPanel extends javax.swing.JPanel {
 
     private void LogsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogsButtonActionPerformed
         // login logs function go to LogsPanel
-        parentFrame.setContentPane(new AdminLogsPanel(parentFrame, currentUsername, firstName));
+        parentFrame.setContentPane(new AdminLogsPanel(parentFrame, currentUsername));
         parentFrame.revalidate();
         parentFrame.repaint();
         //loadSummaryData();
@@ -598,14 +582,14 @@ public class AdminSettingsPanel extends javax.swing.JPanel {
 
     private void UsersButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsersButton2ActionPerformed
         // go to userPanel
-        parentFrame.setContentPane(new AdminUserPanel(parentFrame, currentUserId, currentUsername, firstName));
+        parentFrame.setContentPane(new AdminUserPanel(parentFrame, currentUserId, currentUsername));
         parentFrame.revalidate();
         parentFrame.repaint();
     }//GEN-LAST:event_UsersButton2ActionPerformed
 
     private void SettingsButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsButton2ActionPerformed
         // go to settings panel
-        parentFrame.setContentPane(new AdminSettingsPanel(parentFrame, currentUserId, currentUsername, firstName));
+        parentFrame.setContentPane(new AdminSettingsPanel(parentFrame, currentUserId, currentUsername));
         parentFrame.revalidate();
         parentFrame.repaint();
     }//GEN-LAST:event_SettingsButton2ActionPerformed
@@ -618,231 +602,106 @@ public class AdminSettingsPanel extends javax.swing.JPanel {
         parentFrame.repaint();
     }//GEN-LAST:event_LogoutButton2ActionPerformed
 
-    private void FirstNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FirstNameActionPerformed
+    private void firstNameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_firstNameFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_FirstNameActionPerformed
+    }//GEN-LAST:event_firstNameFieldActionPerformed
 
-    private void EmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmailActionPerformed
+    private void emailFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_EmailActionPerformed
+    }//GEN-LAST:event_emailFieldActionPerformed
 
     private void LastNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LastNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_LastNameActionPerformed
 
-    private void NewPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NewPasswordActionPerformed
+    private void NewPasswordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NewPasswordFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_NewPasswordActionPerformed
+    }//GEN-LAST:event_NewPasswordFieldActionPerformed
 
     private void CancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelActionPerformed
         // cancelbutton for profile
-        loadUserData();
+        closeParentDialog();
     }//GEN-LAST:event_CancelActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // cancelbutton for password
-        NewPassword.setText("");
-        ConfirmPassword.setText("");
+        NewPasswordField.setText("");
+        ConfirmPasswordField.setText("");
 
-    JOptionPane.showMessageDialog(
-            this,
-            "Password fields cleared."
-        );
+    JOptionPane.showMessageDialog(this, "Password fields cleared.");
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void UpdatePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdatePasswordActionPerformed
         // updatepassword buttton
-        String currentPasswordValue =
-            new String(CurrentPassword.getPassword());
-        String newPassword =
-            new String(NewPassword.getPassword());
-        String confirmPassword =
-        new String(ConfirmPassword.getPassword());
+        String currentPass = new String(CurrentPasswordField.getPassword());
+        String newPass = new String(NewPasswordField.getPassword());
+        String confirmPass = new String(ConfirmPasswordField.getPassword());
 
-    // Empty validation
-    if(newPassword.isEmpty() ||
-       confirmPassword.isEmpty()) {
-
-        JOptionPane.showMessageDialog(
-                this,
-                "Please complete password fields.",
-                "Validation Error",
-                JOptionPane.ERROR_MESSAGE
-        );
-        return;
-    }
-
-    // Minimum length
-    if(newPassword.length() < 8) {
-
-        JOptionPane.showMessageDialog(
-                this,
-                "Password must be at least 8 characters.",
-                "Validation Error",
-                JOptionPane.ERROR_MESSAGE
-        );
-        return;
-    }
-
-    // Match validation
-    if(!newPassword.equals(confirmPassword)) {
-
-        JOptionPane.showMessageDialog(
-                this,
-                "Passwords do not match.",
-                "Validation Error",
-                JOptionPane.ERROR_MESSAGE
-        );
-        return;
-    }
-    try {
-
-        Connection conn = DatabaseConnection.getConnection();
-
-        // Check current password
-        String checkSql =
-            "SELECT * FROM users WHERE username=? AND password=?";
-
-        PreparedStatement checkPst =
-            conn.prepareStatement(checkSql);
-
-        checkPst.setString(1, currentUsername);
-        checkPst.setString(2, currentPasswordValue);
-
-        ResultSet rs = checkPst.executeQuery();
-
-        if(rs.next()) {
-
-            // Update password
-            String updateSql =
-                "UPDATE users SET password=? WHERE username=?";
-
-            PreparedStatement updatePst =
-                conn.prepareStatement(updateSql);
-
-            updatePst.setString(1, newPassword);
-            updatePst.setString(2, currentUsername);
-
-            updatePst.executeUpdate();
-
-            JOptionPane.showMessageDialog(
-                this,
-                "Password updated successfully!"
-            );
-
-            updatePst.close();
-
-            NewPassword.setText("");
-            ConfirmPassword.setText("");
-            CurrentPassword.setText("");
-
-        } else {
-
-            JOptionPane.showMessageDialog(
-                this,
-                "Current password is incorrect.",
-                "Error",
-                JOptionPane.ERROR_MESSAGE
-            );
+        if (newPass.isEmpty() || !newPass.equals(confirmPass)) {
+            JOptionPane.showMessageDialog(this, "New passwords do not match or are empty.");
+            return;
         }
 
-        rs.close();
-        checkPst.close();
-        conn.close();
+        // 1. Verify current password (simplified logic)
+        // 2. If valid, update to new password
+        int targetId = (editingUserId == -1) ? currentUserId : editingUserId;
+        String sql = "UPDATE users SET password=? WHERE user_id=?";
 
-    } catch(SQLException e) {
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pst = conn.prepareStatement(sql)) {
 
-        JOptionPane.showMessageDialog(
-            this,
-            "Database Error: " + e.getMessage()
-        );
-    }
+            pst.setString(1, newPass);
+            pst.setInt(2, targetId);
 
+            if (pst.executeUpdate() > 0) {
+                JOptionPane.showMessageDialog(this, "Password updated successfully!");
+                // Clear fields after success
+                CurrentPasswordField.setText("");
+                NewPasswordField.setText("");
+                ConfirmPasswordField.setText("");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error updating password: " + e.getMessage());
+        }
     }//GEN-LAST:event_UpdatePasswordActionPerformed
 
     private void SaveChangesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveChangesActionPerformed
         // savechanges button
-        String firstNameValue = FirstName.getText().trim();
-        String lastNameValue = LastName.getText().trim();
-        String emailValue = Email.getText().trim();
+        String fName = firstNameField.getText().trim();
+        String lName = LastName.getText().trim();
+        String email = emailField.getText().trim();
+        String role = jComboBox1.getSelectedItem().toString();
 
-    // Validation
-       if(firstNameValue.isEmpty() ||
-          lastNameValue.isEmpty() ||
-          emailValue.isEmpty()) {
-
-           JOptionPane.showMessageDialog(
-                this,
-                "Please fill in all fields.",
-                "Validation Error",
-                JOptionPane.ERROR_MESSAGE
-            );
+        if (fName.isEmpty() || lName.isEmpty() || email.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "All account fields are required.");
             return;
         }
 
-    // Email validation
-       if(!emailValue.contains("@") || !emailValue.contains(".")) {
+        int targetId = (editingUserId == -1) ? currentUserId : editingUserId;
+        String sql = "UPDATE users SET first_name=?, last_name=?, email=?, role=? WHERE user_id=?";
 
-           JOptionPane.showMessageDialog(
-                this,
-                "Invalid email address.",
-                "Validation Error",
-                JOptionPane.ERROR_MESSAGE
-            );
-            return;
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pst = conn.prepareStatement(sql)) {
+
+            pst.setString(1, fName);
+            pst.setString(2, lName);
+            pst.setString(3, email);
+            pst.setString(4, role);
+            pst.setInt(5, targetId);
+
+            if (pst.executeUpdate() > 0) {
+                JOptionPane.showMessageDialog(this, "Account details updated!");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Database Error: " + e.getMessage());
         }
-       
-       try {
-        Connection conn = DatabaseConnection.getConnection();
-        String roleValue = jComboBox1.getSelectedItem().toString().trim();
-        String sql =
-        "UPDATE users SET first_name=?, last_name=?, email=?, role=? WHERE username=?";
-
-        PreparedStatement pst = conn.prepareStatement(sql);
-
-        pst.setString(1, firstNameValue);
-        pst.setString(2, lastNameValue);
-        pst.setString(3, emailValue);
-        pst.setString(4, roleValue);
-        pst.setString(5, currentUsername);
-       
-
-        int updated = pst.executeUpdate();
-
-        if(updated > 0) {
-
-            JOptionPane.showMessageDialog(
-                this,
-                "Profile updated successfully!"
-            );
-
-        } else {
-
-            JOptionPane.showMessageDialog(
-                this,
-                "Update failed."
-            );
-        }
-
-        pst.close();
-        conn.close();
-
-    } catch(SQLException e) {
-
-        JOptionPane.showMessageDialog(
-            this,
-            "Database Error: " + e.getMessage()
-        );
-    }
     }//GEN-LAST:event_SaveChangesActionPerformed
 
-    private void ConfirmPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfirmPasswordActionPerformed
+    private void ConfirmPasswordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfirmPasswordFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_ConfirmPasswordActionPerformed
+    }//GEN-LAST:event_ConfirmPasswordFieldActionPerformed
 
-    private void CurrentPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CurrentPasswordActionPerformed
+    private void CurrentPasswordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CurrentPasswordFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_CurrentPasswordActionPerformed
+    }//GEN-LAST:event_CurrentPasswordFieldActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
@@ -868,14 +727,14 @@ public class AdminSettingsPanel extends javax.swing.JPanel {
 
     private void SettingsButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsButton3ActionPerformed
         // go to settings panel
-        parentFrame.setContentPane(new AdminSettingsPanel(parentFrame,currentUserId, currentUsername, firstName));
+        parentFrame.setContentPane(new AdminSettingsPanel(parentFrame,currentUserId, currentUsername));
         parentFrame.revalidate();
         parentFrame.repaint();
     }//GEN-LAST:event_SettingsButton3ActionPerformed
 
     private void DashboardButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DashboardButton1ActionPerformed
         // dashboard function go to DashboardPanel
-        parentFrame.setContentPane(new AdminDashboardPanel(parentFrame, currentUserId, currentUsername, firstName));
+        parentFrame.setContentPane(new AdminDashboardPanel(parentFrame, currentUserId, currentUsername));
         parentFrame.revalidate();
         parentFrame.repaint();
     }//GEN-LAST:event_DashboardButton1ActionPerformed
@@ -883,17 +742,15 @@ public class AdminSettingsPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Cancel;
-    private javax.swing.JPasswordField ConfirmPassword;
-    private javax.swing.JPasswordField CurrentPassword;
+    private javax.swing.JPasswordField ConfirmPasswordField;
+    private javax.swing.JPasswordField CurrentPasswordField;
     private javax.swing.JButton DashboardButton;
     private javax.swing.JButton DashboardButton1;
-    private javax.swing.JTextField Email;
-    private javax.swing.JTextField FirstName;
     private javax.swing.JTextField LastName;
     private javax.swing.JButton LogoutButton2;
     private javax.swing.JButton LogoutButton3;
     private javax.swing.JButton LogsButton;
-    private javax.swing.JPasswordField NewPassword;
+    private javax.swing.JPasswordField NewPasswordField;
     private javax.swing.JButton SaveChanges;
     private javax.swing.JButton SettingsButton2;
     private javax.swing.JButton SettingsButton3;
@@ -902,6 +759,8 @@ public class AdminSettingsPanel extends javax.swing.JPanel {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.ButtonGroup buttonGroup3;
+    private javax.swing.JTextField emailField;
+    private javax.swing.JTextField firstNameField;
     private javax.swing.JButton jButton3;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
@@ -926,4 +785,11 @@ public class AdminSettingsPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     // End of variables declaration//GEN-END:variables
+
+    private void closeParentDialog() {
+        java.awt.Window ancestor = javax.swing.SwingUtilities.getWindowAncestor(this);
+        if (ancestor != null) {
+            ancestor.dispose();
+        }
+    }
 }

@@ -17,14 +17,12 @@ public class UserDashboardPanel extends javax.swing.JPanel {
 
         private final JFrame parentFrame;
         private final String currentUsername;
-        private final String firstName;
         private int currentUserId;
 
-        public UserDashboardPanel(JFrame frame, int userId, String username, String firstName) {
+        public UserDashboardPanel(JFrame frame, int userId, String username) {
             this.parentFrame = frame;
             this.currentUserId = userId;
             this.currentUsername = username;
-            this.firstName = firstName;
 
             // Configure Frame settings
             parentFrame.setSize(974, 634);
@@ -35,7 +33,7 @@ public class UserDashboardPanel extends javax.swing.JPanel {
 
             System.out.println("Dashboard loaded for: " + username);
             
-            DashboardLabel.setText("Welcome back, " + firstName + " - here's what's happening");
+            DashboardLabel.setText("Welcome back, " + username + " - here's what's happening");
             DashboardLabel.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 12));
             DashboardLabel.setForeground(new java.awt.Color(33, 37, 41));
         }
@@ -411,7 +409,7 @@ public class UserDashboardPanel extends javax.swing.JPanel {
 
     private void SettingsButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsButton5ActionPerformed
         // go to settings panel
-        parentFrame.setContentPane(new UserSettingsPanel(parentFrame, currentUserId, currentUsername, firstName));
+        parentFrame.setContentPane(new UserSettingsPanel(parentFrame, currentUserId, currentUsername));
         parentFrame.revalidate();
         parentFrame.repaint();
     }//GEN-LAST:event_SettingsButton5ActionPerformed

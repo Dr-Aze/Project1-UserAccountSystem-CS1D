@@ -30,15 +30,13 @@ public final class AdminUserPanel extends javax.swing.JPanel {
 
     private final JFrame parentFrame;
     private final String currentUsername;
-    private final String firstName;
     private final int currentUserId;
 
-    public AdminUserPanel(JFrame frame, int userId, String username, String firstName) {
+    public AdminUserPanel(JFrame frame, int userId, String username) {
 
         this.parentFrame = frame;
         this.currentUserId = userId;
         this.currentUsername = username;
-        this.firstName = firstName;
 
         // Frame Setup
         Dimension lockSize = new Dimension(974, 634);
@@ -207,37 +205,27 @@ public final class AdminUserPanel extends javax.swing.JPanel {
 
     // PANEL FOR BUTTONS
     class ActionPanel extends javax.swing.JPanel {
-
-        public javax.swing.JButton deleteBtn =
-                new javax.swing.JButton();
-
+        
+        public javax.swing.JButton editBtn = new javax.swing.JButton();
+        public javax.swing.JButton deleteBtn = new javax.swing.JButton();
+        
         public ActionPanel() {
-
-            setLayout(
-                    new java.awt.FlowLayout(
-                            java.awt.FlowLayout.CENTER,
-                            10,
-                            5
-                    )
-            );
-
+            setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 5));
             setOpaque(true);
 
             try {
-
-                deleteBtn.setIcon(
-                        new javax.swing.ImageIcon(
-                                getClass().getResource("/USER UI/Trash.png")
-                        )
-                );
-
+                editBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/USER UI/Pen.png")));
+                deleteBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/USER UI/Trash.png")));
+                
             } catch (Exception e) {
-
+                editBtn.setText("Edit");
                 deleteBtn.setText("Del");
             }
 
+            styleIconButton(editBtn);
             styleIconButton(deleteBtn);
 
+            add(editBtn);
             add(deleteBtn);
         }
 
@@ -249,30 +237,15 @@ public final class AdminUserPanel extends javax.swing.JPanel {
 
             btn.setFocusPainted(false);
 
-            btn.setCursor(
-                    new java.awt.Cursor(
-                            java.awt.Cursor.HAND_CURSOR
-                    )
-            );
-
-            btn.setHorizontalAlignment(
-                    javax.swing.SwingConstants.CENTER
-            );
-
-            btn.setVerticalAlignment(
-                    javax.swing.SwingConstants.CENTER
-            );
-
-            btn.setMargin(
-                    new java.awt.Insets(0, 0, 0, 0)
-            );
+            btn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+            btn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+            btn.setVerticalAlignment(javax.swing.SwingConstants.CENTER );
+            btn.setMargin(new java.awt.Insets(0, 0, 0, 0));
         }
     }
 
     // RENDERER
-    class ActionButtonsRenderer
-            extends javax.swing.table.DefaultTableCellRenderer {
-
+    class ActionButtonsRenderer extends javax.swing.table.DefaultTableCellRenderer {
         private final ActionPanel panel = new ActionPanel();
 
         @Override
@@ -283,14 +256,13 @@ public final class AdminUserPanel extends javax.swing.JPanel {
                 boolean hasFocus,
                 int row,
                 int column
-        ) {
-
+        ) 
+        {
             panel.setBackground(
                     isSelected
                     ? table.getSelectionBackground()
                     : table.getBackground()
             );
-
             return panel;
         }
     }
@@ -303,11 +275,22 @@ public final class AdminUserPanel extends javax.swing.JPanel {
         private final ActionPanel panel = new ActionPanel();
 
         public ActionButtonsEditor() {
-
-            panel.deleteBtn.addActionListener(e -> {
-
+            
+            panel.editBtn.addActionListener(e -> {
                 int selectedRow = UserTable.getEditingRow();
+                if (selectedRow >= 0) {
+                    // 1. Get the Hidden ID from Column 0
+                    int userId = (int) UserTable.getValueAt(selectedRow, 0);
 
+                    // Stop cell editing so the UI doesn't hang
+                    fireEditingStopped();
+
+                    // 2. Call the method to open the edit panel
+                    openEditAccountPanel(userId);
+                }
+            });
+
+            panel.deleteBtn.addActionListener(e -> {int selectedRow = UserTable.getEditingRow();    
                 if (selectedRow < 0) {
 
                     fireEditingStopped();
@@ -315,10 +298,7 @@ public final class AdminUserPanel extends javax.swing.JPanel {
                 }
 
                 // Hidden ID column
-                int userId = Integer.parseInt(
-                        UserTable.getValueAt(selectedRow, 0).toString()
-                );
-
+                int userId = Integer.parseInt(UserTable.getValueAt(selectedRow, 0).toString());
                 int result = JOptionPane.showConfirmDialog(
                         null,
                         "Remove this user permanently?",
@@ -327,50 +307,29 @@ public final class AdminUserPanel extends javax.swing.JPanel {
                 );
 
                 if (result == JOptionPane.YES_OPTION) {
+                    try (Connection conn = DatabaseConnection.getConnection()) {
+                        String query = "DELETE FROM users WHERE user_id = ?";
 
-                    try (Connection conn =
-                            DatabaseConnection.getConnection()) {
-
-                        String query =
-                                "DELETE FROM users WHERE user_id = ?";
-
-                        PreparedStatement pst =
-                                conn.prepareStatement(query);
+                        PreparedStatement pst = conn.prepareStatement(query);
 
                         pst.setInt(1, userId);
 
                         int rows = pst.executeUpdate();
 
-                        if (rows > 0) {
-
-                            JOptionPane.showMessageDialog(
-                                    null,
-                                    "User deleted successfully."
-                            );
-
+                        if (rows > 0) {JOptionPane.showMessageDialog(null, "User deleted successfully.");
                             // Refresh
                             loadMySQLData();
                             updateStatCards();
 
-                        } else {
-
-                            JOptionPane.showMessageDialog(
-                                    null,
-                                    "User not found."
-                            );
+                        } else {JOptionPane.showMessageDialog(null, "User not found.");
                         }
 
                     } catch (SQLException ex) {
 
-                        JOptionPane.showMessageDialog(
-                                null,
-                                "SQL Error: " + ex.getMessage()
-                        );
-
+                        JOptionPane.showMessageDialog( null, "SQL Error: " + ex.getMessage());
                         ex.printStackTrace();
                     }
                 }
-
                 fireEditingStopped();
             });
         }
@@ -399,10 +358,7 @@ public final class AdminUserPanel extends javax.swing.JPanel {
     }
 
     public void updateStatCards() {
-
-        try (Connection conn =
-                DatabaseConnection.getConnection()) {
-
+        try (Connection conn = DatabaseConnection.getConnection()) {
             String query = """
                             SELECT 
                                 (SELECT COUNT(*) FROM users) as total,
@@ -412,9 +368,8 @@ public final class AdminUserPanel extends javax.swing.JPanel {
                            """;
 
             Statement st = conn.createStatement();
-
             ResultSet rs = st.executeQuery(query);
-
+            
             if (rs.next()) {
 
                 int total = rs.getInt("total");
@@ -423,33 +378,63 @@ public final class AdminUserPanel extends javax.swing.JPanel {
 
                 TotalUsersLabel.setText(String.valueOf(total));
 
-                TotalUsersLabel.setFont(
-                        new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 10)
-                );
+                TotalUsersLabel.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 10));
 
-                TotalUsersLabel.setForeground(
-                        new java.awt.Color(33, 37, 41)
-                );
+                TotalUsersLabel.setForeground(new java.awt.Color(33, 37, 41));
 
                 TrendLabel.setText("+" + today + " today");
 
-                TrendLabel.setForeground(
-                        new java.awt.Color(40, 167, 69)
-                );
+                TrendLabel.setForeground(new java.awt.Color(40, 167, 69));
 
-                TrendLabel.setFont(
-                        new java.awt.Font(
-                                "Segoe UI",
-                                java.awt.Font.BOLD,
-                                8
-                        )
-                );
+                TrendLabel.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD,8));
             }
 
         } catch (SQLException e) {
 
             e.printStackTrace();
         }
+    }
+    
+    private void openEditAccountPanel(int userId) {
+        // 1. Create the dialog to hold the SettingsPanel
+        JDialog dialog = new JDialog(parentFrame, "Edit User Profile", true);
+
+        // 2. Instantiate your SettingsPanel (Pass the current admin username for context)
+        AdminSettingsPanel editPanel = new AdminSettingsPanel(parentFrame, currentUserId, currentUsername);
+
+        // 3. Fetch the data for the specific user being edited
+        // Note: Ensure your AdminSettingsPanel has a method to fetch data by ID
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            String sql = "SELECT first_name, last_name, email, role FROM users WHERE user_id = ?";
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setInt(1, userId);
+            ResultSet rs = pst.executeQuery();
+
+            if (rs.next()) {
+                // Use the method we established for the UI in image_71c646.png
+                editPanel.setEditData(
+                        userId,
+                        rs.getString("first_name"),
+                        rs.getString("last_name"),
+                        rs.getString("email"),
+                        rs.getString("role")
+                );
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error fetching user: " + e.getMessage());
+            return;
+        }
+
+        // 4. Configure and show the dialog
+        dialog.getContentPane().add(editPanel);
+        dialog.pack();
+        dialog.setLocationRelativeTo(parentFrame);
+        dialog.setResizable(false);
+        dialog.setVisible(true); // Program execution pauses here until dialog is closed
+
+        // 5. Refresh your table after the edit is done
+        loadMySQLData();
+        updateStatCards();
     }
 
     
@@ -1002,7 +987,7 @@ public final class AdminUserPanel extends javax.swing.JPanel {
 
     private void HomeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HomeButtonActionPerformed
         // dashboard function go to DashboardPanel
-        parentFrame.setContentPane(new AdminDashboardPanel(parentFrame, currentUserId, currentUsername, firstName));
+        parentFrame.setContentPane(new AdminDashboardPanel(parentFrame, currentUserId, currentUsername));
         parentFrame.revalidate();
         parentFrame.repaint();
     }//GEN-LAST:event_HomeButtonActionPerformed
@@ -1013,7 +998,7 @@ public final class AdminUserPanel extends javax.swing.JPanel {
 
     private void LogsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogsButtonActionPerformed
         // TODO add your handling code here:
-        parentFrame.setContentPane(new AdminLogsPanel(parentFrame, currentUsername, firstName));
+        parentFrame.setContentPane(new AdminLogsPanel(parentFrame, currentUsername));
         parentFrame.revalidate();
         parentFrame.repaint();
     }//GEN-LAST:event_LogsButtonActionPerformed

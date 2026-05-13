@@ -13,13 +13,11 @@ public class AdminLogsPanel extends javax.swing.JPanel {
     
     private JFrame parentFrame;
     private final String currentUsername;
-    private final String firstName;
     private int currentUserId;
 
-    public AdminLogsPanel(JFrame frame, String username, String firstName) {
+    public AdminLogsPanel(JFrame frame, String username) {
         this.parentFrame = frame;
         this.currentUsername = username;
-        this.firstName = firstName;
         
         parentFrame.setSize(974, 634);
         parentFrame.setResizable(false);
@@ -533,23 +531,20 @@ public class AdminLogsPanel extends javax.swing.JPanel {
 
     private void DashboardButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DashboardButton5ActionPerformed
         // dashboard function go to DashboardPanel
-        parentFrame.setContentPane(new AdminDashboardPanel(parentFrame, currentUserId, currentUsername, firstName));
+        parentFrame.setContentPane(new AdminDashboardPanel(parentFrame, currentUserId, currentUsername));
         parentFrame.revalidate();
         parentFrame.repaint();
     }//GEN-LAST:event_DashboardButton5ActionPerformed
 
     private void UsersButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsersButton5ActionPerformed
         // go to userPanel
-        parentFrame.setContentPane(new AdminUserPanel(parentFrame, currentUserId, currentUsername, firstName));
+        parentFrame.setContentPane(new AdminUserPanel(parentFrame, currentUserId, currentUsername));
         parentFrame.revalidate();
         parentFrame.repaint();
     }//GEN-LAST:event_UsersButton5ActionPerformed
 
     private void SettingsButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsButton5ActionPerformed
         // go to settings panel
-        parentFrame.setContentPane(new UserSettingsPanel(parentFrame, currentUserId, currentUsername, firstName));
-        parentFrame.revalidate();
-        parentFrame.repaint();
     }//GEN-LAST:event_SettingsButton5ActionPerformed
 
     private void LogoutButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogoutButton5ActionPerformed
@@ -566,7 +561,7 @@ public class AdminLogsPanel extends javax.swing.JPanel {
 
     private void UsersButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsersButtonActionPerformed
         // go to userPanel
-        parentFrame.setContentPane(new AdminUserPanel(parentFrame, currentUserId, currentUsername, firstName));
+        parentFrame.setContentPane(new AdminUserPanel(parentFrame, currentUserId, currentUsername));
         parentFrame.revalidate();
         parentFrame.repaint();
     }//GEN-LAST:event_UsersButtonActionPerformed

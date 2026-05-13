@@ -23,15 +23,13 @@ public class UserSettingsPanel extends javax.swing.JPanel {
     private JFrame parentFrame;
     
     private final String currentUsername;
-    private final String firstName;
     private int currentUserId;
     
 
-    public UserSettingsPanel(JFrame frame, int userId, String username, String firstName) {
+    public UserSettingsPanel(JFrame frame, int userId, String username) {
         this.parentFrame = frame;
         this.currentUserId = userId;
         this.currentUsername = username;
-        this.firstName = firstName;
         
         parentFrame.setSize(974, 634);
         parentFrame.setResizable(false);
@@ -573,14 +571,14 @@ public class UserSettingsPanel extends javax.swing.JPanel {
 
     private void UsersButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsersButton2ActionPerformed
         // go to userPanel
-        parentFrame.setContentPane(new AdminUserPanel(parentFrame, currentUserId, currentUsername, firstName));
+        parentFrame.setContentPane(new AdminUserPanel(parentFrame, currentUserId, currentUsername));
         parentFrame.revalidate();
         parentFrame.repaint();
     }//GEN-LAST:event_UsersButton2ActionPerformed
 
     private void SettingsButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsButton2ActionPerformed
         // go to settings panel
-        parentFrame.setContentPane(new UserSettingsPanel(parentFrame, currentUserId, currentUsername, firstName));
+        parentFrame.setContentPane(new UserSettingsPanel(parentFrame, currentUserId, currentUsername));
         parentFrame.revalidate();
         parentFrame.repaint();
     }//GEN-LAST:event_SettingsButton2ActionPerformed
@@ -834,14 +832,14 @@ public class UserSettingsPanel extends javax.swing.JPanel {
 
     private void SettingsButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsButton3ActionPerformed
         // go to settings panel
-        parentFrame.setContentPane(new UserSettingsPanel(parentFrame,currentUserId, currentUsername, firstName));
+        parentFrame.setContentPane(new UserSettingsPanel(parentFrame,currentUserId, currentUsername));
         parentFrame.revalidate();
         parentFrame.repaint();
     }//GEN-LAST:event_SettingsButton3ActionPerformed
 
     private void DashboardButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DashboardButton1ActionPerformed
         // dashboard function go to DashboardPanel
-        parentFrame.setContentPane(new UserDashboardPanel(parentFrame, currentUserId, currentUsername, firstName));
+        parentFrame.setContentPane(new UserDashboardPanel(parentFrame, currentUserId, currentUsername));
         parentFrame.revalidate();
         parentFrame.repaint();
     }//GEN-LAST:event_DashboardButton1ActionPerformed

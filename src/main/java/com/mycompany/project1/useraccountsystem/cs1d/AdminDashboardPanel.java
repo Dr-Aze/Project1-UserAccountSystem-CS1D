@@ -17,14 +17,12 @@ public class AdminDashboardPanel extends javax.swing.JPanel {
 
         private final JFrame parentFrame;
         private final String currentUsername;
-        private final String firstName;
         private int currentUserId;
 
-        public AdminDashboardPanel(JFrame frame, int userId, String username, String firstName) {
+        public AdminDashboardPanel(JFrame frame, int userId, String username) {
             this.parentFrame = frame;
             this.currentUserId = userId;
             this.currentUsername = username;
-            this.firstName = firstName;
 
             // Configure Frame settings
             parentFrame.setSize(974, 634);
@@ -450,14 +448,14 @@ public class AdminDashboardPanel extends javax.swing.JPanel {
 
     private void UsersButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsersButtonActionPerformed
         // go to userPanel
-        parentFrame.setContentPane(new AdminUserPanel(parentFrame, currentUserId, currentUsername, firstName));
+        parentFrame.setContentPane(new AdminUserPanel(parentFrame, currentUserId, currentUsername));
         parentFrame.revalidate();
         parentFrame.repaint();
     }//GEN-LAST:event_UsersButtonActionPerformed
 
     private void LogsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogsButtonActionPerformed
         // TODO add your handling code here:
-        parentFrame.setContentPane(new AdminLogsPanel(parentFrame, currentUsername, firstName));
+        parentFrame.setContentPane(new AdminLogsPanel(parentFrame, currentUsername));
         parentFrame.revalidate();
         parentFrame.repaint();
     }//GEN-LAST:event_LogsButtonActionPerformed
