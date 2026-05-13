@@ -383,10 +383,10 @@ public final class AdminUserPanel extends javax.swing.JPanel {
                     TrendLabel.setForeground(new java.awt.Color(40, 167, 69));
                     TrendLabel.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD,8));
                 }else {
-                    TrendLabel.setText("-" + today + " today");
-                    TrendLabel.setForeground(new java.awt.Color(255, 0, 0));
+                    TrendLabel.setText("0 today");
+                    TrendLabel.setForeground(java.awt.Color.GRAY);
                     TrendLabel.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 8));
-                    }                    
+                 }                   
             }
 
         } catch (SQLException e) {
